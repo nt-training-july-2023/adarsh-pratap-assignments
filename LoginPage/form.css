@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+
+*{
+    font-family: 'Open Sans' , sans-serif;
+}
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container{
+    height: 50%;
+    width: 50%;
+  }
+
+.formdiv{
+
+    /* border:2px solid red; */
+    /* height:60%; */
+    width:80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+.divupper{
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    
+    
+}
+.divupper div {
+    width: 43%;
+}
+.divmid div {
+    width: 43%;
+}
+.divlower div {
+    width: 43%;
+}
+.divmid{
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+}
+.divlower{
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+}
+
+.form{
+    /* border: 4px solid green; */
+    border-top: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.username{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    width: 100%;
+    /* margin-top: 10px; */
+    /* height:30px; */
+}
+
+button{
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    margin: 25px 0px;
+    width: 40%;
+}
+
+.regis{
+    
+    width: 100%;
+    margin-left: 4.3rem;
+}
+
+.regis span{
+    text-decoration: underline;
+    text-decoration-color: #9b59b6;
+}
+.regis h1{
+    color:linear-gradient(45deg,#616161,#9bc5c3);
+}
+form{
+    background-color: #f3eeee;
+    margin-top: 10%;
+    display: flex;
+    margin: auto;
+    border-radius: 30px;
+    box-shadow: -30px -20px 201px 57px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -30px -20px 201px 57px rgba(0,0,0,0.75);
+    -moz-box-shadow: -30px -20px 201px 57px rgba(0,0,0,0.75);
+    
+}
+
+.gender{
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+
+@media only screen and (max-width:680px){
+    .divupper , .divmid , .divlower {
+        flex-wrap:wrap;
+        flex-direction: column;
+    }
+}
+
+.radio{
+    height: 20px;
+
+}
+
+.inside-radio{
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+}
+
+.sub-container div input{
+    margin-top: 10px;
+    height:30px;
+}
+.sub-container div{
+    margin-top: 5px;
+}
