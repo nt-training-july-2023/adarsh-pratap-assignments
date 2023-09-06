@@ -107,12 +107,12 @@ public class EmployeeServiceTest {
   @DisplayName("JUnit test for Save Employee method Returns Employee")
   @Test
   public void givenEmployeeObject_whenSaveEmployee_thenReturnEmployeeForSavingSuccessfully() {
-    when(this.modelMapper.map(employee, EmployeesDto.class)).thenReturn(employeeDto);
+    
     when(this.modelMapper.map(employee, EmployeeOutDto.class)).thenReturn(employeeOutDto);
     when(this.modelMapper.map(employeeDto, Employee.class)).thenReturn(employee);
 
     when(this.employeeRepo.save(employee)).thenReturn(employee);
 
-    Assertions.assertEquals(this.employeeService.saveEmployee(employeeDto), employeeDto);
+    Assertions.assertEquals(this.employeeService.saveEmployee(employeeDto), employeeOutDto);
   }
 }

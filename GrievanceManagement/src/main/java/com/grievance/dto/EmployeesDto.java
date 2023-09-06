@@ -1,5 +1,6 @@
 package com.grievance.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
 import javax.persistence.Column;

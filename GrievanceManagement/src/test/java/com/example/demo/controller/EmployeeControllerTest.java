@@ -31,26 +31,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(MockitoExtension.class)
 public class EmployeeControllerTest {
   private EmployeesDto employeesDto;
-  
+
   private EmployeeOutDto employeeOutDto;
-
-  @BeforeEach
-  public void setup() {
-	  Department dep = new Department(1 , "IT" , null , null);
-
-    employeesDto =
-      new EmployeesDto(
-        "Adarsh",
-        "adarsh@gmail.com",
-        "adarsh",
-        Role.ROLE_ADMIN,
-        dep
-      );
-    
-//    DepartmentOutDto departmentOutDto = new DepartmentOutDto(1 , "IT" , null , null);    
-    employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN , true , null);
-    
-  }
 
   @Mock
   EmployeeService employeeService;
@@ -64,9 +46,16 @@ public class EmployeeControllerTest {
   MockMvc mockMvc;
 
   @BeforeEach
-  void setUp() {
+  public void setup() {
     mockMvc = MockMvcBuilders.standaloneSetup(employeeController).build();
     objectMapper = new ObjectMapper();
+    Department dep = new Department(1, "IT", null, null);
+
+    employeesDto =
+      new EmployeesDto("Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, dep);
+
+    employeeOutDto =
+      new EmployeeOutDto(1, "Adarsh", "adarsh@gmail.com", Role.ROLE_ADMIN, true, null);
   }
 
   @Test
@@ -85,6 +74,24 @@ public class EmployeeControllerTest {
       .andDo(MockMvcResultHandlers.print());
   }
 
+  
+  @Test
+  public void givenEmployees_whenLoginEmployees_thenReturnReponseEntityAndBadRequest()
+    throws JsonProcessingException, Exception {
+    UserLogin login = new UserLogin("adarsh@gmail.com", "adarsh");
+    when(employeeService.login(Mockito.any(UserLogin.class))).thenReturn("Invalid User");
+
+    mockMvc
+      .perform(
+        MockMvcRequestBuilders
+          .post("/employee/login")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(login))
+      )
+      .andExpect(status().isUnauthorized())
+      .andDo(MockMvcResultHandlers.print());
+  }
+  
   @Test
   public void givenEmployees_whenSaveEmployees_thenReturnReponseEntity()
     throws JsonProcessingException, Exception {
@@ -102,21 +109,4 @@ public class EmployeeControllerTest {
       .andDo(MockMvcResultHandlers.print());
   }
 
-  @Test
-  public void givenEmployees_whenSaveEmployees_thenReturnReponseEntityAndBadRequest()
-    throws JsonProcessingException, Exception {
-
-    UserLogin login = new UserLogin("adarsh@gmail.com", "adarsh");
-    when(employeeService.login(Mockito.any(UserLogin.class))).thenReturn("Invalid User");
-
-    mockMvc
-      .perform(
-        MockMvcRequestBuilders
-          .post("/employee/login")
-          .contentType(MediaType.APPLICATION_JSON)
-          .content(objectMapper.writeValueAsString(login))
-      )
-      .andExpect(status().isUnauthorized())
-      .andDo(MockMvcResultHandlers.print());
-  }
 }

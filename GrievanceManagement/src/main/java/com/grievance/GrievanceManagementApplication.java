@@ -27,7 +27,7 @@ public class GrievanceManagementApplication {
   /**
    * Model Mapper .
    *
-   * @return Object of Model mapper
+   * @return Object of Model mapper.
    *
    */
   @Bean

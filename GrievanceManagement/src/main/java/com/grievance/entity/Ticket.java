@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.springframework.data.annotation.CreatedDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * Ticket class.
  */
@@ -48,10 +50,12 @@ public class Ticket {
 
   @ManyToOne
   @JoinColumn(name = "department_id")
+  @JsonBackReference(value = "dep")
   private Department department;
 
   @ManyToOne
   @JoinColumn(name = "employee_id")
+  @JsonBackReference(value = "emp")
   private Employee employee;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket", fetch = FetchType.LAZY)
@@ -196,4 +200,8 @@ public class Ticket {
   public void setComments(List<Comment> comments) {
     this.comments = comments;
   }
+
+public Ticket(Integer ticketId,String ticketName,String discription,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.discription=discription;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
+  
+public Ticket() {}
 }

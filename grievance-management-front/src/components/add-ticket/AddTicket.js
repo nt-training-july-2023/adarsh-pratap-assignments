@@ -8,11 +8,32 @@ function AddTicket() {
 
     const [ticket , setTicket] = useState({
         ticketName:"",
-        discription:"",
+        description:"",
         status:"OPEN",
         ticketType:"",
-        department:{},
-        employee:""
+        department:{
+          depId:0,
+        },
+        employee:0
+    })
+
+    const [valid , setValid] = useState({
+      ticketName:{
+        isError: false,
+        errorMessage : ""
+      },
+      description:{
+        isError: false,
+        errorMessage : ""
+      },
+      ticketType:{
+        isError: false,
+        errorMessage : ""
+      },
+      department:{
+        isError: false,
+        errorMessage : ""
+      }
     })
 
     const getDepartment=()=>{
@@ -30,9 +51,9 @@ function AddTicket() {
 
     const handleChange=(e)=>{
         setTicket({...ticket , [e.target.name] : e.target.value})
-        // console.log(e.target.name + " " + e.target.value);
-        // console.log(ticket)
     }
+
+    
   return (
     <div className='registration'>
       <div className='content'>
@@ -57,8 +78,8 @@ function AddTicket() {
           </div>
 
           <div className='inner-div'>
-            <label>Discription</label>
-            <textarea id="" name="discription" placeholder='Enter Discription' rows="4" cols="50"  value={ticket.discription} onChange={handleChange}/>
+            <label>Description</label>
+            <textarea id="" name="description" placeholder='Enter Discription' rows="4" cols="50"  value={ticket.description} onChange={handleChange}/>
           </div>
 
           <div className='inner-div'>

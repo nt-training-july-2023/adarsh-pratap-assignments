@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./UserRegistration.css"
 import { getAllDepartment } from '../../api/Department_API';
+import axios from 'axios';
 
 
 function UserRegistration() {
@@ -13,7 +14,7 @@ function UserRegistration() {
     password:"",
     role:"",
     department:{
-     
+      depId:0,
     }
   })
 
@@ -58,7 +59,6 @@ function UserRegistration() {
     
     if(valid.userName.isError || valid.email.isError || valid.password.isError || valid.role.isError){
       let state = {...valid}
-
       state.userName.isError = false;
       state.email.isError = false;
       state.password.isError = false;
@@ -67,19 +67,20 @@ function UserRegistration() {
       setValid(state);
     }
 
-
     setEmployee({...employee , [e.target.name] : e.target.value});
     
   }
 
   const handleSelectChange=(e)=>{
-    const selectedObjectId = parseInt(e.target.value, 10);
+    const {name,value}=e.target;
+    console.log(value);
+    setEmployee({
+      ...employee,
+      department:{
+        [name]: Number(value),
+      },
     
-    // Find the selected object based on its ID
-    const selectedObject = this.department.find(
-      (obj) => obj.id === selectedObjectId);
-
-      console.log(selectedObject)
+    })
     
   }
 
@@ -127,7 +128,7 @@ function UserRegistration() {
       
     }
 
-    if(employee.department === ""){
+    if(employee.department.depId === 0){
       let newState = {...valid};
 
       newState.department.isError = true;
@@ -144,7 +145,14 @@ function UserRegistration() {
     e.preventDefault();
     // console.log(valid);
     isValid();
-    console.log(valid)
+    // console.log(valid)
+    console.log(employee)
+    axios.post("http://localhost:8080/employee/add" , employee)
+    .then((resp)=>{
+      alert("Added!!")
+    }).catch((err)=>{
+      alert("not added")
+    })
   }
 
   return (
@@ -188,11 +196,11 @@ function UserRegistration() {
 
             <label>Department:</label>
 
-            <select name="department" defaultValue="" value={employee.department} onChange={handleChange} >
+            <select name="depId" defaultValue="" onChange={handleSelectChange} >
               <option value="" >--Select--</option>
               {department.map(dep=>{
                   // console.log(dep)
-                  return <option  value={dep.depName}>{dep.depName}</option>
+                  return <option  key={dep.depId} value={dep.depId}>{dep.depName}</option>
               })}
             </select>
 

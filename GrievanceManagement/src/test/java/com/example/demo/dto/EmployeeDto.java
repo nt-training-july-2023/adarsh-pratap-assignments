@@ -27,7 +27,7 @@ public class EmployeeDto {
 	public void toStringTesting() {
 		
 
-		String st = "EmployeesDto [empId=1, userName=Adarsh, email=adarsh@gmail.com, password=adarsh, role=ROLE_ADMIN, department=null]";
+		String st = "EmployeesDto [maxPassword=15, minPassword=5, userName=Adarsh, email=adarsh@gmail.com, password=adarsh, role=ROLE_ADMIN, department=null]";
 		
 		assertEquals(st, employeeDto.toString());
 	}

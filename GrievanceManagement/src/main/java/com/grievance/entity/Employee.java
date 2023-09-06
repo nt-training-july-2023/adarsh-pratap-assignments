@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -71,6 +72,7 @@ public class Employee {
   private Department department;
   
   @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee" , fetch = FetchType.LAZY)
+  @JsonManagedReference(value = "emp")
   private List<Ticket> ticket;
 
   /**

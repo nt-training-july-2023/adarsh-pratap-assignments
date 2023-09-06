@@ -37,6 +37,7 @@ public class Department {
   private List<Employee> employee;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY)
+  @JsonManagedReference(value = "dep")
   private List<Ticket> ticket;
 
   /**
