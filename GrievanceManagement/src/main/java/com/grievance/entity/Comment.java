@@ -21,7 +21,7 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer commentId;
 
-  @Column(name = "comments")
+  @Column(name = "comments" , nullable = false)
   private String content;
 
   @Column(name = "creation_time")
@@ -29,7 +29,7 @@ public class Comment {
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationTime;
 
-  @Column(name = "emp_name")
+  @Column(name = "emp_name" , nullable = false)
   private String empName;
 
   @ManyToOne

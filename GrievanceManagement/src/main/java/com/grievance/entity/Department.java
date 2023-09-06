@@ -26,7 +26,7 @@ public class Department {
   /**
    * Department name .
    */
-  @Column(name = "dep_name")
+  @Column(name = "dep_name" , unique = true)
   private String depName;
 
   /**

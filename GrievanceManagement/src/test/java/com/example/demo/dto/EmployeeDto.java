@@ -16,7 +16,6 @@ public class EmployeeDto {
 	  public void setup() {
 	    employeeDto =
 	      new EmployeesDto();
-	    employeeDto.setEmpId(1);
 	    employeeDto.setUserName("Adarsh");
 	    employeeDto.setEmail("adarsh@gmail.com");
 	    employeeDto.setPassword("adarsh");
@@ -38,7 +37,7 @@ public class EmployeeDto {
 		
 		System.out.println(employeeDto.getRole());
 		
-		assertEquals( 1 ,employeeDto.getEmpId());
+		
 		assertEquals("Adarsh",employeeDto.getUserName());
 		assertEquals("adarsh@gmail.com",employeeDto.getEmail());
 		assertEquals("adarsh" , employeeDto.getPassword());

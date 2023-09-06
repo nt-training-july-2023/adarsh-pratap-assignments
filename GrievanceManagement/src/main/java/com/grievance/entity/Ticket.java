@@ -27,7 +27,7 @@ public class Ticket {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer ticketId;
 
-  @Column(name = "ticket_name")
+  @Column(name = "ticket_name" , nullable = false)
   private String ticketName;
 
   @Column(name = "discription")
@@ -36,8 +36,7 @@ public class Ticket {
   @Enumerated(EnumType.STRING)
   private TicketStatus status;
 
-  @CreatedDate
-  @Temporal(TemporalType.TIMESTAMP)
+  
   private Date creationDate;
 
   @Column(name = "last_update")

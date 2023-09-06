@@ -1,5 +1,6 @@
 package com.grievance.serviceinterface;
 
+import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesDto;
 import com.grievance.dto.UserLogin;
 
@@ -14,7 +15,7 @@ public interface EmployeeServiceInterface {
    *
    * @return EmployeeDto
    */
-  EmployeesDto saveEmployee(EmployeesDto empDto);
+	EmployeeOutDto saveEmployee(EmployeesDto empDto);
 
   /**
    * login method .

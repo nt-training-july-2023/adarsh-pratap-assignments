@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.entity.Employee;
@@ -35,12 +36,14 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @param empDto .
    * @return .
    */
-  public EmployeesDto saveEmployee(final EmployeesDto empDto) {
+  public EmployeeOutDto saveEmployee(final EmployeesDto empDto) {
     Employee emp = this.modelMapper.map(
         empDto, Employee.class);
 
+    emp.setIsFirstLogin(true);
+    
     return this.modelMapper.map(
-    this.employeeRepo.save(emp), EmployeesDto.class);
+    this.employeeRepo.save(emp), EmployeeOutDto.class);
   }
 
   /**

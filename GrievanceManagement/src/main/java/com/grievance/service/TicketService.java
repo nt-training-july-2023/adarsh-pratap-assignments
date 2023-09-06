@@ -1,16 +1,23 @@
 package com.grievance.service;
 
 import com.grievance.dto.TicketDto;
+import com.grievance.dto.TicketOutDto;
 import com.grievance.entity.Ticket;
 import com.grievance.repo.TicketRepo;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Ticket Service .
  */
+@Service
 public class TicketService {
   @Autowired
   private TicketRepo ticketRepo;
@@ -21,12 +28,19 @@ public class TicketService {
   /**
    * save ticket.
    */
-  public TicketDto addTicket(TicketDto ticketDto) {
+  public TicketOutDto addTicket(TicketDto ticketDto) {
     Ticket ticket = this.mapper.map(ticketDto, Ticket.class);
+    
+    Date in = new Date();
+    LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+    Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    
+    ticket.setCreationDate(out);
+    ticket.setLastUpdateDate(out);
 
     Ticket savedTicket = this.ticketRepo.save(ticket);
 
-    return this.mapper.map(savedTicket, TicketDto.class);
+    return this.mapper.map(savedTicket, TicketOutDto.class);
   }
 
   /**

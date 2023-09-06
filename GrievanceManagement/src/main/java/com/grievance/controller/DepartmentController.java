@@ -1,7 +1,10 @@
 package com.grievance.controller;
 
-import com.grievance.dto.DepartmentDto;
+import com.grievance.dto.DepartmentInDto;
 import com.grievance.service.DepartmentService;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +44,7 @@ public class DepartmentController {
    * @return Department.
    */
   @PostMapping("save")
-  public ResponseEntity<?> saveDepartment(@RequestBody DepartmentDto departmentDto) {
+  public ResponseEntity<?> saveDepartment(@Valid @RequestBody DepartmentInDto departmentDto) {
     return new ResponseEntity<>(
       this.departmentService.addDepartment(departmentDto),
       HttpStatus.OK

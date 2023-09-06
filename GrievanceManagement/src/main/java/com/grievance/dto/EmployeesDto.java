@@ -1,33 +1,27 @@
 package com.grievance.dto;
 
+import com.grievance.entity.Department;
+import com.grievance.entity.Role;
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.grievance.entity.Department;
-import com.grievance.entity.Role;
 
 /**
  * Employee DTO .
  */
-
 public class EmployeesDto {
-
+  
   /**
    * maximum size of password.
    */
-  private final int maxPassword = 8;
+  private final int maxPassword = 15;
 
   /**
    * minimum size of password.
    */
   private final int minPassword = 5;
-
-  /**
-   * Employee id .
-   */
-  private Integer empId;
 
   /**
    * Employee Name.
@@ -46,43 +40,22 @@ public class EmployeesDto {
    */
   @NotEmpty(message = "Password field is mendatory")
   @Size(
-      min = minPassword, max = maxPassword,
-      message = "password should be in range between 5 to 18")
+    min = minPassword,
+    max = maxPassword,
+    message = "password should be in range between 5 to 18"
+  )
   private String password;
 
   /**
    * Role of employee .
    */
   private Role role;
-  
-  /**
-   * check if user logged in first time.
-   */
-  private Boolean isFirstLogin;
 
-   /**
+  /**
    * Department of employee .
    */
-  @NotEmpty(message = "Department can not be null")
+  @NotNull(message = "Department can not be null")
   private Department department;
-
-  /**
-   * getter for employee id .
-   *
-   * @return empId of type Integer .
-   */
-  public Integer getEmpId() {
-    return empId;
-  }
-
-  /**
-   * setter of employee id.
-   *
-   * @param empId of integer type .
-   */
-  public void setEmpId(final Integer empId) {
-    this.empId = empId;
-  }
 
   /**
    * Getter of user name .
@@ -137,18 +110,6 @@ public class EmployeesDto {
   public void setPassword(final String password) {
     this.password = password;
   }
-  
-  /**
-   * @return the isFirstLogin
-   */
-  public Boolean getIsFirstLogin() {
-  return isFirstLogin;}
-
-  /**
-   * @param isFirstLogin the isFirstLogin to set
-   */
-  public void setIsFirstLogin(Boolean isFirstLogin) {
-  this.isFirstLogin = isFirstLogin;}
 
   /**
 
@@ -188,70 +149,39 @@ public class EmployeesDto {
     this.department = department;
   }
 
-  /**
-   * to string method .
-   */
   @Override
   public String toString() {
     return (
-      "EmployeesDto [empId="
-      +
-      empId
-      +
-      ", userName="
-      +
-      userName
-      +
-      ", email="
-      +
-      email
-      +
-      ", password="
-      +
-      password
-      +
-      ", role="
-      +
-      role
-      +
-      ", department="
-      +
-      department
-      +
+      "EmployeesDto [maxPassword=" +
+      maxPassword +
+      ", minPassword=" +
+      minPassword +
+      ", userName=" +
+      userName +
+      ", email=" +
+      email +
+      ", password=" +
+      password +
+      ", role=" +
+      role +
+      ", department=" +
+      department +
       "]"
-      );
+    );
   }
 
-  /**
-   * Constructor .
-   *
-   * @param empId
-   *
-   * @param userName
-   *
-   * @param email
-   *
-   * @param password
-   *
-   * @param role
-   *
-   * @param department
-   *
-   */
   public EmployeesDto(
-      final Integer empId,
-      final @NotEmpty(message = "Username can not be null") String userName,
-      final @Email(message = "Email id not valid") String email,
-      final @NotEmpty(message = "Password field is mendatory") @Size(
-      min = minPassword,
-      max = maxPassword,
+    @NotEmpty(message = "Username can not be null") String userName,
+    @Email(message = "Email id not valid") String email,
+    @NotEmpty(message = "Password field is mendatory") @Size(
+      min = 5,
+      max = 15,
       message = "password should be in range between 5 to 18"
     ) String password,
-      final Role role,
-      final @NotEmpty(message = "Department can not be null") Department department
+    Role role,
+    @NotNull(message = "Department can not be null") Department department
   ) {
     super();
-    this.empId = empId;
     this.userName = userName;
     this.email = email;
     this.password = password;
@@ -265,5 +195,4 @@ public class EmployeesDto {
   public EmployeesDto() {
     super();
   }
-
 }

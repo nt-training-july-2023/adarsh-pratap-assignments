@@ -36,7 +36,7 @@ public class Employee {
   /**
    * User name of employee.
    */
-  @Column(name = "username")
+  @Column(name = "username" , nullable = false)
   private String userName;
 
   /**
@@ -48,7 +48,7 @@ public class Employee {
   /**
    * password of employee .
    */
-  @Column(name = "password")
+  @Column(name = "password" , nullable = false)
   private String password;
   
   @Column(name = "is_first_login")
@@ -59,6 +59,7 @@ public class Employee {
    * Roles of employee field.
    */
   @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
   private Role role;
 
   /**

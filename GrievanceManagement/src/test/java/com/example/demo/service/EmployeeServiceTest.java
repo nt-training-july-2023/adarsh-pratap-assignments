@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import static org.mockito.Mockito.when;
 
+import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.entity.Employee;
@@ -35,6 +36,8 @@ public class EmployeeServiceTest {
   private Employee employee;
 
   private EmployeesDto employeeDto;
+  
+  private EmployeeOutDto employeeOutDto;
 
   @BeforeEach
   public void setup() {
@@ -49,12 +52,13 @@ public class EmployeeServiceTest {
     
     employeeDto =
       new EmployeesDto();
-    employeeDto.setEmpId(1);
     employeeDto.setUserName("Adarsh");
     employeeDto.setEmail("adarsh@gmail.com");
     employeeDto.setPassword("adarsh");
     employeeDto.setRole(Role.ROLE_ADMIN);
     employeeDto.setDepartment(null);
+    
+    employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN , true , null);
   }
 
   /**
@@ -104,6 +108,7 @@ public class EmployeeServiceTest {
   @Test
   public void givenEmployeeObject_whenSaveEmployee_thenReturnEmployeeForSavingSuccessfully() {
     when(this.modelMapper.map(employee, EmployeesDto.class)).thenReturn(employeeDto);
+    when(this.modelMapper.map(employee, EmployeeOutDto.class)).thenReturn(employeeOutDto);
     when(this.modelMapper.map(employeeDto, Employee.class)).thenReturn(employee);
 
     when(this.employeeRepo.save(employee)).thenReturn(employee);

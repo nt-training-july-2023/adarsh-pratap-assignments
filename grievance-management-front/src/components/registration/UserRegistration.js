@@ -13,9 +13,7 @@ function UserRegistration() {
     password:"",
     role:"",
     department:{
-      depName:"",
-      employee:[],
-      ticket:[]
+     
     }
   })
 
@@ -33,6 +31,10 @@ function UserRegistration() {
       errorMessage:""
     },
     role:{
+      isError:false,
+      errorMessage:""
+    },
+    department:{
       isError:false,
       errorMessage:""
     }
@@ -53,52 +55,88 @@ function UserRegistration() {
 
 
   const handleChange=(e)=>{
-    // console.log(JSON.parse(e.target.value))
+    
+    if(valid.userName.isError || valid.email.isError || valid.password.isError || valid.role.isError){
+      let state = {...valid}
+
+      state.userName.isError = false;
+      state.email.isError = false;
+      state.password.isError = false;
+      state.role.isError = false;
+      state.department.isError = false;
+      setValid(state);
+    }
+
+
     setEmployee({...employee , [e.target.name] : e.target.value});
-    console.log(employee)
+    
   }
 
   const handleSelectChange=(e)=>{
-    console.log(e.target)
-    console.log(e.target.value)
-    setEmployee({...employee , department : JSON.parse(e.target.value)});
-    // setEmployee
+    const selectedObjectId = parseInt(e.target.value, 10);
+    
+    // Find the selected object based on its ID
+    const selectedObject = this.department.find(
+      (obj) => obj.id === selectedObjectId);
+
+      console.log(selectedObject)
     
   }
 
+ 
+
   const isValid=()=>{
+
+    console.log(employee);
+
+    if(employee.userName === ""){
+      let newState = {...valid};
+
+      newState.userName.isError = true;
+      newState.userName.errorMessage = "Username can not be empty";
+
+      setValid(newState);
+    }
     
     if(employee.password === "" ){
-      const obj = {
-        isError:true,
-        errorMessage:"Password can not be empty"
-      }
-      setValid({...valid , password : obj});
+      let newState = {...valid};
+
+      newState.password.isError = true;
+      newState.password.errorMessage = "Password can not be empty"
+
+      setValid(newState);
+      
     }
     const regex = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/;
     if(!regex.test(employee.email)){
-      const obj = {
-        isError:true,
-        errorMessage:"Email should end with @google.com"
-      }
-      setValid({...valid , email : obj});
+      let newState = {...valid};
+
+      newState.email.isError = true;
+      newState.email.errorMessage = "Email can not be empty and ends with @google.com";
+
+      setValid(newState);
     }
 
     if(employee.role === ""){
-      const obj = {
-        isError:true,
-        errorMessage:"Role can not be empty"
-      }
-      setValid({...valid , role : obj});
+      let newState = {...valid};
+
+      newState.role.isError = true;
+      newState.role.errorMessage = "Select Role";
+
+      setValid(newState);
+      
     }
-    if(employee.userName === ""){
-      const obj = {
-        isError:true,
-        errorMessage:"Field can not be empty"
-      }
-      setValid({...valid , userName : obj});
-      // console.log(valid)
+
+    if(employee.department === ""){
+      let newState = {...valid};
+
+      newState.department.isError = true;
+      newState.department.errorMessage = "Select Department";
+
+      setValid(newState);
+      console.log("Inside valid department")
     }
+    
 
   }
 
@@ -121,15 +159,17 @@ function UserRegistration() {
           <div className='inner-div'>
             <label>Username</label>
             <input type='text' placeholder='Enter your name' name='userName' value={employee.userName} onChange={handleChange}/>
-            <p>{valid.userName.errorMessage}</p>
+            {valid.userName.isError ?  (<p>{valid.userName.errorMessage}</p>) : null}
           </div>
           <div className='inner-div'>
             <label>Email</label>
             <input type='email' placeholder='Enter your email' name='email' value={employee.email} onChange={handleChange} />
+            {valid.email.isError ?  (<p>{valid.email.errorMessage}</p>) : null}
           </div>
           <div className='inner-div'>
             <label>Password</label>
             <input type='password' placeholder='Enter your password' name='password' value={employee.password} onChange={handleChange} />
+            {valid.password.isError ?  (<p>{valid.password.errorMessage}</p>) : null}
           </div>
           <div className='inner-div'>
             <label>Role:</label>
@@ -139,23 +179,28 @@ function UserRegistration() {
               <option value="ROLE_ADMIN">ADMIN</option>
               <option value="ROLE_USER">USER</option>
             </select>
-            <p>{valid.role.errorMessage}</p>
+            {valid.role.isError ?  (<p>{valid.role.errorMessage}</p>) : null}
           </div>
+
+
 
           <div className='inner-div'>
+
             <label>Department:</label>
 
-            <select name="department" defaultValue="" value={department} onChange={handleSelectChange} >
-
-            <option value="" disabled>--Select--</option>
+            <select name="department" defaultValue="" value={employee.department} onChange={handleChange} >
+              <option value="" >--Select--</option>
               {department.map(dep=>{
-                  console.log(dep)
-                  return <option  value={JSON.stringify(dep)}>{dep.depName}</option>
+                  // console.log(dep)
+                  return <option  value={dep.depName}>{dep.depName}</option>
               })}
-              
-              {/* <option value="saab">fired</option> */}
             </select>
+
+            {valid.department.isError ?  (<p>{valid.department.errorMessage}</p>) : null}
+          
           </div>
+
+
 
           <div className='submit-box'>
                 <input type='submit' value='Submit'  />

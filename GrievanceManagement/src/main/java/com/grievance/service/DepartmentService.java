@@ -1,6 +1,7 @@
 package com.grievance.service;
 
-import com.grievance.dto.DepartmentDto;
+import com.grievance.dto.DepartmentInDto;
+import com.grievance.dto.DepartmentOutDto;
 import com.grievance.entity.Department;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.DepartmentRepo;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DepartmentService {
+	
   /**
    * Autowired Department Repository.
    */
@@ -31,11 +33,11 @@ public class DepartmentService {
    *
    * @return Department.
    */
-  public DepartmentDto addDepartment(DepartmentDto departmentDto) {
+  public DepartmentOutDto addDepartment(DepartmentInDto departmentDto) {
     Department department = this.modelMapper.map(departmentDto, Department.class);
     return this.modelMapper.map(
         this.departmentRepo.save(department),
-        DepartmentDto.class
+        DepartmentOutDto.class
       );
   }
 
@@ -46,13 +48,13 @@ public class DepartmentService {
    *
    * @return Department.
    */
-  public DepartmentDto findById(Integer id) {
+  public DepartmentOutDto findById(Integer id) {
     Department dep =
       this.departmentRepo.findById(id)
         .orElseThrow(
           () -> new ResourceNotFound("Department.class", "Department not found")
         );
-    return this.modelMapper.map(dep, DepartmentDto.class);
+    return this.modelMapper.map(dep, DepartmentOutDto.class);
   }
 
   /**
@@ -60,15 +62,15 @@ public class DepartmentService {
    *
    * @return List of all Department.
    */
-  public List<DepartmentDto> getAllDepartment() {
+  public List<DepartmentOutDto> getAllDepartment() {
     List<Department> allDepartment = this.departmentRepo.findAll();
 
-    List<DepartmentDto> departmentDtos = new ArrayList<DepartmentDto>();
+    List<DepartmentOutDto> departmentOutDtos = new ArrayList<DepartmentOutDto>();
 
     for (Department department : allDepartment) {
-      departmentDtos.add(this.modelMapper.map(department, DepartmentDto.class));
+      departmentOutDtos.add(this.modelMapper.map(department, DepartmentOutDto.class));
     }
 
-    return departmentDtos;
+    return departmentOutDtos;
   }
 }

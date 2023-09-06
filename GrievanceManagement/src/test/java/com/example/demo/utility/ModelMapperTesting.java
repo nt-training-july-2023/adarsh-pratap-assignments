@@ -2,7 +2,9 @@ package com.example.demo.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.grievance.dto.DepartmentInDto;
 import com.grievance.dto.EmployeesDto;
+import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
 import org.junit.jupiter.api.Assertions;
@@ -27,8 +29,10 @@ public class ModelMapperTesting {
 
     employee =
       new Employee(1, "Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, null);
+    
+    Department dep = new Department(1 , "It" , null , null);
     employeeDto =
-      new EmployeesDto(1, "Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, null);
+      new EmployeesDto( "Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, dep );
   }
 
   @Test

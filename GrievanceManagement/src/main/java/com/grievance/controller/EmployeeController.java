@@ -40,7 +40,7 @@ public class EmployeeController {
    * @return saved employee .
    */
   @PostMapping("/add")
-  public ResponseEntity<?> createEmployee(
+  public ResponseEntity<?> createEmployee(@Valid
       final @RequestBody EmployeesDto empDto) {
     return new ResponseEntity<>(
       this.employeeService.saveEmployee(empDto),

@@ -3,13 +3,15 @@ package com.grievance.dto;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Ticket;
 import java.util.List;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Department Dto.
  */
-public class DepartmentDto {
+public class DepartmentOutDto {
   private Integer depId;
 
+  //  @NotEmpty(message = "Department is a required field")
   private String depName;
 
   private List<Employee> employee;
@@ -70,5 +72,35 @@ public class DepartmentDto {
    */
   public void setTicket(List<Ticket> ticket) {
     this.ticket = ticket;
+  }
+
+  public DepartmentOutDto(
+    Integer depId,
+    @NotEmpty(message = "Department is a required field") String depName,
+    List<Employee> employee,
+    List<Ticket> ticket
+  ) {
+    super();
+    this.depId = depId;
+    this.depName = depName;
+    this.employee = employee;
+    this.ticket = ticket;
+  }
+
+  public DepartmentOutDto() {}
+
+  @Override
+  public String toString() {
+    return (
+      "DepartmentOutDto [depId=" +
+      depId +
+      ", depName=" +
+      depName +
+      ", employee=" +
+      employee +
+      ", ticket=" +
+      ticket +
+      "]"
+    );
   }
 }
