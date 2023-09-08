@@ -2,6 +2,7 @@ package com.grievance.entity;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,8 +30,8 @@ public class Ticket {
   @Column(name = "ticket_name" , nullable = false)
   private String ticketName;
 
-  @Column(name = "discription")
-  private String discription;
+  @Column(name = "description")
+  private String description;
 
   @Enumerated(EnumType.STRING)
   private TicketStatus status;
@@ -92,15 +90,15 @@ public class Ticket {
   /**
    * @return the discription
    */
-  public String getDiscription() {
-    return discription;
+  public String getDescription() {
+    return description;
   }
 
   /**
    * @param discription the discription to set
    */
-  public void setDiscription(String discription) {
-    this.discription = discription;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**
@@ -201,7 +199,7 @@ public class Ticket {
     this.comments = comments;
   }
 
-public Ticket(Integer ticketId,String ticketName,String discription,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.discription=discription;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
+public Ticket(Integer ticketId,String ticketName,String description,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.description=description;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
   
 public Ticket() {}
 }

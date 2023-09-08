@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "../registration/UserRegistration.css"
 import { getAllDepartment } from '../../api/Department_API';
+import axios from 'axios';
+import Modal from '../utility/Model';
 
 function AddTicket() {
 
@@ -14,7 +16,9 @@ function AddTicket() {
         department:{
           depId:0,
         },
-        employee:0
+        employee:{
+          empId:1,
+        }
     })
 
     const [valid , setValid] = useState({
@@ -36,6 +40,34 @@ function AddTicket() {
       }
     })
 
+    const isValid=()=>{
+
+      if(ticket.ticketName === ""){
+        const temp = {...valid};
+        temp.ticketName.isError = true;
+        temp.ticketName.errorMessage = "Ticket name can not be Empty";
+        setValid(temp);
+      }
+      if(ticket.description === ""){
+        const temp = {...valid};
+        temp.description.isError = true;
+        temp.description.errorMessage = "Ticket description name can not be Empty";
+        setValid(temp);
+      }
+      if(ticket.ticketType === ""){
+        const temp = {...valid};
+        temp.ticketType.isError = true;
+        temp.ticketType.errorMessage = "Select ticket type";
+        setValid(temp);
+      }
+      if(ticket.department.depId === 0){
+        const temp = {...valid}
+        temp.department.isError = true;
+        temp.department.errorMessage = "Select department";
+        setValid(temp);
+      }
+    }
+
     const getDepartment=()=>{
     getAllDepartment().then((resp)=>{
       setDepartment(resp.data);
@@ -49,49 +81,99 @@ function AddTicket() {
     getDepartment();
     } , [])
 
+    const checkErrorRendering=()=>{
+      if(valid.ticketType.isError || valid.ticketName.isError 
+        || valid.description.isError || valid.department.isError){
+
+          let temp = {...valid}
+          temp.ticketType.isError = false;
+          temp.department.isError = false;
+          temp.ticketName.isError = false;
+          temp.description.isError = false;
+
+          setValid(temp);
+        }
+    }
+
     const handleChange=(e)=>{
+        checkErrorRendering();
         setTicket({...ticket , [e.target.name] : e.target.value})
+    }
+
+    const handleSelectChange=(e)=>{
+      checkErrorRendering();
+      
+      const {name,value}=e.target;
+      // console.log(value + " " + name);
+      setTicket({
+        ...ticket,
+        department:{
+          [name]: Number(value),
+        },
+      
+      })
+    }
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      isValid();
+      if(valid.ticketType.isError && valid.ticketName.isError && valid.description.isError && valid.department.isError){
+      axios.post("http://localhost:8080/ticket/add" , ticket).then(resp=>{
+        alert("Added successfully");
+      }).catch(error=>{
+        console.log(error);
+        alert("Not saved");
+      })
+      }
     }
 
     
   return (
+    <>
     <div className='registration'>
       <div className='content'>
       <div className='header'>
         <h1>Add Ticket</h1>
       </div>
       
-        <form onSubmit={(e)=>{e.preventDefault();console.log(ticket)}}>
+        <form onSubmit={handleSubmit}>
         <div className='user-details'>
         <div className='inner-div'>
             <label>Ticket Type:</label>
 
-            <select name="ticketType" value={ticket.ticketType} onChange={handleChange} defaultValue="">
+            <select name="ticketType" onChange={handleChange} defaultValue="">
               <option value="" disabled>--Select--</option>
               <option value="GRIEVANCE">Grievance</option>
               <option value="FEEDBACK">Feedback</option>
             </select>
+
+            {valid.ticketType.isError ? (<p>{valid.ticketType.errorMessage}</p>): null}
+
           </div>
           <div className='inner-div'>
             <label>Title</label>
             <input type='text' placeholder='Enter Title' name='ticketName' value={ticket.ticketName} onChange={handleChange} />
+            {valid.ticketName.isError ? (<p>{valid.ticketName.errorMessage}</p>): null}
           </div>
 
           <div className='inner-div'>
             <label>Description</label>
             <textarea id="" name="description" placeholder='Enter Discription' rows="4" cols="50"  value={ticket.description} onChange={handleChange}/>
+            {valid.description.isError ? (<p>{valid.description.errorMessage}</p>): null}
           </div>
 
           <div className='inner-div'>
             <label >Department:</label>
 
-            <select name="department" defaultValue="" value={ticket.department} onChange={handleChange}>
+            <select name='depId' defaultValue=""  onChange={handleSelectChange}>
             <option value="" disabled>--Select--</option>
               {department.map(dep=>{
-                  return <option value={dep}>{dep.depName}</option>
+                  return <option key={dep.depId} value={dep.depId}>{dep.depName}</option>
               })}
               {/* <option value="saab">fired</option> */}
             </select>
+
+            {valid.department.isError ? (<p>{valid.department.errorMessage}</p>): null}
           </div>
           <div className='inner-div'>
             <label>Status</label>
@@ -106,6 +188,7 @@ function AddTicket() {
         </form>
         </div>
     </div>
+    </>
   )
 }
 

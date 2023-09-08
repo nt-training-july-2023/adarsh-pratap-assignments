@@ -96,7 +96,7 @@ span{
     font-weight: 500;
     cursor: pointer;
     transition: 0.3s;
-    margin-left: 20px;
+    /* margin-left: 20px; */
 }
 
 input[type="submit"]:hover{

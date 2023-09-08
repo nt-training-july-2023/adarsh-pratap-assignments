@@ -19,7 +19,7 @@ public class TicketOutDto {
 	  private String ticketName;
 
 	  
-	  private String discription;
+	  private String description;
 
 	  private TicketStatus status;
 
@@ -67,17 +67,17 @@ public class TicketOutDto {
 	  }
 
 	  /**
-	   * @return the discription
+	   * @return the description
 	   */
-	  public String getDiscription() {
-	    return discription;
+	  public String getDescription() {
+	    return description;
 	  }
 
 	  /**
-	   * @param discription the discription to set
+	   * @param description the description to set
 	   */
-	  public void setDiscription(String discription) {
-	    this.discription = discription;
+	  public void setDescription(String description) {
+	    this.description = description;
 	  }
 
 	  /**
@@ -191,7 +191,7 @@ public class TicketOutDto {
 	/**
 	 * @param ticketId
 	 * @param ticketName
-	 * @param discription
+	 * @param description
 	 * @param status
 	 * @param creationDate
 	 * @param lastUpdateDate
@@ -200,13 +200,13 @@ public class TicketOutDto {
 	 * @param employee
 	 * @param comments
 	 */
-	  public TicketOutDto(Integer ticketId,String ticketName,String discription,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.discription=discription;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
+	  public TicketOutDto(Integer ticketId,String ticketName,String description,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.description=description;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
 
 	/**
 	 * 
 	 */public TicketOutDto(){super();}
 
-	@Override public String toString(){return "TicketDto [ticketId=" + ticketId + ", ticketName=" + ticketName + ", discription=" + discription + ", status=" + status + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate + ", ticketType=" + ticketType + ", department=" + department + ", employee=" + employee + ", comments=" + comments + "]";}
+	@Override public String toString(){return "TicketOutDto [ticketId=" + ticketId + ", ticketName=" + ticketName + ", description=" + description + ", status=" + status + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate + ", ticketType=" + ticketType + ", department=" + department + ", employee=" + employee + ", comments=" + comments + "]";}
 	  
 	  
 }

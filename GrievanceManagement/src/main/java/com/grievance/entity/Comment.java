@@ -21,7 +21,7 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer commentId;
 
-  @Column(name = "comments" , nullable = false)
+  @Column(name = "comments", nullable = false)
   private String content;
 
   @Column(name = "creation_time")
@@ -29,7 +29,7 @@ public class Comment {
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationTime;
 
-  @Column(name = "emp_name" , nullable = false)
+  @Column(name = "emp_name", nullable = false)
   private String empName;
 
   @ManyToOne
@@ -104,5 +104,24 @@ public class Comment {
    */
   public void setTicket(Ticket ticket) {
     this.ticket = ticket;
+  }
+
+  public Comment(
+    Integer commentId,
+    String content,
+    Date creationTime,
+    String empName,
+    Ticket ticket
+  ) {
+    super();
+    this.commentId = commentId;
+    this.content = content;
+    this.creationTime = creationTime;
+    this.empName = empName;
+    this.ticket = ticket;
+  }
+
+  public Comment() {
+    super();
   }
 }

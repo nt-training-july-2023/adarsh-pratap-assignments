@@ -15,19 +15,19 @@ public class TicketDto {
   @NotEmpty(message = "Ticket name can not be empty")
   private String ticketName;
 
-  @NotEmpty(message = "Discription is required filed")
-  private String discription;
+  @NotEmpty(message = "description is required filed")
+  private String description;
 
   private TicketStatus status;
 
 //  @NotEmpty(message = "ticket type required")
   private TicketType ticketType;
 
-//  @NotEmpty(message = "Required Field")
+
   @NotNull
   private Department department;
 
-//  @NotEmpty(message = "Required Field")
+
   @NotNull
   private Employee employee;
 
@@ -46,17 +46,17 @@ public class TicketDto {
   }
 
   /**
-   * @return the discription
+   * @return the description
    */
-  public String getDiscription() {
-    return discription;
+  public String getDescription() {
+    return description;
   }
 
   /**
-   * @param discription the discription to set
+   * @param description the description to set
    */
-  public void setDiscription(String discription) {
-    this.discription = discription;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**
@@ -128,7 +128,7 @@ public class TicketDto {
   /**
    * @param ticketId
    * @param ticketName
-   * @param discription
+   * @param description
    * @param status
    * @param creationDate
    * @param lastUpdateDate
@@ -138,7 +138,7 @@ public class TicketDto {
    * @param comments
    */public TicketDto(
     String ticketName,
-    String discription,
+    String description,
     TicketStatus status,
     TicketType ticketType,
     Department department,
@@ -146,7 +146,7 @@ public class TicketDto {
   ) {
     super();
     this.ticketName = ticketName;
-    this.discription = discription;
+    this.description = description;
     this.status = status;
     this.ticketType = ticketType;
     this.department = department;
@@ -164,8 +164,8 @@ public class TicketDto {
     return (
       "TicketDto [ticketName=" +
       ticketName +
-      ", discription=" +
-      discription +
+      ", description=" +
+      description +
       ", status=" +
       status +
       ", ticketType=" +

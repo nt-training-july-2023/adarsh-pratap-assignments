@@ -26,7 +26,7 @@
   margin-top: 20px;
 }
 
-.header{
+.registration .content .header{
   background-color: #1d2591;
   display: flex;
   justify-content: center;
@@ -112,7 +112,7 @@
   background: transparent ;
 }
 
-.submit-box input[type="submit"]{
+.user-details .submit-box input[type="submit"]{
   height: 41px;
   background: #d43e25;
   color: #fff;
@@ -129,7 +129,7 @@
   letter-spacing: 1px;
 }
 
-input[type="submit"]:hover{
+.submit-box input[type="submit"]:hover{
   background: #1d2591;
   
 }
