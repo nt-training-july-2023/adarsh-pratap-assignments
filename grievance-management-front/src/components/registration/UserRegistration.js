@@ -108,12 +108,12 @@ function UserRegistration() {
       setValid(newState);
       
     }
-    const regex = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/;
+    const regex = /^[A-Za-z0-9._%+-]+@nucleusteq\.com$/;
     if(!regex.test(employee.email)){
       let newState = {...valid};
 
       newState.email.isError = true;
-      newState.email.errorMessage = "Email can not be empty and ends with @google.com";
+      newState.email.errorMessage = "Email can not be empty and ends with @nucleusteq.com";
 
       setValid(newState);
     }
@@ -143,16 +143,16 @@ function UserRegistration() {
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    // console.log(valid);
+    
     isValid();
-    // console.log(valid)
-    console.log(employee)
-    axios.post("http://localhost:8080/employee/add" , employee)
-    .then((resp)=>{
-      alert("Added!!")
-    }).catch((err)=>{
-      alert("not added")
-    })
+    if(!valid.userName.isError && !valid.role.isError && !valid.password.isError && !valid.email.isError && !valid.department.isError){
+      axios.post("http://localhost:8080/employee/add" , employee)
+      .then((resp)=>{
+        alert("Added!!")
+      }).catch((err)=>{
+        alert("not added")
+      })
+    }
   }
 
   return (

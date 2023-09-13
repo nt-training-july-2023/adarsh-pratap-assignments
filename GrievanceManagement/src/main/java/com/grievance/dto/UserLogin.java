@@ -2,18 +2,20 @@ package com.grievance.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 
 /**
  * User Login Object .
  */
-
 public class UserLogin {
 
   /**
    * Email of Employee.
    */
   @Email(message = "Should be of email type")
+  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@nucleusteq\\.com$",
+      message = "Email should end with @nucleusteq.com")
   private String userName;
 
   /**
@@ -34,10 +36,10 @@ public class UserLogin {
   /**
    * Setter for username.
    *
-   * @param userName of type String.
+   * @param name of type String.
    */
-  public void setUserName(final String userName) {
-    this.userName = userName;
+  public void setUserName(final String name) {
+    this.userName = name;
   }
 
   /**
@@ -52,27 +54,27 @@ public class UserLogin {
   /**
    * Setter for password .
    *
-   * @param password of type String.
+   * @param pass of type String.
    */
-  public void setPassword(final String password) {
-    this.password = password;
+  public void setPassword(final String pass) {
+    this.password = pass;
   }
 
   /**
    * constructor.
    *
-   * @param userName
+   * @param name String
    *
-   * @param password
+   * @param pass String
    *
    */
   public UserLogin(
-      final @Email(message = "Should be of email type") String userName,
-      final @NotEmpty(message = "password can not be empty") String password
+      final @Email(message = "Should be of email type") String name,
+      final @NotEmpty(message = "password can not be empty") String pass
   ) {
     super();
-    this.userName = userName;
-    this.password = password;
+    this.userName = name;
+    this.password = pass;
   }
 
   /**

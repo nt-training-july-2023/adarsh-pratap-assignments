@@ -35,12 +35,13 @@ public class EmployeeOutDtoTest {
 	
 	@Test
 	public void allArgsConstructor_Testing() {
-		EmployeeOutDto emp = new EmployeeOutDto(1 , "adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN , true , null);
+		EmployeeOutDto emp = new EmployeeOutDto(1 , "adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN , true , null , null);
 	}
 	
 	@Test
 	public void toString_Testing() {
-		String value = "EmployeeOutDto [empId=1, userName=Tester121, email=testing@gmail.com, role=ROLE_ADMIN, isFirstLogin=true, department=null]";
+//		System.out.println(employeeOutDto);
+		String value = "EmployeeOutDto [empId=1, userName=Tester121, email=testing@gmail.com, role=ROLE_ADMIN, isFirstLogin=true, department=null, ticket=null]";
 		assertEquals(employeeOutDto.toString(), value);
 	}
 	

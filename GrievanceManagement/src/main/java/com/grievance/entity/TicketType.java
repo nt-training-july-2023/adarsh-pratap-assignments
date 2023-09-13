@@ -1,9 +1,18 @@
 package com.grievance.entity;
 
+/**
+ * Enum for ticket type.
+ */
 public enum TicketType {
-	
-	GRIEVANCE,
-	
-	FEEDBACK;
+
+  /**
+  * TypeGrievance.
+  */
+  GRIEVANCE,
+
+  /**
+   * TypeFeedback.
+   */
+  FEEDBACK;
 }
 

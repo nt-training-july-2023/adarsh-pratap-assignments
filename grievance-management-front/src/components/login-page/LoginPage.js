@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./LoginPage.css"
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../api/Employee_API';
 function LoginPage() {
 
     const navigate = useNavigate(); 
@@ -10,59 +10,64 @@ function LoginPage() {
         userName:'',
         password:''
       });
-
-      const [message , setMessage] = useState({
-        field:'',
-        discription:''
+    
+      const [valid , setValid] = useState({
+        userName:{
+            isError:false,
+            errorMessage:""
+        },
+        password:{
+            isError:false,
+            errorMessage:""
+        }
       })
     
       const handleChange=(e)=>{
-        setData({...data , [e.target.name]: e.target.value});
-        // console.log(data);
+        if(valid.userName.isError || valid.password.isError){
+            const temp = {...valid};
+
+            temp.userName.isError = false;
+            temp.password.isError = false;
+
+            setValid(temp);
+        }
+        setData({
+            ...data , 
+            [e.target.name] : e.target.value
+        })
       }
-    
       
       const handleSubmit=(e)=>{
         e.preventDefault();
-        const isValid = validation(e);
-   
-        if(isValid){
-        axios.post("http://localhost:8080/login",data)
-        .then(response=>{
-          if(response.data !== 'Invalid User')
-            navigate('/welcome')
-        //   else{alert(response.data)}
-        }).catch(e=>{
-            alert(e.response.data);
+        validation();
+        if(!valid.userName.isError && !valid.password.isError){
+            login(data).then(res=>{
+                alert("Welcome "+res.data.role);
+            }).catch(error=>{
+                alert("Invalid User")
         })
-        }
-        else{
-            console.log(message.field)
-            alert(message.field + " : " + message.discription);
-        }
+    }
     }
 
-        const validation=(e)=>{
-            e.preventDefault();
-            const regex = /^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/;
+        const validation=()=>{
+            const regex = /^[A-Za-z0-9._%+-]+@nucleusteq\.com$/;
             if(!regex.test(data.userName)){
-            
-               
-                
-                setMessage({...message ,field:"email" , discription:"email incorrect"})
-                
-                console.log(message)
-                return false;
+                const temp = {...valid};
+
+                temp.userName.isError=true;
+                temp.userName.errorMessage="Email ends with @nucleusteq.com"
+
+                setValid(temp);
             }
 
-            if(data.password.length < 5 && data.password.length > 15){
-                setMessage({...message , [message.field] : "password"})
-                setMessage({...message , [message.discription] : "password length range should be between 5 to 15 ."})
-                return false;
-            } 
+            if(data.password.length < 5 || data.password.length > 15){
+                const temp = {...valid};
 
-            return true;
-   
+                temp.password.isError=true;
+                temp.password.errorMessage="length of password is between 5 to 15"
+
+                setValid(temp);
+            } 
         }
 
   return (
@@ -79,10 +84,12 @@ function LoginPage() {
                     <div className='input-box'>
                         <span>UserName</span>
                         <input type = "email" name="userName" value={data.userName} onChange={handleChange} required/>
+                        {valid.userName.isError && (<p>{valid.userName.errorMessage}</p>)}
                     </div>
                     <div className='input-box'>
                         <span>Password</span>
                         <input type='password' name="password" value={data.password} onChange={handleChange} required/>
+                        {valid.password.isError && (<p>{valid.password.errorMessage}</p>)}
                     </div>
                     <div className='input-box'>
                         <input type='submit' value='Sign in'  />

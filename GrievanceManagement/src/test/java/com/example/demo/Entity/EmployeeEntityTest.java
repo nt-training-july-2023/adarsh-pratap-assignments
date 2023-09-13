@@ -29,8 +29,8 @@ public class EmployeeEntityTest {
 	@Test
 	public void toStringTesting() {
 		
-		System.out.println(employee);
-		String st = "Employees [empId=1, userName=Adarsh, email=adarsh@gmail.com, password=adarsh, role=ROLE_ADMIN, department=null]";
+		
+		String st = "Employee [empId=1, userName=Adarsh, email=adarsh@gmail.com, password=adarsh, isFirstLogin=null, role=ROLE_ADMIN, department=null, ticket=null]";
 		
 		assertEquals(st, employee.toString());
 	}

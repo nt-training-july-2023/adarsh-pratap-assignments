@@ -1,7 +1,8 @@
 package com.grievance.entity;
 
 import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -37,7 +35,7 @@ public class Employee {
   /**
    * User name of employee.
    */
-  @Column(name = "username" , nullable = false)
+  @Column(name = "username", nullable = false)
   private String userName;
 
   /**
@@ -49,14 +47,17 @@ public class Employee {
   /**
    * password of employee .
    */
-  @Column(name = "password" , nullable = false)
+  @Column(name = "password", nullable = false)
   private String password;
-  
+
+  /**
+   * IsFirstLogin.
+   */
   @Column(name = "is_first_login")
   private Boolean isFirstLogin;
 
-  
-/**
+
+  /**
    * Roles of employee field.
    */
   @Enumerated(EnumType.STRING)
@@ -70,8 +71,12 @@ public class Employee {
   @JoinColumn(name = "department_id")
   @JsonBackReference
   private Department department;
-  
-  @OneToMany(cascade = CascadeType.ALL , mappedBy = "employee" , fetch = FetchType.LAZY)
+
+  /**
+   * Ticket.
+   */
+  @OneToMany(
+      cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
   @JsonManagedReference(value = "emp")
   private List<Ticket> ticket;
 
@@ -87,16 +92,16 @@ public class Employee {
   /**
    *Set employee.
    *
-   * @param empId of type integer.
+   * @param id of type integer.
    */
-  public void setEmpId(final Integer empId) {
-    this.empId = empId;
+  public void setEmpId(final Integer id) {
+    this.empId = id;
   }
 
   /**
-   * Getter of username.
+   * Getter of userName.
    *
-   * @return String type username.
+   * @return String type userName.
    */
   public String getUserName() {
     return userName;
@@ -105,10 +110,10 @@ public class Employee {
   /**
   * Setter of password.
   *
-  * @param userName of String.
+  * @param name of String.
   */
-  public void setUserName(final String userName) {
-    this.userName = userName;
+  public void setUserName(final String name) {
+    this.userName = name;
   }
 
   /**
@@ -123,10 +128,10 @@ public class Employee {
   /**
    * Setter of email.
    *
-   * @param email of type String.
+   * @param em of type String.
    */
-  public void setEmail(final String email) {
-    this.email = email;
+  public void setEmail(final String em) {
+    this.email = em;
   }
 
   /**
@@ -141,10 +146,10 @@ public class Employee {
   /**
    * Setter for password .
    *
-   * @param password of type string
+   * @param pass of type string
    */
-  public void setPassword(final String password) {
-    this.password = password;
+  public void setPassword(final String pass) {
+    this.password = pass;
   }
 
   /**
@@ -159,10 +164,10 @@ public class Employee {
   /**
    * Setter for Role .
    *
-   * @param role of type Role
+   * @param ro of type Role
    */
-  public void setRole(final Role role) {
-    this.role = role;
+  public void setRole(final Role ro) {
+    this.role = ro;
   }
 
   /**
@@ -177,68 +182,80 @@ public class Employee {
   /**
    * Setter for Department.
    *
-   * @param department of type string
+   * @param dep of type string
    */
-  public void setDepartment(final Department department) {
-    this.department = department;
+  public void setDepartment(final Department dep) {
+    this.department = dep;
   }
-  
+
   /**
+   * getter for IsFirstLogin.
+   *
    * @return the isFirstLogin
    */
   public Boolean getIsFirstLogin() {
-  return isFirstLogin;}
+    return isFirstLogin;
+  }
 
   /**
-   * @param isFirstLogin the isFirstLogin to set
+   *setter for is isFirstLogin.
+   *
+   * @param isFirstLog the isFirstLogin to set
    */
-  public void setIsFirstLogin(Boolean isFirstLogin) {
-  this.isFirstLogin = isFirstLogin;}
+  public void setIsFirstLogin(final Boolean isFirstLog) {
+    this.isFirstLogin = isFirstLog;
+  }
 
   /**
+   * getter for getTicket.
+   *
    * @return the ticket
    */
   public List<Ticket> getTicket() {
-  return ticket;}
+    return ticket;
+  }
 
   /**
-   * @param ticket the ticket to set
+   * setter for ticket.
+   *
+   * @param tick the ticket to set
    */
-  public void setTicket(List<Ticket> ticket) {
-  this.ticket = ticket;}
+  public void setTicket(final List<Ticket> tick) {
+    this.ticket = tick;
+  }
 
 
   /**
    * Employee Constructor .
    *
-   * @param empId
+   * @param id Integer
    *
-   * @param userName
+   * @param name String
    *
-   * @param email
+   * @param em String
    *
-   * @param password
+   * @param pass String
    *
-   * @param role
+   * @param ro Role
    *
-   * @param department
+   * @param dep Department
    *
    */
   public Employee(
-      final Integer empId,
-      final String userName,
-      final String email,
-      final String password,
-      final Role role,
-      final Department department
+      final Integer id,
+      final String name,
+      final String em,
+      final String pass,
+      final Role ro,
+      final Department dep
   ) {
     super();
-    this.empId = empId;
-    this.userName = userName;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-    this.department = department;
+    this.empId = id;
+    this.userName = name;
+    this.email = em;
+    this.password = pass;
+    this.role = ro;
+    this.department = dep;
   }
 
   /**
@@ -249,36 +266,16 @@ public class Employee {
   }
 
   /**
-   * To string method .
-   */
+  * to string method.
+  */
   @Override
   public String toString() {
-    return (
-      "Employees [empId="
+    return "Employee [empId=" + empId + ", userName="
+      + userName + ", email=" + email + ","
+      + " password=" + password + ", isFirstLogin="
       +
-      empId
-      +
-      ", userName="
-      +
-      userName
-      +
-      ", email="
-      +
-      email
-      +
-      ", password="
-      +
-      password
-      +
-      ", role="
-      +
-      role
-      +
-      ", department="
-      +
-      department
-      +
-      "]"
-      );
+      isFirstLogin + ", role=" + role + ", department="
+      + department + ", ticket=" + ticket + "]";
   }
+
 }

@@ -12,26 +12,43 @@ import com.grievance.entity.TicketType;
  * Ticket In DTO.
  */
 public class TicketDto {
+  /**
+   * ticketName.
+   */
   @NotEmpty(message = "Ticket name can not be empty")
   private String ticketName;
 
+  /**
+   * description.
+   */
   @NotEmpty(message = "description is required filed")
   private String description;
 
+  /**
+   * status.
+   */
   private TicketStatus status;
 
-//  @NotEmpty(message = "ticket type required")
+  /**
+   * ticketType.
+   */
   private TicketType ticketType;
 
-
+  /**
+   * department.
+   */
   @NotNull
   private Department department;
 
-
+  /**
+   * employee.
+   */
   @NotNull
   private Employee employee;
 
   /**
+   * getter for ticketName.
+   *
    * @return the ticketName
    */
   public String getTicketName() {
@@ -39,13 +56,17 @@ public class TicketDto {
   }
 
   /**
-   * @param ticketName the ticketName to set
+   * setter for ticketName.
+   *
+   * @param name the ticketName to set
    */
-  public void setTicketName(String ticketName) {
-    this.ticketName = ticketName;
+  public void setTicketName(final String name) {
+    this.ticketName = name;
   }
 
   /**
+   * getter for description.
+   *
    * @return the description
    */
   public String getDescription() {
@@ -53,13 +74,17 @@ public class TicketDto {
   }
 
   /**
-   * @param description the description to set
+   * setter for description.
+   *
+   * @param des the description to set
    */
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(final String des) {
+    this.description = des;
   }
 
   /**
+   * getter for status.
+   *
    * @return the status
    */
   public TicketStatus getStatus() {
@@ -67,13 +92,17 @@ public class TicketDto {
   }
 
   /**
-   * @param status the status to set
+   * setter for status.
+   *
+   * @param stat the status to set.
    */
-  public void setStatus(TicketStatus status) {
-    this.status = status;
+  public void setStatus(final TicketStatus stat) {
+    this.status = stat;
   }
 
   /**
+   * getter for type of ticket.
+   *
    * @return the ticketType
    */
   public TicketType getTicketType() {
@@ -83,10 +112,10 @@ public class TicketDto {
   /**
    * set TicketType.
    *
-   * @param ticketType the ticketType to set
+   * @param type the ticketType to set
    */
-  public void setTicketType(TicketType ticketType) {
-    this.ticketType = ticketType;
+  public void setTicketType(final TicketType type) {
+    this.ticketType = type;
   }
 
   /**
@@ -99,12 +128,12 @@ public class TicketDto {
   }
 
   /**
-   * setting the department
+   * setting the department.
    *
-   * @param department the department to set
+   * @param dep the department to set
    */
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartment(final Department dep) {
+    this.department = dep;
   }
 
   /**
@@ -119,62 +148,78 @@ public class TicketDto {
   /**
    * Setting the employee.
    *
-   * @param employee the employee to set
+   * @param emp the employee to set
    */
-  public void setEmployee(Employee employee) {
-    this.employee = employee;
+  public void setEmployee(final Employee emp) {
+    this.employee = emp;
   }
 
   /**
-   * @param ticketId
-   * @param ticketName
-   * @param description
-   * @param status
-   * @param creationDate
-   * @param lastUpdateDate
-   * @param ticketType
-   * @param department
-   * @param employee
-   * @param comments
-   */public TicketDto(
-    String ticketName,
-    String description,
-    TicketStatus status,
-    TicketType ticketType,
-    Department department,
-    Employee employee
+   * All args constructor.
+   *
+   * @param name String
+   * @param des String
+   * @param stat TicketStatus
+   * @param type TicketType
+   * @param dep Department
+   * @param emp Employee
+   *
+   */
+  public TicketDto(
+      final String name,
+      final String des,
+      final TicketStatus stat,
+      final TicketType type,
+      final Department dep,
+      final Employee emp
   ) {
     super();
-    this.ticketName = ticketName;
-    this.description = description;
-    this.status = status;
-    this.ticketType = ticketType;
-    this.department = department;
-    this.employee = employee;
+    this.ticketName = name;
+    this.description = des;
+    this.status = stat;
+    this.ticketType = type;
+    this.department = dep;
+    this.employee = emp;
   }
 
   /**
-   *
-   */public TicketDto() {
+  *No args constructor.
+  */
+  public TicketDto() {
     super();
   }
 
+  /**
+  * to string method.
+  */
   @Override
   public String toString() {
     return (
-      "TicketDto [ticketName=" +
-      ticketName +
-      ", description=" +
-      description +
-      ", status=" +
-      status +
-      ", ticketType=" +
-      ticketType +
-      ", department=" +
-      department +
-      ", employee=" +
-      employee +
+      "TicketDto [ticketName="
+      +
+      ticketName
+      +
+      ", description="
+      +
+      description
+      +
+      ", status="
+      +
+      status
+      +
+      ", ticketType="
+      +
+      ticketType
+      +
+      ", department="
+      +
+      department
+      +
+      ", employee="
+      +
+      employee
+      +
       "]"
-    );
+      );
   }
 }

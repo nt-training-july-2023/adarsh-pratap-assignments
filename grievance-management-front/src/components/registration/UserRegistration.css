@@ -27,7 +27,7 @@
 }
 
 .registration .content .header{
-  background-color: #1d2591;
+  background-color: #0a0c27;
   display: flex;
   justify-content: center;
   border-radius: 17px 17px 0px 0px;
@@ -114,7 +114,7 @@
 
 .user-details .submit-box input[type="submit"]{
   height: 41px;
-  background: #d43e25;
+  background: #0a0c27;
   color: #fff;
   font-weight: 500;
   cursor: pointer;
@@ -130,7 +130,7 @@
 }
 
 .submit-box input[type="submit"]:hover{
-  background: #1d2591;
+  background: #000000;
   
 }
 

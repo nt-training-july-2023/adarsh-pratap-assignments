@@ -8,6 +8,7 @@ import com.grievance.dto.UserLogin;
  * Interface for employee service .
  */
 public interface EmployeeServiceInterface {
+
   /**
    *save employee .
    *
@@ -15,7 +16,7 @@ public interface EmployeeServiceInterface {
    *
    * @return EmployeeDto
    */
-	EmployeeOutDto saveEmployee(EmployeesDto empDto);
+  EmployeeOutDto saveEmployee(EmployeesDto empDto);
 
   /**
    * login method .
@@ -24,5 +25,5 @@ public interface EmployeeServiceInterface {
    *
    * @return String
    */
-  String login(UserLogin login);
+  EmployeeOutDto login(UserLogin login);
 }

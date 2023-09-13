@@ -13,17 +13,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Department Controller.
  */
-
 @Controller
 @RequestMapping("/department/")
 @CrossOrigin("*")
 public class DepartmentController {
+
+  /**
+   * DepartmentService Autowired.
+   */
   @Autowired
   private DepartmentService departmentService;
 
@@ -34,7 +36,8 @@ public class DepartmentController {
    */
   @GetMapping("getall")
   public ResponseEntity<?> getAllDepartment() {
-    return new ResponseEntity<>(this.departmentService.getAllDepartment(), HttpStatus.OK);
+    return new ResponseEntity<>(
+      this.departmentService.getAllDepartment(), HttpStatus.OK);
   }
 
   /**
@@ -45,7 +48,8 @@ public class DepartmentController {
    * @return Department.
    */
   @PostMapping("add")
-  public ResponseEntity<?> saveDepartment(@Valid @RequestBody DepartmentInDto departmentDto) {
+  public ResponseEntity<?> saveDepartment(
+      final @Valid @RequestBody DepartmentInDto departmentDto) {
     return new ResponseEntity<>(
       this.departmentService.addDepartment(departmentDto),
       HttpStatus.CREATED

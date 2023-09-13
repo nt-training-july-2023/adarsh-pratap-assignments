@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Department Repo.
  */
 
-public interface DepartmentRepo extends JpaRepository<Department, Integer> {}
+public interface DepartmentRepo extends JpaRepository<Department, Integer> {
+}

@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Main Class .
@@ -34,5 +33,5 @@ public class GrievanceManagementApplication {
   public ModelMapper getModelMapper() {
     return new ModelMapper();
   }
- 
+
 }

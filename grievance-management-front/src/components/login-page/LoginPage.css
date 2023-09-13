@@ -38,6 +38,11 @@
     padding: 2rem;
 }
 
+.form-box .input-box p{
+    margin-left: 10px;
+    color: red;
+    margin-top: 10px;
+}
 .content-box{
     display: flex;
     justify-content: center;

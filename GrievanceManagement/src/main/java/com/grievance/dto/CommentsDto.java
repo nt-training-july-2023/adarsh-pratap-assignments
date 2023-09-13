@@ -3,18 +3,38 @@ package com.grievance.dto;
 import com.grievance.entity.Ticket;
 import java.util.Date;
 
+/**
+ * Comments In DTO.
+ */
 public class CommentsDto {
+  /**
+   * Comments Id.
+   */
   private Integer commentId;
 
+  /**
+   * content.
+   */
   private String content;
 
+  /**
+   * Creation time.
+   */
   private Date creationTime;
 
+  /**
+   * employee name.
+   */
   private String empName;
 
+  /**
+   * ticket.
+   */
   private Ticket ticket;
 
   /**
+   * getter for CommentID.
+   *
    * @return the commentId
    */
   public Integer getCommentId() {
@@ -22,13 +42,17 @@ public class CommentsDto {
   }
 
   /**
-   * @param commentId the commentId to set
+   * setter for commentId.
+   *
+   * @param id the commentId to set
    */
-  public void setCommentId(Integer commentId) {
-    this.commentId = commentId;
+  public void setCommentId(final Integer id) {
+    this.commentId = id;
   }
 
   /**
+   * getter for content.
+   *
    * @return the content
    */
   public String getContent() {
@@ -36,13 +60,17 @@ public class CommentsDto {
   }
 
   /**
-   * @param content the content to set
+   * setter for content.
+   *
+   * @param con the content to set
    */
-  public void setContent(String content) {
-    this.content = content;
+  public void setContent(final String con) {
+    this.content = con;
   }
 
   /**
+   * getter for creation time.
+   *
    * @return the creationTime
    */
   public Date getCreationTime() {
@@ -50,13 +78,17 @@ public class CommentsDto {
   }
 
   /**
-   * @param creationTime the creationTime to set
+   * Setter for creationTime.
+   *
+   * @param createTime the creationTime to set
    */
-  public void setCreationTime(Date creationTime) {
-    this.creationTime = creationTime;
+  public void setCreationTime(final Date createTime) {
+    this.creationTime = createTime;
   }
 
   /**
+   * getter for empName.
+   *
    * @return the empName
    */
   public String getEmpName() {
@@ -64,13 +96,17 @@ public class CommentsDto {
   }
 
   /**
-   * @param empName the empName to set
+   * setter for empName.
+   *
+   * @param emp the empName to set
    */
-  public void setEmpName(String empName) {
-    this.empName = empName;
+  public void setEmpName(final String emp) {
+    this.empName = emp;
   }
 
   /**
+   * getter for ticket.
+   *
    * @return the ticket
    */
   public Ticket getTicket() {
@@ -78,9 +114,11 @@ public class CommentsDto {
   }
 
   /**
-   * @param ticket the ticket to set
+   * setter for ticket.
+   *
+   * @param tick the ticket to set
    */
-  public void setTicket(Ticket ticket) {
-    this.ticket = ticket;
+  public void setTicket(final Ticket tick) {
+    this.ticket = tick;
   }
 }

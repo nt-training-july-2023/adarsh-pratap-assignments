@@ -4,8 +4,15 @@ package com.grievance.exception;
  * Resource not found exception .
  */
 public class ResourceNotFound extends RuntimeException {
+
+  /**
+   * String value to store the entity name.
+   */
   private String entity;
 
+  /**
+   * String value to store the respective message.
+   */
   private String message;
 
   /**
@@ -20,10 +27,10 @@ public class ResourceNotFound extends RuntimeException {
   /**
    * Setter of entity.
    *
-   * @param entity the entity to set
+   * @param ent the entity to set
    */
-  public void setEntity(String entity) {
-    this.entity = entity;
+  public void setEntity(final String ent) {
+    this.entity = ent;
   }
 
   /**
@@ -38,22 +45,22 @@ public class ResourceNotFound extends RuntimeException {
   /**
    * set message.
    *
-   * @param message the message to set
+   * @param mess the message to set
    */
-  public void setMessage(String message) {
-    this.message = message;
+  public void setMessage(final String mess) {
+    this.message = mess;
   }
 
   /**
   * Constructor.
   *
-  * @param entity of type String .
+  * @param ent of type String .
   *
-  * @param message of type String.
+  * @param mess of type String.
   */
-  public ResourceNotFound(String entity, String message) {
+  public ResourceNotFound(final String ent, final String mess) {
     super();
-    this.entity = entity;
-    this.message = message;
+    this.entity = ent;
+    this.message = mess;
   }
 }

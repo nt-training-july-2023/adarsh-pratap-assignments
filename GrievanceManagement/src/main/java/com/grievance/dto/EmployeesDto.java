@@ -1,19 +1,17 @@
 package com.grievance.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
  * Employee DTO .
  */
 public class EmployeesDto {
-  
   /**
    * maximum size of password.
    */
@@ -34,6 +32,8 @@ public class EmployeesDto {
    * Email of employee .
    */
   @Email(message = "Email id not valid")
+  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@nucleusteq\\.com$",
+      message = "Email should end with @nucleusteq.com")
   private String email;
 
   /**
@@ -41,9 +41,9 @@ public class EmployeesDto {
    */
   @NotEmpty(message = "Password field is mendatory")
   @Size(
-    min = minPassword,
-    max = maxPassword,
-    message = "password should be in range between 5 to 18"
+      min = minPassword,
+      max = maxPassword,
+      message = "password should be in range between 5 to 18"
   )
   private String password;
 
@@ -70,10 +70,10 @@ public class EmployeesDto {
   /**
    * Setter of User Name .
    *
-   * @param userName of string type .
+   * @param name of string type .
    */
-  public void setUserName(final String userName) {
-    this.userName = userName;
+  public void setUserName(final String name) {
+    this.userName = name;
   }
 
   /**
@@ -88,10 +88,10 @@ public class EmployeesDto {
   /**
    * Setter of email .
    *
-   * @param email of string type.
+   * @param em of string type.
    */
-  public void setEmail(final String email) {
-    this.email = email;
+  public void setEmail(final String em) {
+    this.email = em;
   }
 
   /**
@@ -106,13 +106,11 @@ public class EmployeesDto {
   /**
    * Setter of password .
    *
-   * @param password of String type.
+   * @param pass of String type.
    */
-  public void setPassword(final String password) {
-    this.password = password;
+  public void setPassword(final String pass) {
+    this.password = pass;
   }
-
-  /**
 
   /**
    *Getter of Role.
@@ -126,10 +124,10 @@ public class EmployeesDto {
   /**
    * Setter for Role .
    *
-   * @param role of string type .
+   * @param ro of string type .
    */
-  public void setRole(final Role role) {
-    this.role = role;
+  public void setRole(final Role ro) {
+    this.role = ro;
   }
 
   /**
@@ -144,50 +142,76 @@ public class EmployeesDto {
   /**
    * setter for department .
    *
-   * @param department of string type .
+   * @param dep of string type .
    */
-  public void setDepartment(final Department department) {
-    this.department = department;
+  public void setDepartment(final Department dep) {
+    this.department = dep;
   }
 
+  /**
+   * To string method.
+   */
   @Override
   public String toString() {
     return (
-      "EmployeesDto [maxPassword=" +
-      maxPassword +
-      ", minPassword=" +
-      minPassword +
-      ", userName=" +
-      userName +
-      ", email=" +
-      email +
-      ", password=" +
-      password +
-      ", role=" +
-      role +
-      ", department=" +
-      department +
+      "EmployeesDto [maxPassword="
+      +
+      maxPassword
+      +
+      ", minPassword="
+      +
+      minPassword
+      +
+      ", userName="
+      +
+      userName
+      +
+      ", email="
+      +
+      email
+      +
+      ", password="
+      +
+      password
+      +
+      ", role="
+      +
+      role
+      +
+      ", department="
+      +
+      department
+      +
       "]"
-    );
+      );
   }
 
+  /**
+   * Employee dto all Args constructor.
+   *
+   * @param name of type String
+   * @param em of string type
+   * @param pass of string type
+   * @param ro of Role type
+   * @param dep of Department type
+   */
   public EmployeesDto(
-    @NotEmpty(message = "Username can not be null") String userName,
-    @Email(message = "Email id not valid") String email,
-    @NotEmpty(message = "Password field is mendatory") @Size(
-      min = 5,
-      max = 15,
+      final @NotEmpty(message = "Username can not be null") String name,
+      final @Email(message = "Email id not valid") String em,
+      final @NotEmpty(message = "Password field is mendatory") @Size(
+      min = minPassword,
+      max = maxPassword,
       message = "password should be in range between 5 to 18"
-    ) String password,
-    Role role,
-    @NotNull(message = "Department can not be null") Department department
+    ) String pass,
+      final Role ro,
+      final @NotNull(message = "Department can not be null") Department dep
   ) {
     super();
-    this.userName = userName;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-    this.department = department;
+    this.userName = name;
+    this.email = em;
+    this.password = pass;
+    this.role = ro;
+    this.department = dep;
   }
 
   /**

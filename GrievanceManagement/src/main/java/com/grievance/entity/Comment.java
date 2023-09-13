@@ -17,26 +17,44 @@ import org.springframework.data.annotation.CreatedDate;
  */
 @Entity
 public class Comment {
+
+  /**
+   * CommentId.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer commentId;
 
+  /**
+   * Content.
+   */
   @Column(name = "comments", nullable = false)
   private String content;
 
+  /**
+   * creation time.
+   */
   @Column(name = "creation_time")
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationTime;
 
+  /**
+   * employee Name.
+   */
   @Column(name = "emp_name", nullable = false)
   private String empName;
 
+  /**
+   * Ticket.
+   */
   @ManyToOne
   @JoinColumn(name = "ticket_id")
   private Ticket ticket;
 
   /**
+   * getter for comentId.
+   *
    * @return the commentId
    */
   public Integer getCommentId() {
@@ -44,13 +62,17 @@ public class Comment {
   }
 
   /**
-   * @param commentId the commentId to set
+   * setter  for commentId.
+   *
+   * @param id the commentId to set
    */
-  public void setCommentId(Integer commentId) {
-    this.commentId = commentId;
+  public void setCommentId(final Integer id) {
+    this.commentId = id;
   }
 
   /**
+   * getter for content.
+   *
    * @return the content
    */
   public String getContent() {
@@ -58,13 +80,17 @@ public class Comment {
   }
 
   /**
-   * @param content the content to set
+   * setter for content.
+   *
+   * @param con the content to set
    */
-  public void setContent(String content) {
-    this.content = content;
+  public void setContent(final String con) {
+    this.content = con;
   }
 
   /**
+   * getter for creationDate.
+   *
    * @return the creationTime
    */
   public Date getCreationTime() {
@@ -72,13 +98,17 @@ public class Comment {
   }
 
   /**
-   * @param creationTime the creationTime to set
+   * Setter for creation date.
+   *
+   * @param createTime the creationTime to set
    */
-  public void setCreationTime(Date creationTime) {
-    this.creationTime = creationTime;
+  public void setCreationTime(final Date createTime) {
+    this.creationTime = createTime;
   }
 
   /**
+   * getter for empName.
+   *
    * @return the empName
    */
   public String getEmpName() {
@@ -86,13 +116,17 @@ public class Comment {
   }
 
   /**
-   * @param empName the empName to set
+   * Setter for empName.
+   *
+   * @param name the empName to set
    */
-  public void setEmpName(String empName) {
-    this.empName = empName;
+  public void setEmpName(final String name) {
+    this.empName = name;
   }
 
   /**
+   * Getter for ticket.
+   *
    * @return the ticket
    */
   public Ticket getTicket() {
@@ -100,27 +134,41 @@ public class Comment {
   }
 
   /**
-   * @param ticket the ticket to set
+   * Setter for ticket.
+   *
+   * @param tick the ticket to set
    */
-  public void setTicket(Ticket ticket) {
-    this.ticket = ticket;
+  public void setTicket(final Ticket tick) {
+    this.ticket = tick;
   }
 
+  /**
+   * All args constructor.
+   *
+   * @param id type Interger
+   * @param con type String
+   * @param createDate type Date
+   * @param name type String
+   * @param tick type Ticket
+   */
   public Comment(
-    Integer commentId,
-    String content,
-    Date creationTime,
-    String empName,
-    Ticket ticket
+      final Integer id,
+      final String con,
+      final Date createDate,
+      final String name,
+      final Ticket tick
   ) {
     super();
-    this.commentId = commentId;
-    this.content = content;
-    this.creationTime = creationTime;
-    this.empName = empName;
-    this.ticket = ticket;
+    this.commentId = id;
+    this.content = con;
+    this.creationTime = createDate;
+    this.empName = name;
+    this.ticket = tick;
   }
 
+  /**
+   * NO args constructor.
+   */
   public Comment() {
     super();
   }

@@ -1,213 +1,335 @@
 package com.grievance.dto;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
-
 import com.grievance.entity.Comment;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
+import java.util.Date;
+import java.util.List;
 
+
+/**
+ * TicketOutDto.
+ */
 public class TicketOutDto {
-	
-	  private Integer ticketId;
 
-	  
-	  private String ticketName;
+  /**
+   * Ticket ID.
+   */
+  private Integer ticketId;
 
-	  
-	  private String description;
+  /**
+   * TicketName.
+   */
+  private String ticketName;
 
-	  private TicketStatus status;
+  /**
+   * description.
+   */
+  private String description;
 
-	  private Date creationDate;
+  /**
+   * status.
+   */
+  private TicketStatus status;
 
-	  private Date lastUpdateDate;
+  /**
+   * creation date.
+   */
+  private Date creationDate;
 
-	 
-	  private TicketType ticketType;
+  /**
+   * last updation date.
+   */
+  private Date lastUpdateDate;
 
-	
-	  private Department department;
+  /**
+   * ticket type.
+   */
+  private TicketType ticketType;
 
-	  
-	  private Employee employee;
+  /**
+   * department.
+   */
+  private Department department;
 
-	  private List<Comment> comments;
+  /**
+   * employee.
+   */
+  private Employee employee;
 
-	  /**
-	   * @return the ticketId
-	   */
-	  public Integer getTicketId() {
-	    return ticketId;
-	  }
+  /**
+   * comments.
+   */
+  private List<Comment> comments;
 
-	  /**
-	   * @param ticketId the ticketId to set
-	   */
-	  public void setTicketId(Integer ticketId) {
-	    this.ticketId = ticketId;
-	  }
+  /**
+   * Ticket id getter.
+   *
+  * @return the ticketId.
+  */
+  public Integer getTicketId() {
+    return ticketId;
+  }
 
-	  /**
-	   * @return the ticketName
-	   */
-	  public String getTicketName() {
-	    return ticketName;
-	  }
+  /**
+   * Setter for ticket id.
+   *
+  * @param id the ticketId to set
+  */
+  public void setTicketId(final Integer id) {
+    this.ticketId = id;
+  }
 
-	  /**
-	   * @param ticketName the ticketName to set
-	   */
-	  public void setTicketName(String ticketName) {
-	    this.ticketName = ticketName;
-	  }
+  /**
+   * Getter for ticket name.
+   *
+  * @return the ticketName
+  */
+  public String getTicketName() {
+    return ticketName;
+  }
 
-	  /**
-	   * @return the description
-	   */
-	  public String getDescription() {
-	    return description;
-	  }
+  /**
+   * setter for ticket name.
+   *
+  * @param name the ticketName to set
+  */
+  public void setTicketName(final String name) {
+    this.ticketName = name;
+  }
 
-	  /**
-	   * @param description the description to set
-	   */
-	  public void setDescription(String description) {
-	    this.description = description;
-	  }
+  /**
+   * getter for description.
+   *
+  * @return the description
+  */
+  public String getDescription() {
+    return description;
+  }
 
-	  /**
-	   * @return the status
-	   */
-	  public TicketStatus getStatus() {
-	    return status;
-	  }
+  /**
+   * Setter for description.
+   *
+  * @param des the description to set
+  */
+  public void setDescription(final String des) {
+    this.description = des;
+  }
 
-	  /**
-	   * @param status the status to set
-	   */
-	  public void setStatus(TicketStatus status) {
-	    this.status = status;
-	  }
+  /**
+  * getter for status.
+  *
+  * @return the status
+  */
+  public TicketStatus getStatus() {
+    return status;
+  }
 
-	  /**
-	   * @return the creationDate
-	   */
-	  public Date getCreationDate() {
-	    return creationDate;
-	  }
+  /**
+   * Setter for status.
+   *
+  * @param stat the status to set
+  */
+  public void setStatus(final TicketStatus stat) {
+    this.status = stat;
+  }
 
-	  /**
-	   * @param creationDate the creationDate to set
-	   */
-	  public void setCreationDate(Date creationDate) {
-	    this.creationDate = creationDate;
-	  }
+  /**
+   * getter for creation Date.
+   *
+  * @return the creationDate
+  */
+  public Date getCreationDate() {
+    return creationDate;
+  }
 
-	  /**
-	   * @return the lastUpdateDate
-	   */
-	  public Date getLastUpdateDate() {
-	    return lastUpdateDate;
-	  }
+  /**
+  * setter for creation Date.
+  *
+  * @param createDate the creationDate to set
+  */
+  public void setCreationDate(final Date createDate) {
+    this.creationDate = createDate;
+  }
 
-	  /**
-	   * @param lastUpdateDate the lastUpdateDate to set
-	   */
-	  public void setLastUpdateDate(Date lastUpdateDate) {
-	    this.lastUpdateDate = lastUpdateDate;
-	  }
+  /**
+  * getter for last update date.
+  *
+  * @return the lastUpdateDate
+  */
+  public Date getLastUpdateDate() {
+    return lastUpdateDate;
+  }
 
-	  /**
-	   * @return the ticketType
-	   */
-	  public TicketType getTicketType() {
-	    return ticketType;
-	  }
+  /**
+  * setter for last update date.
+  *
+  * @param lastUpdate the lastUpdateDate to set
+  */
+  public void setLastUpdateDate(final Date lastUpdate) {
+    this.lastUpdateDate = lastUpdate;
+  }
 
-	  /**
-	   * set TicketType.
-	   *
-	   * @param ticketType the ticketType to set
-	   */
-	  public void setTicketType(TicketType ticketType) {
-	    this.ticketType = ticketType;
-	  }
+  /**
+  * getter for ticket type.
+  *
+  * @return the ticketType
+  */
+  public TicketType getTicketType() {
+    return ticketType;
+  }
 
-	  /**
-	   * get Department.
-	   *
-	   * @return the department
-	   */
-	  public Department getDepartment() {
-	    return department;
-	  }
+  /**
+  * set TicketType.
+  *
+  * @param type the ticketType to set
+  */
+  public void setTicketType(final TicketType type) {
+    this.ticketType = type;
+  }
 
-	  /**
-	   * setting the department
-	   *
-	   * @param department the department to set
-	   */
-	  public void setDepartment(Department department) {
-	    this.department = department;
-	  }
+  /**
+  * get Department.
+  *
+  * @return the department
+  */
+  public Department getDepartment() {
+    return department;
+  }
 
-	  /**
-	   * Get employee.
-	   *
-	   * @return the employee
-	   */
-	  public Employee getEmployee() {
-	    return employee;
-	  }
+  /**
+  * setter the department.
+  *
+  * @param dep the department to set
+  */
+  public void setDepartment(final Department dep) {
+    this.department = dep;
+  }
 
-	  /**
-	   * Setting the employee.
-	   *
-	   * @param employee the employee to set
-	   */
-	  public void setEmployee(Employee employee) {
-	    this.employee = employee;
-	  }
+  /**
+  * Get employee.
+  *
+  * @return the employee
+  */
+  public Employee getEmployee() {
+    return employee;
+  }
 
-	  /**
-	   * @return the comments
-	   */
-	  public List<Comment> getComments() {
-	    return comments;
-	  }
+  /**
+  * Setting the employee.
+  *
+  * @param emp the employee to set
+  */
+  public void setEmployee(final Employee emp) {
+    this.employee = emp;
+  }
 
-	  /**
-	   * @param comments the comments to set
-	   */
-	  public void setComments(List<Comment> comments) {
-	    this.comments = comments;
-	  }
+  /**
+  * getter for comments.
+  *
+  * @return the comments
+  */
+  public List<Comment> getComments() {
+    return comments;
+  }
 
-	/**
-	 * @param ticketId
-	 * @param ticketName
-	 * @param description
-	 * @param status
-	 * @param creationDate
-	 * @param lastUpdateDate
-	 * @param ticketType
-	 * @param department
-	 * @param employee
-	 * @param comments
-	 */
-	  public TicketOutDto(Integer ticketId,String ticketName,String description,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.description=description;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
+  /**
+  * setter for comments.
+  *
+  * @param comm the comments to set
+  */
+  public void setComments(final List<Comment> comm) {
+    this.comments = comm;
+  }
 
-	/**
-	 * 
-	 */public TicketOutDto(){super();}
+  /**
+  * All Args constructor.
+  *
+  * @param id Integer
+  * @param name String
+  * @param des String
+  * @param stat TicketStatus
+  * @param createDate Date
+  * @param lastUpdate Date
+  * @param type TicketTYpe
+  * @param dep Department
+  * @param emp Employee
+  * @param comm Comments
+  */
+  public TicketOutDto(
+      final Integer id, final String name,
+      final String des, final TicketStatus stat,
+      final Date createDate, final Date lastUpdate,
+      final TicketType type, final Department dep,
+      final Employee emp, final List<Comment> comm) {
+    super();
+    this.ticketId = id;
+    this.ticketName = name;
+    this.description = des;
+    this.status = stat;
+    this.creationDate = createDate;
+    this.lastUpdateDate = lastUpdate;
+    this.ticketType = type;
+    this.department = dep;
+    this.employee = emp;
+    this.comments = comm;
+  }
 
-	@Override public String toString(){return "TicketOutDto [ticketId=" + ticketId + ", ticketName=" + ticketName + ", description=" + description + ", status=" + status + ", creationDate=" + creationDate + ", lastUpdateDate=" + lastUpdateDate + ", ticketType=" + ticketType + ", department=" + department + ", employee=" + employee + ", comments=" + comments + "]";}
-	  
-	  
+  /**
+  * NO args constructor.
+  */
+  public TicketOutDto() {
+    super();
+  }
+
+  /**
+   * to String method.
+   */
+  @Override
+  public String toString() {
+    return "TicketOutDto [ticketId="
+      +
+      ticketId
+      +
+      ", ticketName="
+      +
+      ticketName
+      +
+      ", description="
+      +
+      description
+      +
+      ", status="
+      +
+      status
+      +
+      ", creationDate="
+      +
+      creationDate
+      +
+      ", lastUpdateDate="
+      +
+      lastUpdateDate
+      +
+      ", ticketType="
+      +
+      ticketType
+      +
+      ", department="
+      +
+      department
+      +
+      ", employee="
+      +
+      employee
+      +
+      ", comments="
+      +
+      comments
+      +
+      "]";
+  }
 }
 

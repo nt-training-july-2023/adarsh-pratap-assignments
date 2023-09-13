@@ -9,16 +9,29 @@ import javax.validation.constraints.NotEmpty;
  * Department Dto.
  */
 public class DepartmentOutDto {
+  /**
+   * depId.
+   */
   private Integer depId;
 
-  //  @NotEmpty(message = "Department is a required field")
+  /**
+   * depName.
+   */
   private String depName;
 
+  /**
+   * employee.
+   */
   private List<Employee> employee;
 
+  /**
+   * ticket.
+   */
   private List<Ticket> ticket;
 
   /**
+   * getter for depId.
+   *
    * @return the depId
    */
   public Integer getDepId() {
@@ -26,13 +39,17 @@ public class DepartmentOutDto {
   }
 
   /**
-   * @param depId the depId to set
+   * setter for depId.
+   *
+   * @param id the depId to set
    */
-  public void setDepId(Integer depId) {
-    this.depId = depId;
+  public void setDepId(final Integer id) {
+    this.depId = id;
   }
 
   /**
+   * getter for depName.
+   *
    * @return the depName
    */
   public String getDepName() {
@@ -40,13 +57,17 @@ public class DepartmentOutDto {
   }
 
   /**
-   * @param depName the depName to set
+   * setter for depName.
+   *
+   * @param name the depName to set
    */
-  public void setDepName(String depName) {
-    this.depName = depName;
+  public void setDepName(final String name) {
+    this.depName = name;
   }
 
   /**
+   * getter for employee.
+   *
    * @return the employee
    */
   public List<Employee> getEmployee() {
@@ -54,13 +75,17 @@ public class DepartmentOutDto {
   }
 
   /**
-   * @param employee the employee to set
+   * setter for employee.
+   *
+   * @param emp the employee to set
    */
-  public void setEmployee(List<Employee> employee) {
-    this.employee = employee;
+  public void setEmployee(final List<Employee> emp) {
+    this.employee = emp;
   }
 
   /**
+   * getter for ticket.
+   *
    * @return the ticket
    */
   public List<Ticket> getTicket() {
@@ -68,39 +93,64 @@ public class DepartmentOutDto {
   }
 
   /**
-   * @param ticket the ticket to set
+   * setter for ticket.
+   *
+   * @param tick the ticket to set
    */
-  public void setTicket(List<Ticket> ticket) {
-    this.ticket = ticket;
+  public void setTicket(final List<Ticket> tick) {
+    this.ticket = tick;
   }
 
+  /**
+   * all args constructor.
+   *
+   * @param id Integer
+   * @param name String
+   * @param emp Employee
+   * @param tick Ticket
+   */
   public DepartmentOutDto(
-    Integer depId,
-    @NotEmpty(message = "Department is a required field") String depName,
-    List<Employee> employee,
-    List<Ticket> ticket
+      final Integer id,
+      final @NotEmpty(message = "Department is a required field") String name,
+      final List<Employee> emp,
+      final List<Ticket> tick
   ) {
     super();
-    this.depId = depId;
-    this.depName = depName;
-    this.employee = employee;
-    this.ticket = ticket;
+    this.depId = id;
+    this.depName = name;
+    this.employee = emp;
+    this.ticket = tick;
   }
 
-  public DepartmentOutDto() {}
+  /**
+   * No args constructor.
+   */
+  public DepartmentOutDto() {
+  }
 
+  /**
+   * to string method.
+   */
   @Override
   public String toString() {
     return (
-      "DepartmentOutDto [depId=" +
-      depId +
-      ", depName=" +
-      depName +
-      ", employee=" +
-      employee +
-      ", ticket=" +
-      ticket +
+      "DepartmentOutDto [depId="
+      +
+      depId
+      +
+      ", depName="
+      +
+      depName
+      +
+      ", employee="
+      +
+      employee
+      +
+      ", ticket="
+      +
+      ticket
+      +
       "]"
-    );
+      );
   }
 }

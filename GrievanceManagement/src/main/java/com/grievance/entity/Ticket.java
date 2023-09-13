@@ -23,43 +23,76 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  */
 @Entity
 public class Ticket {
+
+  /**
+   * TicketId.
+   */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer ticketId;
 
-  @Column(name = "ticket_name" , nullable = false)
+  /**
+   * TicketName.
+   */
+  @Column(name = "ticket_name", nullable = false)
   private String ticketName;
 
+  /**
+   * Description.
+   */
   @Column(name = "description")
   private String description;
 
+  /**
+   * TicketStatus.
+   */
   @Enumerated(EnumType.STRING)
   private TicketStatus status;
 
-  
+  /**
+   * CreationDate.
+   */
   private Date creationDate;
 
+  /**
+   * LastUpdateDate.
+   */
   @Column(name = "last_update")
   private Date lastUpdateDate;
 
+  /**
+   * TicketType.
+   */
   @Column(name = "ticket_type")
   @Enumerated(EnumType.STRING)
   private TicketType ticketType;
 
+  /**
+   * Department.
+   */
   @ManyToOne
   @JoinColumn(name = "department_id")
   @JsonBackReference(value = "dep")
   private Department department;
 
+  /**
+   * Employee.
+   */
   @ManyToOne
   @JoinColumn(name = "employee_id")
   @JsonBackReference(value = "emp")
   private Employee employee;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket", fetch = FetchType.LAZY)
+  /**
+   * List of Comments.
+   */
+  @OneToMany(
+      cascade = CascadeType.ALL, mappedBy = "ticket", fetch = FetchType.LAZY)
   private List<Comment> comments;
 
   /**
+   * getter for ticketId.
+   *
    * @return the ticketId
    */
   public Integer getTicketId() {
@@ -67,13 +100,17 @@ public class Ticket {
   }
 
   /**
-   * @param ticketId the ticketId to set
+   * setter for ticketId.
+   *
+   * @param tickId the ticketId to set
    */
-  public void setTicketId(Integer ticketId) {
-    this.ticketId = ticketId;
+  public void setTicketId(final Integer tickId) {
+    this.ticketId = tickId;
   }
 
   /**
+   * getter for ticketName.
+   *
    * @return the ticketName
    */
   public String getTicketName() {
@@ -81,27 +118,35 @@ public class Ticket {
   }
 
   /**
-   * @param ticketName the ticketName to set
+   * setter for ticketName.
+   *
+   * @param tickName the ticketName to set
    */
-  public void setTicketName(String ticketName) {
-    this.ticketName = ticketName;
+  public void setTicketName(final String tickName) {
+    this.ticketName = tickName;
   }
 
   /**
-   * @return the discription
+   * getter for description.
+   *
+   * @return the description
    */
   public String getDescription() {
     return description;
   }
 
   /**
-   * @param discription the discription to set
+   * setter for description.
+   *
+   * @param des type String.
    */
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDescription(final String des) {
+    this.description = des;
   }
 
   /**
+   * getter for status.
+   *
    * @return the status
    */
   public TicketStatus getStatus() {
@@ -109,13 +154,17 @@ public class Ticket {
   }
 
   /**
-   * @param status the status to set
+   * setter for status .
+   *
+   * @param stat the status to set
    */
-  public void setStatus(TicketStatus status) {
-    this.status = status;
+  public void setStatus(final TicketStatus stat) {
+    this.status = stat;
   }
 
   /**
+   * getter CreationDate.
+   *
    * @return the creationDate
    */
   public Date getCreationDate() {
@@ -123,13 +172,18 @@ public class Ticket {
   }
 
   /**
-   * @param creationDate the creationDate to set
+   * setter for creationDate.
+   *
+   *
+   * @param createDate the creationDate to set
    */
-  public void setCreationDate(Date creationDate) {
-    this.creationDate = creationDate;
+  public void setCreationDate(final Date createDate) {
+    this.creationDate = createDate;
   }
 
   /**
+   * getter lastUpdateDate.
+   *
    * @return the lastUpdateDate
    */
   public Date getLastUpdateDate() {
@@ -137,13 +191,17 @@ public class Ticket {
   }
 
   /**
-   * @param lastUpdateDate the lastUpdateDate to set
+   * setter for lastUpdatedDate.
+   *
+   * @param lastUpDate the lastUpdateDate to set
    */
-  public void setLastUpdateDate(Date lastUpdateDate) {
-    this.lastUpdateDate = lastUpdateDate;
+  public void setLastUpdateDate(final Date lastUpDate) {
+    this.lastUpdateDate = lastUpDate;
   }
 
   /**
+   * getter for ticketType.
+   *
    * @return the ticketType
    */
   public TicketType getTicketType() {
@@ -151,13 +209,17 @@ public class Ticket {
   }
 
   /**
-   * @param ticketType the ticketType to set
+   * set ticketType.
+   *
+   * @param ticketT the ticketType to set
    */
-  public void setTicketType(TicketType ticketType) {
-    this.ticketType = ticketType;
+  public void setTicketType(final TicketType ticketT) {
+    this.ticketType = ticketT;
   }
 
   /**
+   * get department.
+   *
    * @return the department
    */
   public Department getDepartment() {
@@ -165,13 +227,17 @@ public class Ticket {
   }
 
   /**
-   * @param department the department to set
+   * set department.
+   *
+   * @param dep the department to set
    */
-  public void setDepartment(Department department) {
-    this.department = department;
+  public void setDepartment(final Department dep) {
+    this.department = dep;
   }
 
   /**
+   * get employee.
+   *
    * @return the employee
    */
   public Employee getEmployee() {
@@ -179,13 +245,17 @@ public class Ticket {
   }
 
   /**
-   * @param employee the employee to set
+   * set employee.
+   *
+   * @param emp the employee to set
    */
-  public void setEmployee(Employee employee) {
-    this.employee = employee;
+  public void setEmployee(final Employee emp) {
+    this.employee = emp;
   }
 
   /**
+   * get comments.
+   *
    * @return the comments
    */
   public List<Comment> getComments() {
@@ -193,13 +263,52 @@ public class Ticket {
   }
 
   /**
-   * @param comments the comments to set
+   * set comments.
+   *
+   * @param com the comments to set
    */
-  public void setComments(List<Comment> comments) {
-    this.comments = comments;
+  public void setComments(final List<Comment> com) {
+    this.comments = com;
   }
 
-public Ticket(Integer ticketId,String ticketName,String description,TicketStatus status,Date creationDate,Date lastUpdateDate,TicketType ticketType,Department department,Employee employee,List<Comment> comments){super();this.ticketId=ticketId;this.ticketName=ticketName;this.description=description;this.status=status;this.creationDate=creationDate;this.lastUpdateDate=lastUpdateDate;this.ticketType=ticketType;this.department=department;this.employee=employee;this.comments=comments;}
-  
-public Ticket() {}
+  /**
+   * All args constructor.
+   *
+   * @param tickId Integer.
+   * @param tickName String.
+   * @param des String.
+   * @param stat TicketStatus.
+   * @param createDate Date.
+   * @param lastUpDate Date.
+   * @param tickType TicketType.
+   * @param dep Department.
+   * @param emp Employee.
+   * @param com Comments.
+   */
+  public Ticket(final Integer tickId, final String tickName,
+      final String des,
+      final TicketStatus stat, final Date createDate,
+      final Date lastUpDate,
+      final TicketType tickType, final Department dep,
+      final Employee emp,
+      final List<Comment> com) {
+    super();
+    this.ticketId = tickId;
+    this.ticketName = tickName;
+    this.description = des;
+    this.status = stat;
+    this.creationDate = createDate;
+    this.lastUpdateDate = lastUpDate;
+    this.ticketType = tickType;
+    this.department = dep;
+    this.employee = emp;
+    this.comments = com;
+  }
+
+  /**
+   * No args constructor.
+   */
+  public Ticket() {
+
+  }
 }

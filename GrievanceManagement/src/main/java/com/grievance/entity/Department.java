@@ -26,21 +26,28 @@ public class Department {
   /**
    * Department name .
    */
-  @Column(name = "dep_name" , unique = true)
+  @Column(name = "dep_name", unique = true)
   private String depName;
 
   /**
    * Employee mapping.
    */
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY)
+  @OneToMany(cascade = CascadeType.ALL,
+      mappedBy = "department", fetch = FetchType.LAZY)
   @JsonManagedReference
   private List<Employee> employee;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY)
+  /**
+   * List of Ticket.
+   */
+  @OneToMany(cascade = CascadeType.ALL,
+      mappedBy = "department", fetch = FetchType.LAZY)
   @JsonManagedReference(value = "dep")
   private List<Ticket> ticket;
 
   /**
+   * getter for DepId.
+   *
    * @return the depId
    */
   public Integer getDepId() {
@@ -48,13 +55,17 @@ public class Department {
   }
 
   /**
-   * @param depId the depId to set
+   * setter for DepID.
+   *
+   * @param id the depId to set
    */
-  public void setDepId(Integer depId) {
-    this.depId = depId;
+  public void setDepId(final Integer id) {
+    this.depId = id;
   }
 
   /**
+   * Getter for depName.
+   *
    * @return the depName
    */
   public String getDepName() {
@@ -62,13 +73,17 @@ public class Department {
   }
 
   /**
-   * @param depName the depName to set
+   * setter for depName.
+   *
+   * @param name the depName to set
    */
-  public void setDepName(String depName) {
-    this.depName = depName;
+  public void setDepName(final String name) {
+    this.depName = name;
   }
 
   /**
+   * getter for employee.
+   *
    * @return the employee
    */
   public List<Employee> getEmployee() {
@@ -76,13 +91,17 @@ public class Department {
   }
 
   /**
-   * @param employee the employee to set
+   * setter for employee.
+   *
+   * @param emp the employee to set
    */
-  public void setEmployee(List<Employee> employee) {
-    this.employee = employee;
+  public void setEmployee(final List<Employee> emp) {
+    this.employee = emp;
   }
 
   /**
+   * getter for ticket.
+   *
    * @return the ticket
    */
   public List<Ticket> getTicket() {
@@ -90,25 +109,38 @@ public class Department {
   }
 
   /**
-   * @param ticket the ticket to set
+   * setter for set ticket.
+   *
+   * @param tick the ticket to set
    */
-  public void setTicket(List<Ticket> ticket) {
-    this.ticket = ticket;
+  public void setTicket(final List<Ticket> tick) {
+    this.ticket = tick;
   }
 
+  /**
+   * All args constructor.
+   *
+   * @param id of type Integer
+   * @param name of type String
+   * @param emp of type Employee
+   * @param tick of type Ticket
+   */
   public Department(
-    Integer depId,
-    String depName,
-    List<Employee> employee,
-    List<Ticket> ticket
+      final Integer id,
+      final String name,
+      final List<Employee> emp,
+      final List<Ticket> tick
   ) {
     super();
-    this.depId = depId;
-    this.depName = depName;
-    this.employee = employee;
-    this.ticket = ticket;
+    this.depId = id;
+    this.depName = name;
+    this.employee = emp;
+    this.ticket = tick;
   }
 
+  /**
+   * No Args constructor.
+   */
   public Department() {
     super();
   }

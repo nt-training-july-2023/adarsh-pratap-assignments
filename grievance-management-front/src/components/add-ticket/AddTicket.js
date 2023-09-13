@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import "../registration/UserRegistration.css"
 import { getAllDepartment } from '../../api/Department_API';
-import axios from 'axios';
-import Modal from '../utility/Model';
+import { addTicket } from '../../api/Ticket_API';
+
 
 function AddTicket() {
 
@@ -117,8 +117,8 @@ function AddTicket() {
     const handleSubmit=(e)=>{
       e.preventDefault();
       isValid();
-      if(valid.ticketType.isError && valid.ticketName.isError && valid.description.isError && valid.department.isError){
-      axios.post("http://localhost:8080/ticket/add" , ticket).then(resp=>{
+      if(!valid.ticketType.isError && !valid.ticketName.isError && !valid.description.isError && !valid.department.isError){
+      addTicket(ticket).then(resp=>{
         alert("Added successfully");
       }).catch(error=>{
         console.log(error);

@@ -1,13 +1,20 @@
 package com.grievance.dto;
 
-import com.grievance.entity.Department;
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * DepartmentInDto.
+ */
 public class DepartmentInDto {
+  /**
+   * depName.
+   */
   @NotEmpty(message = "Department name can not be empty")
   private String depName;
 
   /**
+   * Getter for DepName.
+   *
    * @return the depName
    */
   public String getDepName() {
@@ -15,22 +22,37 @@ public class DepartmentInDto {
   }
 
   /**
-   * @param depName the depName to set
+   *Setter for DepName.
+   *
+   * @param name the depName to set
    */
-  public void setDepName(String depName) {
-    this.depName = depName;
+  public void setDepName(final String name) {
+    this.depName = name;
   }
 
+  /**
+   * To string method.
+   */
   @Override
   public String toString() {
     return "DepartmentInDto [depName=" + depName + "]";
   }
 
+  /**
+   * No args constructor.
+   */
   public DepartmentInDto() {
-    
   }
 
-public DepartmentInDto(@NotEmpty(message="Department name can not be empty") String depName){super();this.depName=depName;}
-  
-  
+  /**
+  *All args COnstructor.
+  *
+  * @param name of type String
+  */
+  public DepartmentInDto(
+      final @NotEmpty(
+      message = "Department name can not be empty") String name) {
+    super();
+    this.depName = name;
+  }
 }

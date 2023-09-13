@@ -1,4 +1,4 @@
-.modal {
+.modal .overlay{
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -11,7 +11,7 @@
 }
 
 .modal .modal-content .header{
-    background-color: #1d2591;
+    background-color: #0a0c27;
     display: flex;
     justify-content: center;
     border-radius: 2px 2px 0px 0px;
@@ -83,7 +83,7 @@
 
 .modal .modal-content .submit-box input[type="submit"]{
     height: 34px;
-  background: #d43e25;
+  background: #0a0c27;
   color: #fff;
   font-weight: 500;
   cursor: pointer;
@@ -99,5 +99,9 @@
 }
 
 .modal .modal-content .submit-box input[type="submit"]:hover{
-    background: #1d2591;
+    background: #010103;
+}
+
+.modal .modal-content .details p{
+    color: red;
 }

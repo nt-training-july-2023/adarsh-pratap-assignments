@@ -86,5 +86,34 @@ public class TicketControllerTest {
       .andExpect(status().isCreated())
       .andDo(MockMvcResultHandlers.print());
   }
-  
+
+  @Test
+  public void givenTicket_whenUpdate_ReturnUpdateTicketOutDto() throws JsonProcessingException, Exception {
+//	  when(ticketService.updateTicket(1 , ticketDto))
+//      .thenReturn(ticketOutDto);
+	  
+	  mockMvc
+      .perform(
+        MockMvcRequestBuilders
+          .put("/ticket/update/1")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(ticketDto))
+      )
+      .andExpect(status().isOk())
+      .andDo(MockMvcResultHandlers.print());
+  }
+
+  @Test
+  public void listOfAllTickets() throws JsonProcessingException, Exception {
+
+	  mockMvc
+      .perform(
+        MockMvcRequestBuilders
+          .get("/ticket/getall/1")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(null))
+      )
+      .andExpect(status().isOk())
+      .andDo(MockMvcResultHandlers.print());
+  }
 }

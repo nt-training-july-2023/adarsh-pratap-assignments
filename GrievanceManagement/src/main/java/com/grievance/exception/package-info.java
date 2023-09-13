@@ -1,4 +1,4 @@
 /**
-* Exception. 
+* Exception.
 */
 package com.grievance.exception;

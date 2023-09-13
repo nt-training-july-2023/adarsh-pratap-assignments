@@ -18,6 +18,8 @@ import com.grievance.service.EmployeeService;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,5 +75,21 @@ public class DepartmentControllerTest {
       )
       .andExpect(status().isCreated())
       .andDo(MockMvcResultHandlers.print());
+  }
+  
+  @Test
+  public void givenEmployee_whenGetAllEmployee_thenReturnListOfDepartment() throws JsonProcessingException, Exception {
+
+    when(this.departmentService.getAllDepartment()).thenReturn(null);
+
+    mockMvc
+    .perform(
+    MockMvcRequestBuilders
+    .get("/department/getall")
+    .contentType(MediaType.APPLICATION_JSON)
+    .content(objectMapper.writeValueAsString(null))
+    )
+    .andExpect(status().isOk())
+	.andDo(MockMvcResultHandlers.print());
   }
 }

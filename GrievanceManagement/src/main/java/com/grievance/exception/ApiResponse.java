@@ -4,11 +4,21 @@ package com.grievance.exception;
  * Api Response.
  */
 public class ApiResponse {
-  private String entity;
-
-  private String message;
 
   /**
+   * String to store Entity.
+   */
+  private String entity;
+
+  /**
+   * String to store the message.
+   */
+  private String message;
+
+
+/**
+   * Getter for entity.
+   *
    * @return the entity
    */
   public String getEntity() {
@@ -16,13 +26,17 @@ public class ApiResponse {
   }
 
   /**
-   * @param entity the entity to set
+   * Setter for entity.
+   *
+   * @param e the entity to set
    */
-  public void setEntity(String entity) {
-    this.entity = entity;
+  public void setEntity(final String e) {
+    this.entity = e;
   }
 
   /**
+   * getter for message.
+   *
    * @return the message
    */
   public String getMessage() {
@@ -30,9 +44,11 @@ public class ApiResponse {
   }
 
   /**
-   * @param message the message to set
+   * Setter for message.
+   *
+   * @param m the message to set
    */
-  public void setMessage(String message) {
-    this.message = message;
+  public void setMessage(final String m) {
+    this.message = m;
   }
 }
