@@ -1,5 +1,6 @@
 package com.grievance.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Ticket;
 import java.util.List;
@@ -22,11 +23,13 @@ public class DepartmentOutDto {
   /**
    * employee.
    */
-  private List<Employee> employee;
+  @JsonManagedReference
+  private List<EmployeeOutDto> employee;
 
   /**
    * ticket.
    */
+  @JsonManagedReference(value = "dep")
   private List<Ticket> ticket;
 
   /**
@@ -70,7 +73,7 @@ public class DepartmentOutDto {
    *
    * @return the employee
    */
-  public List<Employee> getEmployee() {
+  public List<EmployeeOutDto> getEmployee() {
     return employee;
   }
 
@@ -79,7 +82,7 @@ public class DepartmentOutDto {
    *
    * @param emp the employee to set
    */
-  public void setEmployee(final List<Employee> emp) {
+  public void setEmployee(final List<EmployeeOutDto> emp) {
     this.employee = emp;
   }
 
@@ -112,7 +115,7 @@ public class DepartmentOutDto {
   public DepartmentOutDto(
       final Integer id,
       final @NotEmpty(message = "Department is a required field") String name,
-      final List<Employee> emp,
+      final List<EmployeeOutDto> emp,
       final List<Ticket> tick
   ) {
     super();

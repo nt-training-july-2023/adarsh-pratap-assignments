@@ -19,7 +19,7 @@ import com.grievance.entity.Role;
 import com.grievance.repo.EmployeeRepo;
 
 @Component
-public class SecurityFilterAdmin implements Filter {
+public class SecurityFilter implements Filter {
 	
   @Autowired
   private EmployeeRepo employeeRepo;
@@ -28,11 +28,11 @@ public class SecurityFilterAdmin implements Filter {
   private static List<String> userUrls = new ArrayList<String>();
   
   static {
-	  adminUrls.add("/department/add");
+	  adminUrls.add("/department/getall");
 	  userUrls.add("/employee/login");
   }
 
-  public SecurityFilterAdmin(EmployeeRepo employeeRepo2){
+  public SecurityFilter(EmployeeRepo employeeRepo2){
 	  this.employeeRepo = employeeRepo2;// TODO Auto-generated constructor stub}
   }
 

@@ -67,7 +67,7 @@ public class TicketServiceTest {
 
     ticket = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , dep , emp , null);
     ticketDto = new TicketDto("Laptop problem" , "Having issues" , TicketStatus.OPEN , TicketType.GRIEVANCE , dep , emp);
-    ticketOutDto = new TicketOutDto(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , dep , emp , null);
+    ticketOutDto = new TicketOutDto(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , null , null , null);
   }
   
   @DisplayName("JUnit test for Save Ticket method Returns Ticket")
@@ -84,7 +84,7 @@ public class TicketServiceTest {
   @Test
   public void getAllTickets_forAdmin() {
 	List<Ticket> list = new ArrayList<Ticket>();
-	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN, true , null , list);
+	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN, true , null , null);
 
 	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
 	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);
@@ -96,7 +96,7 @@ public class TicketServiceTest {
   @Test
   public void getAllTickets_forUser() {
 	List<Ticket> list = new ArrayList<Ticket>();
-	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_USER, true , null , list);
+	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_USER, true , null , null);
 
 	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
 	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);

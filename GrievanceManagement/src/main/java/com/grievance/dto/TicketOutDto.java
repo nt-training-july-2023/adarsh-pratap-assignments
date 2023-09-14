@@ -1,8 +1,7 @@
 package com.grievance.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.grievance.entity.Comment;
-import com.grievance.entity.Department;
-import com.grievance.entity.Employee;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
 import java.util.Date;
@@ -52,12 +51,14 @@ public class TicketOutDto {
   /**
    * department.
    */
-  private Department department;
+  @JsonBackReference(value = "dep")
+  private DepartmentOutDto department;
 
   /**
    * employee.
    */
-  private Employee employee;
+  @JsonBackReference(value = "emp")
+  private EmployeeOutDto employee;
 
   /**
    * comments.
@@ -195,7 +196,7 @@ public class TicketOutDto {
   *
   * @return the department
   */
-  public Department getDepartment() {
+  public DepartmentOutDto getDepartment() {
     return department;
   }
 
@@ -204,7 +205,7 @@ public class TicketOutDto {
   *
   * @param dep the department to set
   */
-  public void setDepartment(final Department dep) {
+  public void setDepartment(final DepartmentOutDto dep) {
     this.department = dep;
   }
 
@@ -213,7 +214,7 @@ public class TicketOutDto {
   *
   * @return the employee
   */
-  public Employee getEmployee() {
+  public EmployeeOutDto getEmployee() {
     return employee;
   }
 
@@ -222,7 +223,7 @@ public class TicketOutDto {
   *
   * @param emp the employee to set
   */
-  public void setEmployee(final Employee emp) {
+  public void setEmployee(final EmployeeOutDto emp) {
     this.employee = emp;
   }
 
@@ -255,15 +256,15 @@ public class TicketOutDto {
   * @param lastUpdate Date
   * @param type TicketTYpe
   * @param dep Department
-  * @param emp Employee
+  * @param emp EmployeeOutDto
   * @param comm Comments
   */
   public TicketOutDto(
       final Integer id, final String name,
       final String des, final TicketStatus stat,
       final Date createDate, final Date lastUpdate,
-      final TicketType type, final Department dep,
-      final Employee emp, final List<Comment> comm) {
+      final TicketType type, final DepartmentOutDto dep,
+      final EmployeeOutDto emp, final List<Comment> comm) {
     super();
     this.ticketId = id;
     this.ticketName = name;

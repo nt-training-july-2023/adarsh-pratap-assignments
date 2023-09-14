@@ -2,6 +2,8 @@ package com.grievance.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
 import com.grievance.entity.Ticket;
@@ -38,12 +40,14 @@ public class EmployeeOutDto {
   /**
    * Department of employee .
    */
-  private Department department;
+  @JsonBackReference
+  private DepartmentOutDto department;
 
   /**
-   * Tickets.
+   * Tickets Out Dto.
    */
-  private List<Ticket> ticket;
+  @JsonManagedReference(value = "emp")
+  private List<TicketOutDto> ticket;
 
   /**
    * getter for empId.
@@ -140,7 +144,7 @@ public class EmployeeOutDto {
    *
    * @return the department
    */
-  public Department getDepartment() {
+  public DepartmentOutDto getDepartment() {
     return department;
   }
 
@@ -149,7 +153,7 @@ public class EmployeeOutDto {
    *
    * @param dep the department to set
    */
-  public void setDepartment(final Department dep) {
+  public void setDepartment(final DepartmentOutDto dep) {
     this.department = dep;
   }
 
@@ -158,7 +162,7 @@ public class EmployeeOutDto {
    *
    * @return the List
    */
-  public List<Ticket> getTicket() {
+  public List<TicketOutDto> getTicket() {
     return ticket;
   }
 
@@ -167,7 +171,7 @@ public class EmployeeOutDto {
    *
    * @param tick List
    */
-  public void setTicket(final List<Ticket> tick) {
+  public void setTicket(final List<TicketOutDto> tick) {
     this.ticket = tick;
   }
 
@@ -188,8 +192,8 @@ public class EmployeeOutDto {
       final String em,
       final Role ro,
       final Boolean isFirst,
-      final Department dep,
-      final List<Ticket> tick
+      final DepartmentOutDto dep,
+      final List<TicketOutDto> tick
   ) {
     super();
     this.empId = id;

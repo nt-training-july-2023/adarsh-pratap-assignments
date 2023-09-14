@@ -1,5 +1,6 @@
 package com.grievance.service;
 
+import com.grievance.dto.DepartmentOutDto;
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesDto;
 import com.grievance.dto.TicketDto;
@@ -101,9 +102,10 @@ public class TicketService {
       return result;
     }
 
-    List<Ticket> ticket = emp.getTicket();
-    ticket.addAll(this.ticketRepo.findByDepartment(emp.getDepartment()));
-    for (Ticket temp : ticket) {
+    DepartmentOutDto dep = emp.getDepartment();
+    List<TicketOutDto> ticket = emp.getTicket();
+    List<Ticket> tic = this.ticketRepo.findByDepartment(this.mapper.map(dep, Department.class));
+    for (Ticket temp : tic) {
       result.add(this.mapper.map(temp, TicketOutDto.class));
     }
     return result;

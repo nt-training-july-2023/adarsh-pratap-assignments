@@ -25,11 +25,11 @@ public class FilterConfiguration {
    * @return
    */
   @Bean
-  public FilterRegistrationBean<SecurityFilterAdmin> registrationBeanAdmin() {
+  public FilterRegistrationBean<SecurityFilter> registrationBeanAdmin() {
 	
-    FilterRegistrationBean<SecurityFilterAdmin> registrationBean 
-        = new FilterRegistrationBean<SecurityFilterAdmin>();
-    registrationBean.setFilter(new SecurityFilterAdmin(employeeRepo));
+    FilterRegistrationBean<SecurityFilter> registrationBean 
+        = new FilterRegistrationBean<SecurityFilter>();
+    registrationBean.setFilter(new SecurityFilter(employeeRepo));
     registrationBean.addUrlPatterns("/*");
     return registrationBean;
   }
