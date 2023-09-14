@@ -102,7 +102,7 @@ public class TicketService {
     }
 
     List<Ticket> ticket = emp.getTicket();
-	
+    ticket.addAll(this.ticketRepo.findByDepartment(emp.getDepartment()));
     for (Ticket temp : ticket) {
       result.add(this.mapper.map(temp, TicketOutDto.class));
     }
