@@ -1,0 +1,32 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+  }
+  
+  td, th {
+    border: 2px solid #f0ebeb;
+    text-align: center;
+    padding: 8px;
+
+  }
+
+  .department-table{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .department-table th{
+    background-color: black;
+    color: #dddddd;
+    margin: 5px;
+  }
+
+  .department-table td{
+    font-size: 1rem;
+  }
