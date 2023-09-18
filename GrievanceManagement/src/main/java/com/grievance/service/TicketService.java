@@ -2,16 +2,19 @@ package com.grievance.service;
 
 import com.grievance.dto.DepartmentOutDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
 import com.grievance.dto.TicketDto;
 import com.grievance.dto.TicketOutDto;
+import com.grievance.dto.TicketOutDtoWithComments;
+import com.grievance.dto.UpdateTicketInDto;
+import com.grievance.entity.Comment;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
 import com.grievance.entity.Ticket;
+import com.grievance.entity.TicketStatus;
+import com.grievance.entity.TicketType;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.TicketRepo;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -26,10 +29,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TicketService {
-
   /**
-  * Ticket Repository.
-  */
+   * Ticket Repository.
+   */
   @Autowired
   private TicketRepo ticketRepo;
 
@@ -55,13 +57,13 @@ public class TicketService {
   public TicketOutDto addTicket(final TicketDto ticketDto) {
     Ticket ticket = this.mapper.map(ticketDto, Ticket.class);
 
-    Date in = new Date();
-    LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(),
-         ZoneId.systemDefault());
-    Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    //    Date in = new Date();
+    //    LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(),
+    //         ZoneId.systemDefault());
+    //    Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
-    ticket.setCreationDate(out);
-    ticket.setLastUpdateDate(out);
+    ticket.setCreationDate(getCurrentDateTime());
+    ticket.setLastUpdateDate(getCurrentDateTime());
 
     Ticket savedTicket = this.ticketRepo.save(ticket);
 
@@ -89,27 +91,36 @@ public class TicketService {
    *
    * @return TicketOutDto
    */
-  public List<TicketOutDto> findAll(final Integer id) {
+  public List<TicketOutDto> findAll(final Integer id, String type) {
     List<TicketOutDto> result = new ArrayList<TicketOutDto>();
 
+    List<Ticket> ticket = null;
     EmployeeOutDto emp = this.employeeService.getById(id);
     if (emp.getRole() == Role.ROLE_ADMIN) {
-      List<Ticket> ticket = this.ticketRepo.findAll();
 
-      for (Ticket temp : ticket) {
-        result.add(this.mapper.map(temp, TicketOutDto.class));
+      if (type.equals("department")) {
+        ticket = this.ticketRepo.findByStatus();
+      } else {
+    	TicketStatus[] status = {TicketStatus.OPEN,TicketStatus.BEING_ADDRESSED,TicketStatus.RESOLVED};
+        Employee employee = this.mapper.map(emp, Employee.class);
+        ticket = this.ticketRepo.findByStatusInAndEmployee(status, employee);
+        
       }
-      return result;
+    } else {
+      TicketStatus[] status = {TicketStatus.OPEN,TicketStatus.BEING_ADDRESSED,TicketStatus.RESOLVED};
+      if (type.equals("department")) {
+        DepartmentOutDto dep = emp.getDepartment();
+        ticket = this.ticketRepo.findByDepartmentAndStatus(
+              this.mapper.map(dep, Department.class), status);
+      } else {
+    	  Employee employee = this.mapper.map(emp, Employee.class);
+    	  ticket = this.ticketRepo.findByStatusInAndEmployee(status, employee);
+      }
     }
-
-    DepartmentOutDto dep = emp.getDepartment();
-    List<TicketOutDto> ticket = emp.getTicket();
-    List<Ticket> tic = this.ticketRepo.findByDepartment(this.mapper.map(dep, Department.class));
-    for (Ticket temp : tic) {
+    for (Ticket temp : ticket) {
       result.add(this.mapper.map(temp, TicketOutDto.class));
     }
     return result;
-
   }
 
   /**
@@ -119,20 +130,49 @@ public class TicketService {
    * @param ticketDto TicketDto
    * @return TicketOutDto
    */
-  public TicketOutDto updateTicket(
-      final Integer id, final TicketDto ticketDto) {
+  public TicketOutDto updateTicket(final Integer id, final UpdateTicketInDto ticketDto) {
     Ticket ticket =
         this.ticketRepo.findById(id)
-        .orElseThrow(() ->
-        new ResourceNotFound("Ticket", "Ticket Not found"));
+        .orElseThrow(() -> new ResourceNotFound("Ticket", "Ticket Not found"));
 
-    ticket.setDepartment(ticketDto.getDepartment());
-    ticket.setDescription(ticketDto.getDescription());
-    ticket.setTicketName(ticketDto.getTicketName());
-    ticket.setTicketType(ticketDto.getTicketType());
+    if (ticketDto.getComment() != null && !ticketDto.getComment().isEmpty()) {
+      Comment comment = new Comment();
+      comment.setContent(ticketDto.getComment());
+      comment.setCreationTime(getCurrentDateTime());
+      comment.setEmpName(ticket.getEmployee().getUserName());
+      comment.setTicket(ticket);
+
+      List<Comment> comments = ticket.getComments();
+      comments.add(comment);
+
+      ticket.setComments(comments);
+    }
     ticket.setStatus(ticketDto.getStatus());
-    ticket.setEmployee(ticketDto.getEmployee());
-
+    ticket.setLastUpdateDate(getCurrentDateTime());
     return this.mapper.map(this.ticketRepo.save(ticket), TicketOutDto.class);
+  }
+
+  /**
+   * Get current Date and time.
+   *
+   * @return Date.
+   */
+  public Date getCurrentDateTime() {
+    Date in = new Date();
+    LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
+    Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+    return out;
+  }
+
+  /**
+   * Get ticket By Id.
+   *
+   * @param id Integer
+   * @return TicketOutDtoWithComments
+   */
+  public TicketOutDtoWithComments ticketById(Integer id) {
+    Ticket ticket = this.ticketRepo.findById(id)
+        .orElseThrow(() -> new ResourceNotFound("Ticket", "Ticket not found"));
+    return this.mapper.map(ticket, TicketOutDtoWithComments.class);
   }
 }

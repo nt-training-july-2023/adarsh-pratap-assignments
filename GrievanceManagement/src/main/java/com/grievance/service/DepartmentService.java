@@ -80,4 +80,18 @@ public class DepartmentService {
 
     return departmentOutDtos;
   }
+
+  /**
+   * Delete Department By ID.
+   *
+   * @param id Integer
+   * @return String
+   */
+  public String deleteById(Integer id) {
+    Department dep = this.departmentRepo.findById(
+        id).orElseThrow(() -> new ResourceNotFound(
+        "Department", "Not Found"));
+    this.departmentRepo.deleteById(id);
+    return dep.getDepName() + " Department Deleted Successfully";
+  }
 }

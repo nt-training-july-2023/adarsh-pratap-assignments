@@ -1,5 +1,6 @@
 package com.grievance.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Ticket;
@@ -23,14 +24,14 @@ public class DepartmentOutDto {
   /**
    * employee.
    */
-  @JsonManagedReference
+  @JsonIgnore
   private List<EmployeeOutDto> employee;
 
   /**
    * ticket.
    */
-  @JsonManagedReference(value = "dep")
-  private List<Ticket> ticket;
+  @JsonIgnore
+  private List<TicketOutDto> ticket;
 
   /**
    * getter for depId.
@@ -91,7 +92,7 @@ public class DepartmentOutDto {
    *
    * @return the ticket
    */
-  public List<Ticket> getTicket() {
+  public List<TicketOutDto> getTicket() {
     return ticket;
   }
 
@@ -100,7 +101,7 @@ public class DepartmentOutDto {
    *
    * @param tick the ticket to set
    */
-  public void setTicket(final List<Ticket> tick) {
+  public void setTicket(final List<TicketOutDto> tick) {
     this.ticket = tick;
   }
 
@@ -116,7 +117,7 @@ public class DepartmentOutDto {
       final Integer id,
       final @NotEmpty(message = "Department is a required field") String name,
       final List<EmployeeOutDto> emp,
-      final List<Ticket> tick
+      final List<TicketOutDto> tick
   ) {
     super();
     this.depId = id;

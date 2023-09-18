@@ -1,8 +1,8 @@
 import React from 'react'
 import "./Department.css"
 import { useEffect } from 'react';
-import { getAllDepartment } from '../api/Department_API';
 import { useState } from 'react';
+import axios from 'axios';
 
 
 
@@ -11,25 +11,31 @@ function Department() {
     const [dep , setDep] = useState([]);
 
     useEffect(()=>{
-        getAllDepartment().then(resp=>{
+        axios.get(`http://localhost:8080/ticket/getall/${1}/${"hr"}`).then(resp=>{
             setDep(resp.data);
-            console.log(dep)
+            
         })
     },[])
   return (
     <div className='department-table'>
     <table>
   <tr>
-    <th>S.No.</th>
-    <th>Department</th>
+    <th>Ticket Id</th>
+    <th>Ticket Type</th>
+    <th>Status</th>
+    <th>Ticket Title</th>
+    <th>Last Update</th>
     <th>Actions</th>
   </tr>
 
   {dep.map(d=>{
        return (
             <tr>
-                <td>{d.depId}</td>
-                <td>{d.depName}</td>
+                <td>{d.ticketId}</td>
+                <td>{d.ticketType}</td>
+                <td>{d.status}</td>
+                <td>{d.ticketName}</td>
+                <td>{d.lastUpdateDate}</td>
                 <td>
                     <button>
                         Delete

@@ -1,7 +1,8 @@
 package com.grievance.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.grievance.entity.Comment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
 import java.util.Date;
@@ -63,7 +64,9 @@ public class TicketOutDto {
   /**
    * comments.
    */
-  private List<Comment> comments;
+  @JsonIgnore
+//  @JsonManagedReference(value = "comm")
+  private List<CommentsDto> comments;
 
   /**
    * Ticket id getter.
@@ -232,7 +235,7 @@ public class TicketOutDto {
   *
   * @return the comments
   */
-  public List<Comment> getComments() {
+  public List<CommentsDto> getComments() {
     return comments;
   }
 
@@ -241,7 +244,7 @@ public class TicketOutDto {
   *
   * @param comm the comments to set
   */
-  public void setComments(final List<Comment> comm) {
+  public void setComments(final List<CommentsDto> comm) {
     this.comments = comm;
   }
 
@@ -264,7 +267,7 @@ public class TicketOutDto {
       final String des, final TicketStatus stat,
       final Date createDate, final Date lastUpdate,
       final TicketType type, final DepartmentOutDto dep,
-      final EmployeeOutDto emp, final List<Comment> comm) {
+      final EmployeeOutDto emp, final List<CommentsDto> comm) {
     super();
     this.ticketId = id;
     this.ticketName = name;

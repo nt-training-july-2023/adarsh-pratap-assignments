@@ -3,6 +3,7 @@ package com.grievance.dto;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
@@ -40,13 +41,13 @@ public class EmployeeOutDto {
   /**
    * Department of employee .
    */
-  @JsonBackReference
+  @JsonIgnore
   private DepartmentOutDto department;
 
   /**
    * Tickets Out Dto.
    */
-  @JsonManagedReference(value = "emp")
+  @JsonIgnore
   private List<TicketOutDto> ticket;
 
   /**

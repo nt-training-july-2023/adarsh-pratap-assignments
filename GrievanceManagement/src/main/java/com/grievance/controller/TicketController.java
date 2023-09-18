@@ -1,9 +1,10 @@
 package com.grievance.controller;
 
-import javax.validation.Valid;
-
 import com.grievance.dto.TicketDto;
+import com.grievance.dto.TicketOutDtoWithComments;
+import com.grievance.dto.UpdateTicketInDto;
 import com.grievance.service.TicketService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -54,10 +54,12 @@ public class TicketController {
    *
    * @return ResponseEntity
    */
-  @GetMapping("/getall/{id}")
-  public ResponseEntity<?> getAllTickets(final @PathVariable Integer id) {
+  @GetMapping("/getall/{id}/{type}")
+  public ResponseEntity<?> getAllTickets(
+      final @PathVariable(name = "type") String type,
+      @PathVariable(name = "id") Integer id) {
     return new ResponseEntity<>(
-      this.ticketService.findAll(id),
+      this.ticketService.findAll(id, type),
       HttpStatus.OK);
   }
 
@@ -72,8 +74,21 @@ public class TicketController {
   @PutMapping("/update/{id}")
   public ResponseEntity<?> updateTicket(
       final @PathVariable(name = "id") Integer id,
-      final @RequestBody TicketDto ticket) {
+      final @RequestBody UpdateTicketInDto ticket) {
     return new ResponseEntity<>(
     this.ticketService.updateTicket(id, ticket), HttpStatus.OK);
+  }
+
+  /**
+   * Get Ticket By Id.
+   *
+   * @param id Integer
+   * @return Response Entity
+   */
+  @GetMapping("/get/{id}")
+  public ResponseEntity<?> getTicketById(
+      @PathVariable(name = "id") Integer id) {
+    return new ResponseEntity<>(
+        this.ticketService.ticketById(id), HttpStatus.OK);
   }
 }

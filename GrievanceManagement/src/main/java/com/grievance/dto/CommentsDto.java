@@ -1,5 +1,6 @@
 package com.grievance.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.grievance.entity.Ticket;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ public class CommentsDto {
   /**
    * ticket.
    */
+  @JsonBackReference(value = "comm")
   private Ticket ticket;
 
   /**

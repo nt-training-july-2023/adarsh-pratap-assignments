@@ -113,6 +113,12 @@ public class EmployeeService implements EmployeeServiceInterface {
 
     ApiResponse apiResponse = new ApiResponse();
 
+    if(!employee.getPassword().equals(changePasswordDto.getOldPassword())) {
+    	apiResponse.setEntity("Employee");
+        apiResponse.setMessage(
+            "old password is incorrect!!");
+        return apiResponse;
+    }
     if (changePasswordDto.getNewPassword().equals(
         changePasswordDto.getOldPassword())) {
       apiResponse.setEntity("Employee");
