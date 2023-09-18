@@ -1,6 +1,7 @@
 package com.grievance.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.TicketStatus;
@@ -37,11 +38,13 @@ public class TicketOutDto {
   /**
    * creation date.
    */
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date creationDate;
 
   /**
    * last updation date.
    */
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   private Date lastUpdateDate;
 
   /**
