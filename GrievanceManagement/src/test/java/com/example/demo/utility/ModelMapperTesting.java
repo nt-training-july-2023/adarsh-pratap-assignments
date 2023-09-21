@@ -3,7 +3,7 @@ package com.example.demo.utility;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.grievance.dto.DepartmentInDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
@@ -21,7 +21,7 @@ public class ModelMapperTesting {
 
   private Employee employee;
 
-  private EmployeesDto employeeDto;
+  private EmployeesInDto employeeDto;
 
   @BeforeEach
   public void setup() {
@@ -32,19 +32,19 @@ public class ModelMapperTesting {
     
     Department dep = new Department(1 , "It" , null , null);
     employeeDto =
-      new EmployeesDto( "Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, dep );
+      new EmployeesInDto( "Adarsh", "adarsh@gmail.com", "adarsh", Role.ROLE_ADMIN, dep );
   }
 
   @Test
   public void givenEmployeeObject_whenMap_ReturnsEmployeeDto() {
-    System.out.println(this.mapper.map(employee, EmployeesDto.class));
+    System.out.println(this.mapper.map(employee, EmployeesInDto.class));
     //		Assertions.assertEquals(this.modelMapper.map(employee , EmployeesDto.class),employeeDto);
     assertEquals(
-      this.mapper.map(employee, EmployeesDto.class).getUserName(),
+      this.mapper.map(employee, EmployeesInDto.class).getUserName(),
       employeeDto.getUserName()
     );
     assertEquals(
-      this.mapper.map(employee, EmployeesDto.class).getPassword(),
+      this.mapper.map(employee, EmployeesInDto.class).getPassword(),
       employeeDto.getPassword()
     );
   }

@@ -11,7 +11,7 @@ import com.grievance.dto.ChangePasswordDto;
 import com.grievance.dto.DepartmentInDto;
 import com.grievance.dto.DepartmentOutDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
@@ -36,7 +36,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  */
 @ExtendWith(MockitoExtension.class)
 public class EmployeeControllerTest {
-  private EmployeesDto employeesDto;
+  private EmployeesInDto employeesInDto;
 
   private EmployeeOutDto employeeOutDto;
 
@@ -60,8 +60,8 @@ public class EmployeeControllerTest {
     objectMapper = new ObjectMapper();
     Department dep = new Department(1, "IT", null, null);
 
-    employeesDto =
-        new EmployeesDto("Adarsh", "adarsh@nucleusteq.com", "adarsh", Role.ROLE_ADMIN, dep);
+    employeesInDto =
+        new EmployeesInDto("Adarsh", "adarsh@nucleusteq.com", "adarsh", Role.ROLE_ADMIN, dep);
 
     employeeOutDto =
         new EmployeeOutDto(1, "Adarsh", "adarsh@nucleusteq.com", Role.ROLE_ADMIN, true, null, null);
@@ -104,7 +104,7 @@ public class EmployeeControllerTest {
   @Test
   public void givenEmployees_whenSaveEmployees_thenReturnReponseEntity()
       throws JsonProcessingException, Exception {
-    when(employeeService.saveEmployee(Mockito.any(EmployeesDto.class)))
+    when(employeeService.saveEmployee(Mockito.any(EmployeesInDto.class)))
         .thenReturn(employeeOutDto);
 
     mockMvc
@@ -112,7 +112,7 @@ public class EmployeeControllerTest {
         MockMvcRequestBuilders
           .post("/employee/add")
           .contentType(MediaType.APPLICATION_JSON)
-          .content(objectMapper.writeValueAsString(employeesDto))
+          .content(objectMapper.writeValueAsString(employeesInDto))
       )
       .andExpect(status().isCreated())
         .andDo(MockMvcResultHandlers.print());

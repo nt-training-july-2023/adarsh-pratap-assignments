@@ -92,10 +92,10 @@ public class Employee {
   /**
    *Set employee.
    *
-   * @param id of type integer.
+   * @param newEmpId of type integer.
    */
-  public void setEmpId(final Integer id) {
-    this.empId = id;
+  public void setEmpId(final Integer newEmpId) {
+    this.empId = newEmpId;
   }
 
   /**
@@ -110,10 +110,10 @@ public class Employee {
   /**
   * Setter of password.
   *
-  * @param name of String.
+  * @param newName of String.
   */
-  public void setUserName(final String name) {
-    this.userName = name;
+  public void setUserName(final String newName) {
+    this.userName = newName;
   }
 
   /**
@@ -128,10 +128,10 @@ public class Employee {
   /**
    * Setter of email.
    *
-   * @param em of type String.
+   * @param newEmail of type String.
    */
-  public void setEmail(final String em) {
-    this.email = em;
+  public void setEmail(final String newEmail) {
+    this.email = newEmail;
   }
 
   /**
@@ -146,10 +146,10 @@ public class Employee {
   /**
    * Setter for password .
    *
-   * @param pass of type string
+   * @param newPassword of type string
    */
-  public void setPassword(final String pass) {
-    this.password = pass;
+  public void setPassword(final String newPassword) {
+    this.password = newPassword;
   }
 
   /**
@@ -164,10 +164,10 @@ public class Employee {
   /**
    * Setter for Role .
    *
-   * @param ro of type Role
+   * @param newRole of type Role
    */
-  public void setRole(final Role ro) {
-    this.role = ro;
+  public void setRole(final Role newRole) {
+    this.role = newRole;
   }
 
   /**
@@ -182,10 +182,10 @@ public class Employee {
   /**
    * Setter for Department.
    *
-   * @param dep of type string
+   * @param newDepartment of type string
    */
-  public void setDepartment(final Department dep) {
-    this.department = dep;
+  public void setDepartment(final Department newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -228,34 +228,34 @@ public class Employee {
   /**
    * Employee Constructor .
    *
-   * @param id Integer
+   * @param newEmpId Integer
    *
-   * @param name String
+   * @param newName String
    *
-   * @param em String
+   * @param newEmail String
    *
-   * @param pass String
+   * @param newPassword String
    *
-   * @param ro Role
+   * @param newRole Role
    *
-   * @param dep Department
+   * @param newDepartment Department
    *
    */
   public Employee(
-      final Integer id,
-      final String name,
-      final String em,
-      final String pass,
-      final Role ro,
-      final Department dep
+      final Integer newEmpId,
+      final String newName,
+      final String newEmail,
+      final String newPassword,
+      final Role newRole,
+      final Department newDepartment
   ) {
     super();
-    this.empId = id;
-    this.userName = name;
-    this.email = em;
-    this.password = pass;
-    this.role = ro;
-    this.department = dep;
+    this.empId = newEmpId;
+    this.userName = newName;
+    this.email = newEmail;
+    this.password = newPassword;
+    this.role = newRole;
+    this.department = newDepartment;
   }
 
   /**

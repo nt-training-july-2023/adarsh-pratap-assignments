@@ -3,36 +3,31 @@ import "../components/Department.css";
 import axios from "axios";
 import TableHeader from "../components/Table/TableHeader";
 import Content from "../components/Table/Content";
+import UpdateTicket from "./UpdateTicket";
+import { allTicket } from "../api/Ticket_API";
 
 function AllTickets() {
   const [ticket, setTicket] = useState([]);
-  const [selectedStatus , setSelectedStatus] = useState("ALL");
-  const [filteredTickets, setFilteredTickets] = useState([]);
+  const [selectedStatus , setSelectedStatus] = useState("all");
+  const [offset , setOffset] = useState(0);
+  const [filter , setFilter] = useState("all");
+
+  const [isUpdate , setUpdate] = useState(false);
+
+  const params={empid:19,ticket:filter,filter:selectedStatus,offset:offset};
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/ticket/getall/${1}/${"department"}`)
+      allTicket(params)
       .then((resp) => {
-        setFilteredTickets(resp.data);
+        if(resp.data.length === 0){
+          alert("No more data found")
+          setOffset((prev)=>prev-1);
+        }
         setTicket(resp.data);
       });
-  },[]);
+  },[offset, selectedStatus, filter]);
 
-  // FILTER BY STATUS
-  const handleSelectChange = (event) => {
-    const newSelectedStatus = event.target.value;
-    setSelectedStatus(newSelectedStatus);
-    if (newSelectedStatus === "ALL") {
-      setFilteredTickets(ticket);
-    } else {
-      setFilteredTickets(
-        ticket.filter((tick) => tick.status === newSelectedStatus)
-      );
-    }
-    console.log("FILTERED TICKETS BY " + newSelectedStatus);
-    console.log(filteredTickets);
-  };
-
+  
   const header = [
     "Ticket Id",
     "Ticket Type",
@@ -42,26 +37,49 @@ function AllTickets() {
     "Actions",
   ];
 
+  const handleStatusChange=(e)=>{
+    setOffset(0);
+    setSelectedStatus(e.target.value);
+  }
+
+  const handleFilterChange=(e)=>{
+    setOffset(0);
+    setFilter(e.target.value);
+  }
+
   return (
+    <>
+    {isUpdate && (<UpdateTicket setUpdate={setUpdate}/>)}
     <div className="department-table">
       <div>
         <h1>All Tickets</h1>
       </div>
       <div>
+      <div>
         <label>Status:</label>
 
-        <select name="status" defaultValue="ALL" value={selectedStatus} onChange={handleSelectChange}>
-          <option value="ALL">ALL TICKETS</option>
-          <option value="OPEN">OPEN</option>
-          <option value="BEING_ADDRESSED">BEING_ADDRESSED</option>
-          <option value="RESOLVED">RESOLVED</option>
+        <select name="status" defaultValue="all" value={selectedStatus} onChange={handleStatusChange}>
+          <option value="all">ALL TICKETS</option>
+          <option value="open">OPEN</option>
+          <option value="progress">BEING_ADDRESSED</option>
+          <option value="resolved">RESOLVED</option>
         </select>
       </div>
 
+      <div>
+        <label>Ticket:</label>
+
+        <select name="filter" defaultValue="all" value={filter} onChange={handleFilterChange}>
+          <option value="all">ALL TICKETS</option>
+          <option value="department">My Department</option>
+          <option value="my">My Tickets</option>
+        </select>
+      </div>
+      </div>
       <table>
         <TableHeader header={header} />
 
-        {filteredTickets.map((d) => {
+        {ticket.map((d) => {
           return (
             <tr>
               <Content data={d.ticketId} />
@@ -70,13 +88,18 @@ function AllTickets() {
               <Content data={d.ticketName} />
               <Content data={d.lastUpdateDate} />
               <td>
-                <button>View</button>
+                <button onClick={()=>{setUpdate(true)}}>View</button>
               </td>
             </tr>
           );
         })}
       </table>
+      <div>
+        <button disabled={offset===0} onClick={()=>{setOffset(offset-1)}}>previous</button>
+        <button disabled={ticket.length === 0} onClick={()=>{setOffset(offset+1)}}>Next</button>
+      </div>
     </div>
+    </>
   );
 }
 

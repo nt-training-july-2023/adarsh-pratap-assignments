@@ -62,10 +62,10 @@ public class EmployeeOutDto {
   /**
    * setter for empId.
    *
-   * @param id the empId to set
+   * @param newEmpId the empId to set
    */
-  public void setEmpId(final Integer id) {
-    this.empId = id;
+  public void setEmpId(final Integer newEmpId) {
+    this.empId = newEmpId;
   }
 
   /**
@@ -80,10 +80,10 @@ public class EmployeeOutDto {
   /**
    * Setter for userName.
    *
-   * @param name the userName to set
+   * @param newUserName the userName to set
    */
-  public void setUserName(final String name) {
-    this.userName = name;
+  public void setUserName(final String newUserName) {
+    this.userName = newUserName;
   }
 
   /**
@@ -98,10 +98,10 @@ public class EmployeeOutDto {
   /**
    * setter for email.
    *
-   * @param em the email to set
+   * @param newEmail the email to set
    */
-  public void setEmail(final String em) {
-    this.email = em;
+  public void setEmail(final String newEmail) {
+    this.email = newEmail;
   }
 
   /**
@@ -116,10 +116,10 @@ public class EmployeeOutDto {
   /**
    * setter for role.
    *
-   * @param ro the role to set
+   * @param newRole the role to set
    */
-  public void setRole(final Role ro) {
-    this.role = ro;
+  public void setRole(final Role newRole) {
+    this.role = newRole;
   }
 
   /**
@@ -134,10 +134,10 @@ public class EmployeeOutDto {
   /**
    * setter for isFirstLogin.
    *
-   * @param isFirst the isFirstLogin to set
+   * @param newIsFirstLogin the isFirstLogin to set
    */
-  public void setIsFirstLogin(final Boolean isFirst) {
-    this.isFirstLogin = isFirst;
+  public void setIsFirstLogin(final Boolean newIsFirstLogin) {
+    this.isFirstLogin = newIsFirstLogin;
   }
 
   /**
@@ -152,10 +152,10 @@ public class EmployeeOutDto {
   /**
    * setter for department.
    *
-   * @param dep the department to set
+   * @param newDepartment the department to set
    */
-  public void setDepartment(final DepartmentOutDto dep) {
-    this.department = dep;
+  public void setDepartment(final DepartmentOutDto newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -170,40 +170,40 @@ public class EmployeeOutDto {
   /**
    * Setter for userName.
    *
-   * @param tick List
+   * @param newTicket List
    */
-  public void setTicket(final List<TicketOutDto> tick) {
-    this.ticket = tick;
+  public void setTicket(final List<TicketOutDto> newTicket) {
+    this.ticket = newTicket;
   }
 
   /**
    * All args constructor.
    *
-   * @param id Integer.
-   * @param name String
-   * @param em String
-   * @param ro string
-   * @param isFirst boolean
-   * @param dep Department
-   * @param tick List
+   * @param newEmpId Integer.
+   * @param newUserName String
+   * @param newEmail String
+   * @param newRole string
+   * @param newIsFirstLogin boolean
+   * @param newDepartment Department
+   * @param newTicket List
    */
   public EmployeeOutDto(
-      final Integer id,
-      final String name,
-      final String em,
-      final Role ro,
-      final Boolean isFirst,
-      final DepartmentOutDto dep,
-      final List<TicketOutDto> tick
+      final Integer newEmpId,
+      final String newUserName,
+      final String newEmail,
+      final Role newRole,
+      final Boolean newIsFirstLogin,
+      final DepartmentOutDto newDepartment,
+      final List<TicketOutDto> newTicket
   ) {
     super();
-    this.empId = id;
-    this.userName = name;
-    this.email = em;
-    this.role = ro;
-    this.isFirstLogin = isFirst;
-    this.department = dep;
-    this.ticket = tick;
+    this.empId = newEmpId;
+    this.userName = newUserName;
+    this.email = newEmail;
+    this.role = newRole;
+    this.isFirstLogin = newIsFirstLogin;
+    this.department = newDepartment;
+    this.ticket = newTicket;
   }
 
   /**

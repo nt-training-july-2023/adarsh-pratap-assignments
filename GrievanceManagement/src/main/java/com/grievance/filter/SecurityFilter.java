@@ -77,8 +77,12 @@ public class SecurityFilter implements Filter {
     String password = httpServletRequest.getHeader("password");
     String currentUrl = httpServletRequest.getRequestURI();
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+    System.out.println(currentUrl + email+password);
+    if(currentUrl.equals("/employee/login")) {
+    	chain.doFilter(request, response);
+    }
 
-    if (httpServletRequest.getMethod().equals("OPTIONS")) {
+    else if (httpServletRequest.getMethod().equals("OPTIONS")) {
       httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
       httpServletResponse.setHeader(
            "Access-Control-Allow-Methods",

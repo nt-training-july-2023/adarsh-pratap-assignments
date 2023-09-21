@@ -5,17 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.entity.Role;
 
 public class EmployeeDto {
 	
-	private EmployeesDto employeeDto;
+	private EmployeesInDto employeeDto;
 	
 	@BeforeEach
 	  public void setup() {
 	    employeeDto =
-	      new EmployeesDto();
+	      new EmployeesInDto();
 	    employeeDto.setUserName("Adarsh");
 	    employeeDto.setEmail("adarsh@gmail.com");
 	    employeeDto.setPassword("adarsh");

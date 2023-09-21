@@ -8,7 +8,7 @@ import java.util.List;
 import com.grievance.dto.DepartmentInDto;
 import com.grievance.dto.DepartmentOutDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;

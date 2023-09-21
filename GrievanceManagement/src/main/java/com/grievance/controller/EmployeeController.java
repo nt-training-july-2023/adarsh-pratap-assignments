@@ -6,7 +6,7 @@ package com.grievance.controller;
 
 import com.grievance.dto.ChangePasswordDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.exception.ApiResponse;
 import com.grievance.service.EmployeeService;
@@ -46,7 +46,7 @@ public class EmployeeController {
    */
   @PostMapping("/add")
   public ResponseEntity<?> createEmployee(
-      @Valid final @RequestBody EmployeesDto empDto) {
+      @Valid final @RequestBody EmployeesInDto empDto) {
     return new ResponseEntity<>(
       this.employeeService.saveEmployee(empDto),
       HttpStatus.CREATED
@@ -81,7 +81,7 @@ public class EmployeeController {
   @PutMapping("/update/{id}")
   public ResponseEntity<?> updateEmployee(
       final @PathVariable(name = "id") Integer id,
-      final @RequestBody EmployeesDto employeeDto) {
+      final @RequestBody EmployeesInDto employeeDto) {
     return new ResponseEntity<>(
         this.employeeService.updateEmployee(id, employeeDto), HttpStatus.OK);
   }

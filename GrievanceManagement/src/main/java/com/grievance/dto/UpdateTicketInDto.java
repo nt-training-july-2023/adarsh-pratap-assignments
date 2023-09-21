@@ -29,10 +29,10 @@ public class UpdateTicketInDto {
   /**
   * Set Status.
   *
-  * @param status the status to set
+  * @param newStatus the status to set
   */
-  public void setStatus(TicketStatus status) {
-    this.status = status;
+  public void setStatus(final TicketStatus newStatus) {
+    this.status = newStatus;
   }
 
   /**
@@ -47,9 +47,9 @@ public class UpdateTicketInDto {
   /**
   * Set Comments.
   *
-  * @param com the comment to set
+  * @param newComment the comment to set
   */
-  public void setComment(String com) {
-    this.comment = com;
+  public void setComment(final String newComment) {
+    this.comment = newComment;
   }
 }

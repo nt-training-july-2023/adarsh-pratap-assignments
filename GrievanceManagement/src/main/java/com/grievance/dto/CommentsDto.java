@@ -46,10 +46,10 @@ public class CommentsDto {
   /**
    * setter for commentId.
    *
-   * @param id the commentId to set
+   * @param newCommentId the commentId to set
    */
-  public void setCommentId(final Integer id) {
-    this.commentId = id;
+  public void setCommentId(final Integer newCommentId) {
+    this.commentId = newCommentId;
   }
 
   /**
@@ -64,10 +64,10 @@ public class CommentsDto {
   /**
    * setter for content.
    *
-   * @param con the content to set
+   * @param newContent the content to set
    */
-  public void setContent(final String con) {
-    this.content = con;
+  public void setContent(final String newContent) {
+    this.content = newContent;
   }
 
   /**
@@ -82,10 +82,10 @@ public class CommentsDto {
   /**
    * Setter for creationTime.
    *
-   * @param createTime the creationTime to set
+   * @param newCreationTime the creationTime to set
    */
-  public void setCreationTime(final Date createTime) {
-    this.creationTime = createTime;
+  public void setCreationTime(final Date newCreationTime) {
+    this.creationTime = newCreationTime;
   }
 
   /**
@@ -100,10 +100,10 @@ public class CommentsDto {
   /**
    * setter for empName.
    *
-   * @param emp the empName to set
+   * @param newEmpName the empName to set
    */
-  public void setEmpName(final String emp) {
-    this.empName = emp;
+  public void setEmpName(final String newEmpName) {
+    this.empName = newEmpName;
   }
 
   /**
@@ -118,9 +118,9 @@ public class CommentsDto {
   /**
    * setter for ticket.
    *
-   * @param tick the ticket to set
+   * @param newTicket the ticket to set
    */
-  public void setTicket(final Ticket tick) {
-    this.ticket = tick;
+  public void setTicket(final Ticket newTicket) {
+    this.ticket = newTicket;
   }
 }

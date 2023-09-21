@@ -36,10 +36,10 @@ public class UserLogin {
   /**
    * Setter for username.
    *
-   * @param name of type String.
+   * @param newUserName of type String.
    */
-  public void setUserName(final String name) {
-    this.userName = name;
+  public void setUserName(final String newUserName) {
+    this.userName = newUserName;
   }
 
   /**
@@ -54,27 +54,27 @@ public class UserLogin {
   /**
    * Setter for password .
    *
-   * @param pass of type String.
+   * @param newPassword of type String.
    */
-  public void setPassword(final String pass) {
-    this.password = pass;
+  public void setPassword(final String newPassword) {
+    this.password = newPassword;
   }
 
   /**
    * constructor.
    *
-   * @param name String
+   * @param newUserName String
    *
-   * @param pass String
+   * @param newPassword String
    *
    */
   public UserLogin(
-      final @Email(message = "Should be of email type") String name,
-      final @NotEmpty(message = "password can not be empty") String pass
+      final @Email(message = "Should be of email type") String newUserName,
+      final @NotEmpty(message = "password can not be empty") String newPassword
   ) {
     super();
-    this.userName = name;
-    this.password = pass;
+    this.userName = newUserName;
+    this.password = newPassword;
   }
 
   /**

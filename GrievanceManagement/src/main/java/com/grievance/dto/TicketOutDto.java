@@ -38,13 +38,13 @@ public class TicketOutDto {
   /**
    * creation date.
    */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
   private Date creationDate;
 
   /**
    * last updation date.
    */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
   private Date lastUpdateDate;
 
   /**
@@ -68,7 +68,6 @@ public class TicketOutDto {
    * comments.
    */
   @JsonIgnore
-//  @JsonManagedReference(value = "comm")
   private List<CommentsDto> comments;
 
   /**
@@ -83,10 +82,10 @@ public class TicketOutDto {
   /**
    * Setter for ticket id.
    *
-  * @param id the ticketId to set
+  * @param newTicketId the ticketId to set
   */
-  public void setTicketId(final Integer id) {
-    this.ticketId = id;
+  public void setTicketId(final Integer newTicketId) {
+    this.ticketId = newTicketId;
   }
 
   /**
@@ -101,10 +100,10 @@ public class TicketOutDto {
   /**
    * setter for ticket name.
    *
-  * @param name the ticketName to set
+  * @param newTicketName the ticketName to set
   */
-  public void setTicketName(final String name) {
-    this.ticketName = name;
+  public void setTicketName(final String newTicketName) {
+    this.ticketName = newTicketName;
   }
 
   /**
@@ -119,10 +118,10 @@ public class TicketOutDto {
   /**
    * Setter for description.
    *
-  * @param des the description to set
+  * @param newDescription the description to set
   */
-  public void setDescription(final String des) {
-    this.description = des;
+  public void setDescription(final String newDescription) {
+    this.description = newDescription;
   }
 
   /**
@@ -137,10 +136,10 @@ public class TicketOutDto {
   /**
    * Setter for status.
    *
-  * @param stat the status to set
+  * @param newStatus the status to set
   */
-  public void setStatus(final TicketStatus stat) {
-    this.status = stat;
+  public void setStatus(final TicketStatus newStatus) {
+    this.status = newStatus;
   }
 
   /**
@@ -155,10 +154,10 @@ public class TicketOutDto {
   /**
   * setter for creation Date.
   *
-  * @param createDate the creationDate to set
+  * @param newCreationDate the creationDate to set
   */
-  public void setCreationDate(final Date createDate) {
-    this.creationDate = createDate;
+  public void setCreationDate(final Date newCreationDate) {
+    this.creationDate = newCreationDate;
   }
 
   /**
@@ -173,10 +172,10 @@ public class TicketOutDto {
   /**
   * setter for last update date.
   *
-  * @param lastUpdate the lastUpdateDate to set
+  * @param newLastUpdateDate the lastUpdateDate to set
   */
-  public void setLastUpdateDate(final Date lastUpdate) {
-    this.lastUpdateDate = lastUpdate;
+  public void setLastUpdateDate(final Date newLastUpdateDate) {
+    this.lastUpdateDate = newLastUpdateDate;
   }
 
   /**
@@ -191,10 +190,10 @@ public class TicketOutDto {
   /**
   * set TicketType.
   *
-  * @param type the ticketType to set
+  * @param newTicketType the ticketType to set
   */
-  public void setTicketType(final TicketType type) {
-    this.ticketType = type;
+  public void setTicketType(final TicketType newTicketType) {
+    this.ticketType = newTicketType;
   }
 
   /**
@@ -209,10 +208,10 @@ public class TicketOutDto {
   /**
   * setter the department.
   *
-  * @param dep the department to set
+  * @param newDepartment the department to set
   */
-  public void setDepartment(final DepartmentOutDto dep) {
-    this.department = dep;
+  public void setDepartment(final DepartmentOutDto newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -227,10 +226,10 @@ public class TicketOutDto {
   /**
   * Setting the employee.
   *
-  * @param emp the employee to set
+  * @param newEmployee the employee to set
   */
-  public void setEmployee(final EmployeeOutDto emp) {
-    this.employee = emp;
+  public void setEmployee(final EmployeeOutDto newEmployee) {
+    this.employee = newEmployee;
   }
 
   /**
@@ -245,43 +244,43 @@ public class TicketOutDto {
   /**
   * setter for comments.
   *
-  * @param comm the comments to set
+  * @param newComment the comments to set
   */
-  public void setComments(final List<CommentsDto> comm) {
-    this.comments = comm;
+  public void setComments(final List<CommentsDto> newComment) {
+    this.comments = newComment;
   }
 
   /**
   * All Args constructor.
   *
-  * @param id Integer
-  * @param name String
-  * @param des String
-  * @param stat TicketStatus
-  * @param createDate Date
-  * @param lastUpdate Date
-  * @param type TicketTYpe
-  * @param dep Department
-  * @param emp EmployeeOutDto
-  * @param comm Comments
+  * @param newTicketId Integer
+  * @param newTicketName String
+  * @param newDescription String
+  * @param newStatus TicketStatus
+  * @param newCreationDate Date
+  * @param newLastUpdateDate Date
+  * @param newTicketType TicketTYpe
+  * @param newDepartment Department
+  * @param newEmployee EmployeeOutDto
+  * @param newComment Comments
   */
   public TicketOutDto(
-      final Integer id, final String name,
-      final String des, final TicketStatus stat,
-      final Date createDate, final Date lastUpdate,
-      final TicketType type, final DepartmentOutDto dep,
-      final EmployeeOutDto emp, final List<CommentsDto> comm) {
+      final Integer newTicketId, final String newTicketName,
+      final String newDescription, final TicketStatus newStatus,
+      final Date newCreationDate, final Date newLastUpdateDate,
+      final TicketType newTicketType, final DepartmentOutDto newDepartment,
+      final EmployeeOutDto newEmployee, final List<CommentsDto> newComment) {
     super();
-    this.ticketId = id;
-    this.ticketName = name;
-    this.description = des;
-    this.status = stat;
-    this.creationDate = createDate;
-    this.lastUpdateDate = lastUpdate;
-    this.ticketType = type;
-    this.department = dep;
-    this.employee = emp;
-    this.comments = comm;
+    this.ticketId = newTicketId;
+    this.ticketName = newTicketName;
+    this.description = newDescription;
+    this.status = newStatus;
+    this.creationDate = newCreationDate;
+    this.lastUpdateDate = newLastUpdateDate;
+    this.ticketType = newTicketType;
+    this.department = newDepartment;
+    this.employee = newEmployee;
+    this.comments = newComment;
   }
 
   /**

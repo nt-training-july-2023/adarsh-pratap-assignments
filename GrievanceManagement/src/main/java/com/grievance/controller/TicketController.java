@@ -1,6 +1,6 @@
 package com.grievance.controller;
 
-import com.grievance.dto.TicketDto;
+import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDtoWithComments;
 import com.grievance.dto.UpdateTicketInDto;
 import com.grievance.service.TicketService;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -34,15 +35,15 @@ public class TicketController {
   /**
    * Create new ticket.
    *
-   * @param ticketDto TicketDto
+   * @param ticketInDto TicketDto
    *
    * @return ResponseEntity
    */
   @PostMapping("/add")
   public ResponseEntity<?> createTicket(
-      final @Valid @RequestBody TicketDto ticketDto) {
+      final @Valid @RequestBody TicketInDto ticketInDto) {
     return new ResponseEntity<>(
-      this.ticketService.addTicket(ticketDto),
+      this.ticketService.addTicket(ticketInDto),
       HttpStatus.CREATED
     );
   }
@@ -54,12 +55,15 @@ public class TicketController {
    *
    * @return ResponseEntity
    */
-  @GetMapping("/getall/{id}/{type}")
+  @GetMapping("/getall")
   public ResponseEntity<?> getAllTickets(
-      final @PathVariable(name = "type") String type,
-      @PathVariable(name = "id") Integer id) {
+      final @RequestParam Integer empid,
+      final @RequestParam String ticket,
+      final @RequestParam String filter,
+      final @RequestParam Integer offset) {
+	  System.out.println(empid+" "+ticket+" "+filter+" "+offset);
     return new ResponseEntity<>(
-      this.ticketService.findAll(id, type),
+      this.ticketService.findAll(empid, ticket, filter , offset),
       HttpStatus.OK);
   }
 

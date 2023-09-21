@@ -1,9 +1,11 @@
-import axios from "axios";
+import { headers } from "./Headers";
+import { getMapping, postMapping } from "./AllUrls";
 
 export const addTicket=(ticket)=>{
-    return axios.post("http://localhost:8080/ticket/add" , ticket);
+    return postMapping(`/ticket/add` , ticket , {headers:headers()});
 }
 
-// export const getTicket=(ticket)=>{
-//     return axios.post("http://localhost:8080/ticket/getall/{}/{}" );
-// }
+export const allTicket=(params)=>{
+    return getMapping(`/ticket/getall`,{params:params,headers:headers(),})
+}
+

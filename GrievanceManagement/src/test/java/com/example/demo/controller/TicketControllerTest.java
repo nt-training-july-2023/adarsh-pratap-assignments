@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grievance.controller.EmployeeController;
 import com.grievance.controller.TicketController;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
-import com.grievance.dto.TicketDto;
+import com.grievance.dto.EmployeesInDto;
+import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
@@ -39,7 +39,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @ExtendWith(MockitoExtension.class)
 public class TicketControllerTest {
-  private TicketDto ticketDto;
+  private TicketInDto ticketInDto;
 
   private TicketOutDto ticketOutDto;
 
@@ -66,14 +66,14 @@ public class TicketControllerTest {
     LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault());
     Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
-    ticketDto = new TicketDto("Laptop problem" , "Having issues" , TicketStatus.OPEN , TicketType.GRIEVANCE , dep , emp);
+    ticketInDto = new TicketInDto("Laptop problem" , "Having issues" , TicketStatus.OPEN , TicketType.GRIEVANCE , dep , emp);
     ticketOutDto = new TicketOutDto(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , null , null , null);
   }
   
   @Test
   public void givenTicket_WhenSave_ReturnTicket() throws JsonProcessingException, Exception {
 	  
-	  when(ticketService.addTicket(Mockito.any(TicketDto.class)))
+	  when(ticketService.addTicket(Mockito.any(TicketInDto.class)))
       .thenReturn(ticketOutDto);
 
     mockMvc
@@ -81,7 +81,7 @@ public class TicketControllerTest {
         MockMvcRequestBuilders
           .post("/ticket/add")
           .contentType(MediaType.APPLICATION_JSON)
-          .content(objectMapper.writeValueAsString(ticketDto))
+          .content(objectMapper.writeValueAsString(ticketInDto))
       )
       .andExpect(status().isCreated())
       .andDo(MockMvcResultHandlers.print());
@@ -97,7 +97,7 @@ public class TicketControllerTest {
         MockMvcRequestBuilders
           .put("/ticket/update/1")
           .contentType(MediaType.APPLICATION_JSON)
-          .content(objectMapper.writeValueAsString(ticketDto))
+          .content(objectMapper.writeValueAsString(ticketInDto))
       )
       .andExpect(status().isOk())
       .andDo(MockMvcResultHandlers.print());

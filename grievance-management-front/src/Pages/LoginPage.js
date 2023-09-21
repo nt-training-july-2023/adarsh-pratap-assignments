@@ -1,109 +1,119 @@
-import React, { useState } from 'react'
-import "../css/LoginPage.css"
-import { useNavigate } from 'react-router-dom';
-import { login } from '../api/Employee_API';
+import React, { useState } from "react";
+import "../css/LoginPage.css";
+import { useNavigate } from "react-router-dom";
+import { login } from "../api/Employee_API";
 function LoginPage(props) {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate(); 
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+  });
 
-    const [data , setData] = useState({
-        userName:'',
-        password:''
-      });
-    
-      const [valid , setValid] = useState({
-        userName:{
-            isError:false,
-            errorMessage:""
-        },
-        password:{
-            isError:false,
-            errorMessage:""
-        }
-      })
-    
-      const handleChange=(e)=>{
-        if(valid.userName.isError || valid.password.isError){
-            const temp = {...valid};
+  const [valid, setValid] = useState({
+    userName: {
+      isError: false,
+      errorMessage: "",
+    },
+    password: {
+      isError: false,
+      errorMessage: "",
+    },
+  });
 
-            temp.userName.isError = false;
-            temp.password.isError = false;
+  const handleChange = (e) => {
+    if (valid.userName.isError || valid.password.isError) {
+      const temp = { ...valid };
 
-            setValid(temp);
-        }
-        setData({
-            ...data , 
-            [e.target.name] : e.target.value
-        })
-      }
-      
-      const handleSubmit=(e)=>{
-        e.preventDefault();
-        validation();
-        if(!valid.userName.isError && !valid.password.isError){
-            login(data).then(res=>{
+      temp.userName.isError = false;
+      temp.password.isError = false;
 
-                localStorage.setItem("data", JSON.stringify(res?.data));
-                localStorage.setItem("password",btoa(data.password));
-                props.setUser(localStorage.getItem("data"));
-                
-                navigate("/allticket")
-            }).catch(error=>{
-                alert("Invalid User")
-        })
+      setValid(temp);
     }
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validation();
+    if (!valid.userName.isError && !valid.password.isError) {
+      login(user)
+        .then((res) => {
+          localStorage.setItem("user", JSON.stringify(res?.data));
+          localStorage.setItem("password", user.password);
+          props.setUser(JSON.parse(localStorage.getItem("user")));
+
+          navigate("/admin");
+        })
+        .catch((error) => {
+          alert("Invalid User");
+        });
+    }
+  };
+
+  const validation = () => {
+    const regex = /^[A-Za-z0-9._%+-]+@nucleusteq\.com$/;
+    if (!regex.test(user.userName)) {
+      const temp = { ...valid };
+
+      temp.userName.isError = true;
+      temp.userName.errorMessage = "Email ends with @nucleusteq.com";
+
+      setValid(temp);
     }
 
-        const validation=()=>{
-            const regex = /^[A-Za-z0-9._%+-]+@nucleusteq\.com$/;
-            if(!regex.test(data.userName)){
-                const temp = {...valid};
+    if (user.password.length < 5 || user.password.length > 15) {
+      const temp = { ...valid };
 
-                temp.userName.isError=true;
-                temp.userName.errorMessage="Email ends with @nucleusteq.com"
+      temp.password.isError = true;
+      temp.password.errorMessage = "length of password is between 5 to 15";
 
-                setValid(temp);
-            }
-
-            if(data.password.length < 5 || data.password.length > 15){
-                const temp = {...valid};
-
-                temp.password.isError=true;
-                temp.password.errorMessage="length of password is between 5 to 15"
-
-                setValid(temp);
-            } 
-        }
+      setValid(temp);
+    }
+  };
 
   return (
-    <div className='outer-div'>
-        <div className='image-box'>
-            <img src='./logo.png'/>
-        </div>
-        <div className="content-box">
-            <div className='form-box'>
-                <h2>
-                    Login!
-                </h2>
-                <form onSubmit={handleSubmit}>
-                    <div className='input-box'>
-                        <span>UserName</span>
-                        <input type = "email" name="userName" value={data.userName} onChange={handleChange} required/>
-                        {valid.userName.isError && (<p>{valid.userName.errorMessage}</p>)}
-                    </div>
-                    <div className='input-box'>
-                        <span>Password</span>
-                        <input type='password' name="password" value={data.password} onChange={handleChange} required/>
-                        {valid.password.isError && (<p>{valid.password.errorMessage}</p>)}
-                    </div>
-                    <div className='input-box'>
-                        <input type='submit' value='Sign in'  />
-                    </div>
-                </form>
+    <div className="outer-div">
+      <div className="image-box">
+        <img src="./logo.png" />
+      </div>
+      <div className="content-box">
+        <div className="form-box">
+          <h2>Login!</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="input-box">
+              <span>UserName</span>
+              <input
+                type="email"
+                name="userName"
+                value={user.userName}
+                onChange={handleChange}
+                required
+              />
+              {valid.userName.isError && <p>{valid.userName.errorMessage}</p>}
             </div>
+            <div className="input-box">
+              <span>Password</span>
+              <input
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
+                required
+              />
+              {valid.password.isError && <p>{valid.password.errorMessage}</p>}
+            </div>
+            <div className="input-box">
+              <input type="submit" value="Sign in" />
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

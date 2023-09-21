@@ -24,10 +24,10 @@ public class DepartmentInDto {
   /**
    *Setter for DepName.
    *
-   * @param name the depName to set
+   * @param newDepName the depName to set
    */
-  public void setDepName(final String name) {
-    this.depName = name;
+  public void setDepName(final String newDepName) {
+    this.depName = newDepName;
   }
 
   /**
@@ -47,12 +47,12 @@ public class DepartmentInDto {
   /**
   *All args COnstructor.
   *
-  * @param name of type String
+  * @param newDepName of type String
   */
   public DepartmentInDto(
       final @NotEmpty(
-      message = "Department name can not be empty") String name) {
+      message = "Department name can not be empty") String newDepName) {
     super();
-    this.depName = name;
+    this.depName = newDepName;
   }
 }

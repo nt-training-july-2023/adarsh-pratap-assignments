@@ -64,10 +64,10 @@ public class Comment {
   /**
    * setter  for commentId.
    *
-   * @param id the commentId to set
+   * @param newCommentId the commentId to set
    */
-  public void setCommentId(final Integer id) {
-    this.commentId = id;
+  public void setCommentId(final Integer newCommentId) {
+    this.commentId = newCommentId;
   }
 
   /**
@@ -82,10 +82,10 @@ public class Comment {
   /**
    * setter for content.
    *
-   * @param con the content to set
+   * @param newContent the content to set
    */
-  public void setContent(final String con) {
-    this.content = con;
+  public void setContent(final String newContent) {
+    this.content = newContent;
   }
 
   /**
@@ -118,10 +118,10 @@ public class Comment {
   /**
    * Setter for empName.
    *
-   * @param name the empName to set
+   * @param newEmpName the empName to set
    */
-  public void setEmpName(final String name) {
-    this.empName = name;
+  public void setEmpName(final String newEmpName) {
+    this.empName = newEmpName;
   }
 
   /**
@@ -136,34 +136,34 @@ public class Comment {
   /**
    * Setter for ticket.
    *
-   * @param tick the ticket to set
+   * @param newTicket the ticket to set
    */
-  public void setTicket(final Ticket tick) {
-    this.ticket = tick;
+  public void setTicket(final Ticket newTicket) {
+    this.ticket = newTicket;
   }
 
   /**
    * All args constructor.
    *
-   * @param id type Interger
-   * @param con type String
-   * @param createDate type Date
-   * @param name type String
-   * @param tick type Ticket
+   * @param newCommentId type Interger
+   * @param newContent type String
+   * @param newCreationTime type Date
+   * @param newEmpName type String
+   * @param newTicket type Ticket
    */
   public Comment(
-      final Integer id,
-      final String con,
-      final Date createDate,
-      final String name,
-      final Ticket tick
+      final Integer newCommentId,
+      final String newContent,
+      final Date newCreationTime,
+      final String newEmpName,
+      final Ticket newTicket
   ) {
     super();
-    this.commentId = id;
-    this.content = con;
-    this.creationTime = createDate;
-    this.empName = name;
-    this.ticket = tick;
+    this.commentId = newCommentId;
+    this.content = newContent;
+    this.creationTime = newCreationTime;
+    this.empName = newEmpName;
+    this.ticket = newTicket;
   }
 
   /**

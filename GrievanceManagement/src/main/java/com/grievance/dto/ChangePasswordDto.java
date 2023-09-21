@@ -31,10 +31,10 @@ public class ChangePasswordDto {
   /**
    * setter for old password.
    *
-   * @param old the oldPassword to set
+   * @param newOldPassword the oldPassword to set
    */
-  public void setOldPassword(final String old) {
-    this.oldPassword = old;
+  public void setOldPassword(final String newOldPassword) {
+    this.oldPassword = newOldPassword;
   }
 
   /**
@@ -49,10 +49,10 @@ public class ChangePasswordDto {
   /**
    * setter for new Password.
    *
-   * @param newPass the newPassword to set
+   * @param newNewPassword the newPassword to set
    */
-  public void setNewPassword(final String newPass) {
-    this.newPassword = newPass;
+  public void setNewPassword(final String newNewPassword) {
+    this.newPassword = newNewPassword;
   }
 
   /**
@@ -67,28 +67,28 @@ public class ChangePasswordDto {
   /**
    * setter for confirm password.
    *
-   * @param confirmPass the confirmPassword to set
+   * @param newConfirmPassword the confirmPassword to set
    */
-  public void setConfirmPassword(final String confirmPass) {
-    this.confirmPassword = confirmPass;
+  public void setConfirmPassword(final String newConfirmPassword) {
+    this.confirmPassword = newConfirmPassword;
   }
 
   /**
    * All args constructor.
    *
-   * @param old String
-   * @param newPass String
-   * @param confirmPass String
+   * @param newOldPassword String
+   * @param newNewPassword String
+   * @param newConfirmPassword String
    */
   public ChangePasswordDto(
-      final String old,
-      final String newPass,
-      final String confirmPass
+      final String newOldPassword,
+      final String newNewPassword,
+      final String newConfirmPassword
   ) {
     super();
-    this.oldPassword = old;
-    this.newPassword = newPass;
-    this.confirmPassword = confirmPass;
+    this.oldPassword = newOldPassword;
+    this.newPassword = newNewPassword;
+    this.confirmPassword = newConfirmPassword;
   }
 
   /**

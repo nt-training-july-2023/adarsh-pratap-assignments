@@ -57,10 +57,10 @@ public class Department {
   /**
    * setter for DepID.
    *
-   * @param id the depId to set
+   * @param newDepId the depId to set
    */
-  public void setDepId(final Integer id) {
-    this.depId = id;
+  public void setDepId(final Integer newDepId) {
+    this.depId = newDepId;
   }
 
   /**
@@ -75,10 +75,10 @@ public class Department {
   /**
    * setter for depName.
    *
-   * @param name the depName to set
+   * @param newDeapName the depName to set
    */
-  public void setDepName(final String name) {
-    this.depName = name;
+  public void setDepName(final String newDeapName) {
+    this.depName = newDeapName;
   }
 
   /**
@@ -93,10 +93,10 @@ public class Department {
   /**
    * setter for employee.
    *
-   * @param emp the employee to set
+   * @param newEmployee the employee to set
    */
-  public void setEmployee(final List<Employee> emp) {
-    this.employee = emp;
+  public void setEmployee(final List<Employee> newEmployee) {
+    this.employee = newEmployee;
   }
 
   /**
@@ -111,31 +111,31 @@ public class Department {
   /**
    * setter for set ticket.
    *
-   * @param tick the ticket to set
+   * @param newTicket the ticket to set
    */
-  public void setTicket(final List<Ticket> tick) {
-    this.ticket = tick;
+  public void setTicket(final List<Ticket> newTicket) {
+    this.ticket = newTicket;
   }
 
   /**
    * All args constructor.
    *
-   * @param id of type Integer
-   * @param name of type String
-   * @param emp of type Employee
-   * @param tick of type Ticket
+   * @param newDepId of type Integer
+   * @param newDeapName of type String
+   * @param newEmployee of type Employee
+   * @param newTicket of type Ticket
    */
   public Department(
-      final Integer id,
-      final String name,
-      final List<Employee> emp,
-      final List<Ticket> tick
+      final Integer newDepId,
+      final String newDeapName,
+      final List<Employee> newEmployee,
+      final List<Ticket> newTicket
   ) {
     super();
-    this.depId = id;
-    this.depName = name;
-    this.employee = emp;
-    this.ticket = tick;
+    this.depId = newDepId;
+    this.depName = newDeapName;
+    this.employee = newEmployee;
+    this.ticket = newTicket;
   }
 
   /**

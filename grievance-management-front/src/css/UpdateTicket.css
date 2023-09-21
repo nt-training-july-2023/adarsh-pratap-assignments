@@ -1,0 +1,91 @@
+.view-detail-modal{
+    width: 80%;
+    height:80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* line-height: 1.4; */
+    background: #f1f1f1;
+    /* padding: 14px 28px; */
+    border-radius: 3px;
+
+    border-radius: 10px;
+
+}
+
+.view-detail-modal .parent-div{
+    display: flex;
+    width:100%;
+    height: 80%;
+    margin-top: 10px;
+}
+
+.view-detail-modal .parent-div .left{
+    width: 100%;
+    height: 100%;
+    
+}
+.view-detail-modal .parent-div .right{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.ticketdata{
+    display: flex;
+    padding: 0.5rem;
+    flex-direction: column;
+}
+
+.comment-content{
+    margin:5px 0px 15px 0px;
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 5px ;
+    background-color: #fff;
+}
+
+.modal .view-detail-modal .header {
+    background-color: #0a0c27;
+    display: flex;
+    justify-content: center;
+    border-radius: 2px 2px 0px 0px;
+    height: 44px;
+}
+
+.modal .view-detail-modal span {
+    color: white;
+    font-weight: 700;
+    font-size: 22px;
+    /* display: inline-block; */
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+.view-detail-modal .parent-div .left .left-parent .ticketdata p , select{
+    margin-top: 10px;
+   
+}
+
+.view-detail-modal .parent-div .left .left-parent .ticketdata textarea{
+    width: 529px;
+    height: 68px;
+    padding: 0.5rem;
+}
+
+.view-detail-modal .button-update button{
+    padding: 0.3rem 19.5rem;
+    margin: 0.5rem 0;
+}
+
+
+.view-detail-modal .button-update{
+    width: 100%;
+    text-align: center;
+}
+
+.comment-content h3{
+    margin-bottom: 0.5rem;
+}
+

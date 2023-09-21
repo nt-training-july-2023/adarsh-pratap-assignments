@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import com.grievance.dto.ChangePasswordDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
@@ -40,7 +40,7 @@ public class EmployeeServiceTest {
 
   private Employee employee;
 
-  private EmployeesDto employeeDto;
+  private EmployeesInDto employeeDto;
   
   private EmployeeOutDto employeeOutDto;
 
@@ -56,7 +56,7 @@ public class EmployeeServiceTest {
     employee.setDepartment(null);
     
     employeeDto =
-      new EmployeesDto();
+      new EmployeesInDto();
     employeeDto.setUserName("Adarsh");
     employeeDto.setEmail("adarsh@gmail.com");
     employeeDto.setPassword("adarsh");

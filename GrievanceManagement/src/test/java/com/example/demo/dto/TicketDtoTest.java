@@ -5,17 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.grievance.dto.TicketDto;
+import com.grievance.dto.TicketInDto;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
 
 public class TicketDtoTest {
 	
-	TicketDto ticket ;
+	TicketInDto ticket ;
 	
 	@BeforeEach
 	public void setup() {
-		ticket = new TicketDto("test" , "test" , TicketStatus.BEING_ADDRESSED , TicketType.GRIEVANCE , null , null);
+		ticket = new TicketInDto("test" , "test" , TicketStatus.BEING_ADDRESSED , TicketType.GRIEVANCE , null , null);
 	}
 	
 	@Test

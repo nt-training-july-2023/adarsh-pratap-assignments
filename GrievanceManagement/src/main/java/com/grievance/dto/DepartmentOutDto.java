@@ -45,10 +45,10 @@ public class DepartmentOutDto {
   /**
    * setter for depId.
    *
-   * @param id the depId to set
+   * @param newDepId the depId to set
    */
-  public void setDepId(final Integer id) {
-    this.depId = id;
+  public void setDepId(final Integer newDepId) {
+    this.depId = newDepId;
   }
 
   /**
@@ -63,10 +63,10 @@ public class DepartmentOutDto {
   /**
    * setter for depName.
    *
-   * @param name the depName to set
+   * @param newDepName the depName to set
    */
-  public void setDepName(final String name) {
-    this.depName = name;
+  public void setDepName(final String newDepName) {
+    this.depName = newDepName;
   }
 
   /**
@@ -81,10 +81,10 @@ public class DepartmentOutDto {
   /**
    * setter for employee.
    *
-   * @param emp the employee to set
+   * @param newEmployee the employee to set
    */
-  public void setEmployee(final List<EmployeeOutDto> emp) {
-    this.employee = emp;
+  public void setEmployee(final List<EmployeeOutDto> newEmployee) {
+    this.employee = newEmployee;
   }
 
   /**
@@ -99,31 +99,31 @@ public class DepartmentOutDto {
   /**
    * setter for ticket.
    *
-   * @param tick the ticket to set
+   * @param newTicket the ticket to set
    */
-  public void setTicket(final List<TicketOutDto> tick) {
-    this.ticket = tick;
+  public void setTicket(final List<TicketOutDto> newTicket) {
+    this.ticket = newTicket;
   }
 
   /**
    * all args constructor.
    *
-   * @param id Integer
-   * @param name String
-   * @param emp Employee
-   * @param tick Ticket
+   * @param newDepId Integer
+   * @param newDepName String
+   * @param newEmployee Employee
+   * @param newTicket Ticket
    */
   public DepartmentOutDto(
-      final Integer id,
-      final @NotEmpty(message = "Department is a required field") String name,
-      final List<EmployeeOutDto> emp,
-      final List<TicketOutDto> tick
+      final Integer newDepId,
+      final @NotEmpty(message = "Department is a required field") String newDepName,
+      final List<EmployeeOutDto> newEmployee,
+      final List<TicketOutDto> newTicket
   ) {
     super();
-    this.depId = id;
-    this.depName = name;
-    this.employee = emp;
-    this.ticket = tick;
+    this.depId = newDepId;
+    this.depName = newDepName;
+    this.employee = newEmployee;
+    this.ticket = newTicket;
   }
 
   /**

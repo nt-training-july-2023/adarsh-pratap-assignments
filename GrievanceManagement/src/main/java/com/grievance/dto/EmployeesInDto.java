@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 /**
  * Employee DTO .
  */
-public class EmployeesDto {
+public class EmployeesInDto {
   /**
    * maximum size of password.
    */
@@ -70,10 +70,10 @@ public class EmployeesDto {
   /**
    * Setter of User Name .
    *
-   * @param name of string type .
+   * @param newUserName of string type .
    */
-  public void setUserName(final String name) {
-    this.userName = name;
+  public void setUserName(final String newUserName) {
+    this.userName = newUserName;
   }
 
   /**
@@ -88,10 +88,10 @@ public class EmployeesDto {
   /**
    * Setter of email .
    *
-   * @param em of string type.
+   * @param newEmail of string type.
    */
-  public void setEmail(final String em) {
-    this.email = em;
+  public void setEmail(final String newEmail) {
+    this.email = newEmail;
   }
 
   /**
@@ -106,10 +106,10 @@ public class EmployeesDto {
   /**
    * Setter of password .
    *
-   * @param pass of String type.
+   * @param newPassword of String type.
    */
-  public void setPassword(final String pass) {
-    this.password = pass;
+  public void setPassword(final String newPassword) {
+    this.password = newPassword;
   }
 
   /**
@@ -124,10 +124,10 @@ public class EmployeesDto {
   /**
    * Setter for Role .
    *
-   * @param ro of string type .
+   * @param newRole of string type .
    */
-  public void setRole(final Role ro) {
-    this.role = ro;
+  public void setRole(final Role newRole) {
+    this.role = newRole;
   }
 
   /**
@@ -142,10 +142,10 @@ public class EmployeesDto {
   /**
    * setter for department .
    *
-   * @param dep of string type .
+   * @param newDepartment of string type .
    */
-  public void setDepartment(final Department dep) {
-    this.department = dep;
+  public void setDepartment(final Department newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -189,35 +189,35 @@ public class EmployeesDto {
   /**
    * Employee dto all Args constructor.
    *
-   * @param name of type String
-   * @param em of string type
-   * @param pass of string type
-   * @param ro of Role type
-   * @param dep of Department type
+   * @param newUserName of type String
+   * @param newEmail of string type
+   * @param newPassword of string type
+   * @param newRole of Role type
+   * @param newDepartment of Department type
    */
-  public EmployeesDto(
-      final @NotEmpty(message = "Username can not be null") String name,
-      final @Email(message = "Email id not valid") String em,
+  public EmployeesInDto(
+      final @NotEmpty(message = "Username can not be null") String newUserName,
+      final @Email(message = "Email id not valid") String newEmail,
       final @NotEmpty(message = "Password field is mendatory") @Size(
       min = minPassword,
       max = maxPassword,
       message = "password should be in range between 5 to 18"
-    ) String pass,
-      final Role ro,
-      final @NotNull(message = "Department can not be null") Department dep
+    ) String newPassword,
+      final Role newRole,
+      final @NotNull(message = "Department can not be null") Department newDepartment
   ) {
     super();
-    this.userName = name;
-    this.email = em;
-    this.password = pass;
-    this.role = ro;
-    this.department = dep;
+    this.userName = newUserName;
+    this.email = newEmail;
+    this.password = newPassword;
+    this.role = newRole;
+    this.department = newDepartment;
   }
 
   /**
    * No Args Constructor .
    */
-  public EmployeesDto() {
+  public EmployeesInDto() {
     super();
   }
 }

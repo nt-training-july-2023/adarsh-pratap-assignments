@@ -2,7 +2,7 @@ package com.grievance.service;
 
 import com.grievance.dto.ChangePasswordDto;
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.EmployeesDto;
+import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.entity.Employee;
 import com.grievance.exception.ApiResponse;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 /**
  * Employee Service .
  */
-
 @Service
 public class EmployeeService implements EmployeeServiceInterface {
   /**
@@ -26,7 +25,7 @@ public class EmployeeService implements EmployeeServiceInterface {
   private EmployeeRepo employeeRepo;
 
   /**
-   * Model Mapper Bean .
+   * Mapper.
    */
   @Autowired
   private ModelMapper modelMapper;
@@ -37,7 +36,8 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @param empDto .
    * @return .
    */
-  public EmployeeOutDto saveEmployee(final EmployeesDto empDto) {
+  @Override
+  public EmployeeOutDto saveEmployee(final EmployeesInDto empDto) {
     Employee emp = this.modelMapper.map(empDto, Employee.class);
 
     emp.setIsFirstLogin(true);
@@ -53,6 +53,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    *
    * @return String .
    */
+  @Override
   public EmployeeOutDto login(final UserLogin login) {
     Employee emp = this.employeeRepo.findByEmail(login.getUserName());
 
@@ -70,6 +71,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    *
    * @return EmployeeOutDto
    */
+  @Override
   public EmployeeOutDto getById(final Integer id) {
     Employee emp = this.employeeRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFound(
@@ -84,8 +86,9 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @param emp Employee
    * @return EmployeeOutDto
    */
+  @Override
   public EmployeeOutDto updateEmployee(
-      final Integer id, final EmployeesDto emp) {
+      final Integer id, final EmployeesInDto emp) {
     Employee employee = this.employeeRepo.findById(id)
         .orElseThrow(
           () -> new ResourceNotFound("Employee", "Employee Not found"));
@@ -105,6 +108,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @param changePasswordDto ChangePasswordDto
    * @return ApiResponse
    */
+  @Override
   public ApiResponse changePassword(
       final Integer id, final ChangePasswordDto changePasswordDto) {
     Employee employee  = this.employeeRepo.findById(id)
@@ -113,11 +117,11 @@ public class EmployeeService implements EmployeeServiceInterface {
 
     ApiResponse apiResponse = new ApiResponse();
 
-    if(!employee.getPassword().equals(changePasswordDto.getOldPassword())) {
-    	apiResponse.setEntity("Employee");
-        apiResponse.setMessage(
+    if (!employee.getPassword().equals(changePasswordDto.getOldPassword())) {
+      apiResponse.setEntity("Employee");
+      apiResponse.setMessage(
             "old password is incorrect!!");
-        return apiResponse;
+      return apiResponse;
     }
     if (changePasswordDto.getNewPassword().equals(
         changePasswordDto.getOldPassword())) {

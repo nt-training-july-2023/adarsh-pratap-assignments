@@ -1,64 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import "../css/UserRegistration.css"
-import { getAllDepartment } from '../api/Department_API';
-import axios from 'axios';
-
+import React, { useEffect, useState } from "react";
+import "../css/UserRegistration.css";
+import { getAllDepartment } from "../api/Department_API";
+import axios from "axios";
 
 function UserRegistration() {
+  const [department, setDepartment] = useState([]);
 
-  const [department , setDepartment] = useState([]);
-
-  const [employee , setEmployee] = useState({
-    userName:"",
-    email:"",
-    password:"",
-    role:"",
-    department:{
-      depId:0,
-    }
-  })
-
-  const [valid , setValid] = useState({
-    userName:{
-      isError:false,
-      errorMessage:""
+  const [employee, setEmployee] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    role: "",
+    department: {
+      depId: 0,
     },
-    email:{
-      isError:false,
-      errorMessage:""
-    },
-    password:{
-      isError:false,
-      errorMessage:""
-    },
-    role:{
-      isError:false,
-      errorMessage:""
-    },
-    department:{
-      isError:false,
-      errorMessage:""
-    }
-  })
+  });
 
-  const getDepartment=()=>{
-    getAllDepartment().then((resp)=>{
-      setDepartment(resp.data);
-      console.log(resp.data);
-    }).catch((error)=>{
-      console.log(error);
-    })
-  }
+  const [valid, setValid] = useState({
+    userName: {
+      isError: false,
+      errorMessage: "",
+    },
+    email: {
+      isError: false,
+      errorMessage: "",
+    },
+    password: {
+      isError: false,
+      errorMessage: "",
+    },
+    role: {
+      isError: false,
+      errorMessage: "",
+    },
+    department: {
+      isError: false,
+      errorMessage: "",
+    },
+  });
 
-  useEffect(()=>{
+  const getDepartment = () => {
+    getAllDepartment()
+      .then((resp) => {
+        setDepartment(resp.data);
+        console.log(resp.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
     getDepartment();
-  } , [])
+  }, []);
 
-
-  const handleChange=(e)=>{
-    
-    if(valid.userName.isError || valid.email.isError || valid.password.isError || valid.role.isError){
-      let state = {...valid}
+  const handleChange = (e) => {
+    if (
+      valid.userName.isError ||
+      valid.email.isError ||
+      valid.password.isError ||
+      valid.role.isError
+    ) {
+      let state = { ...valid };
       state.userName.isError = false;
       state.email.isError = false;
       state.password.isError = false;
@@ -67,158 +70,186 @@ function UserRegistration() {
       setValid(state);
     }
 
-    setEmployee({...employee , [e.target.name] : e.target.value});
-    
-  }
+    setEmployee({ ...employee, [e.target.name]: e.target.value });
+  };
 
-  const handleSelectChange=(e)=>{
-    const {name,value}=e.target;
+  const handleSelectChange = (e) => {
+    const { name, value } = e.target;
     console.log(value);
     setEmployee({
       ...employee,
-      department:{
+      department: {
         [name]: Number(value),
       },
-    
-    })
-    
-  }
+    });
+  };
 
- 
-
-  const isValid=()=>{
-
+  const isValid = () => {
     console.log(employee);
 
-    if(employee.userName === ""){
-      let newState = {...valid};
+    if (employee.userName === "") {
+      let newState = { ...valid };
 
       newState.userName.isError = true;
       newState.userName.errorMessage = "Username can not be empty";
 
       setValid(newState);
     }
-    
-    if(employee.password === "" ){
-      let newState = {...valid};
+
+    if (employee.password === "") {
+      let newState = { ...valid };
 
       newState.password.isError = true;
-      newState.password.errorMessage = "Password can not be empty"
+      newState.password.errorMessage = "Password can not be empty";
 
       setValid(newState);
-      
     }
     const regex = /^[A-Za-z0-9._%+-]+@nucleusteq\.com$/;
-    if(!regex.test(employee.email)){
-      let newState = {...valid};
+    if (!regex.test(employee.email)) {
+      let newState = { ...valid };
 
       newState.email.isError = true;
-      newState.email.errorMessage = "Email can not be empty and ends with @nucleusteq.com";
+      newState.email.errorMessage =
+        "Email can not be empty and ends with @nucleusteq.com";
 
       setValid(newState);
     }
 
-    if(employee.role === ""){
-      let newState = {...valid};
+    if (employee.role === "") {
+      let newState = { ...valid };
 
       newState.role.isError = true;
       newState.role.errorMessage = "Select Role";
 
       setValid(newState);
-      
     }
 
-    if(employee.department.depId === 0){
-      let newState = {...valid};
+    if (employee.department.depId === 0) {
+      let newState = { ...valid };
 
       newState.department.isError = true;
       newState.department.errorMessage = "Select Department";
 
       setValid(newState);
-      console.log("Inside valid department")
+      console.log("Inside valid department");
     }
-    
+  };
 
-  }
-
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     isValid();
-    if(!valid.userName.isError && !valid.role.isError && !valid.password.isError && !valid.email.isError && !valid.department.isError){
-      axios.post("http://localhost:8080/employee/add" , employee)
-      .then((resp)=>{
-        alert("Added!!")
-      }).catch((err)=>{
-        alert("not added")
-      })
+    if (
+      !valid.userName.isError &&
+      !valid.role.isError &&
+      !valid.password.isError &&
+      !valid.email.isError &&
+      !valid.department.isError
+    ) {
+      axios
+        .post("http://localhost:8080/employee/add", employee)
+        .then((resp) => {
+          alert("Added!!");
+        })
+        .catch((err) => {
+          alert("not added");
+        });
     }
-  }
+  };
 
   return (
-    <div className='registration'>
-      <div className='content'>
-      <div className='header'>
-        <h1>User-Registration</h1>
-      </div>
-      
+    <div className="registration">
+      <div className="content">
+        <div className="header">
+          <h1>User-Registration</h1>
+        </div>
+
         <form onSubmit={handleSubmit}>
-        <div className='user-details'>
-          <div className='inner-div'>
-            <label>Username</label>
-            <input type='text' placeholder='Enter your name' name='userName' value={employee.userName} onChange={handleChange}/>
-            {valid.userName.isError ?  (<p>{valid.userName.errorMessage}</p>) : null}
-          </div>
-          <div className='inner-div'>
-            <label>Email</label>
-            <input type='email' placeholder='Enter your email' name='email' value={employee.email} onChange={handleChange} />
-            {valid.email.isError ?  (<p>{valid.email.errorMessage}</p>) : null}
-          </div>
-          <div className='inner-div'>
-            <label>Password</label>
-            <input type='password' placeholder='Enter your password' name='password' value={employee.password} onChange={handleChange} />
-            {valid.password.isError ?  (<p>{valid.password.errorMessage}</p>) : null}
-          </div>
-          <div className='inner-div'>
-            <label>Role:</label>
+          <div className="user-details">
+            <div className="inner-div">
+              <label>Username</label>
+              <input
+                type="text"
+                placeholder="Enter your name"
+                name="userName"
+                value={employee.userName}
+                onChange={handleChange}
+              />
+              {valid.userName.isError ? (
+                <p>{valid.userName.errorMessage}</p>
+              ) : null}
+            </div>
+            <div className="inner-div">
+              <label>Email</label>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                name="email"
+                value={employee.email}
+                onChange={handleChange}
+              />
+              {valid.email.isError ? <p>{valid.email.errorMessage}</p> : null}
+            </div>
+            <div className="inner-div">
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                value={employee.password}
+                onChange={handleChange}
+              />
+              {valid.password.isError ? (
+                <p>{valid.password.errorMessage}</p>
+              ) : null}
+            </div>
+            <div className="inner-div">
+              <label>Role:</label>
 
-            <select name="role" defaultValue="" value={employee.role} onChange={handleChange}>
-            <option value="">--Select--</option>
-              <option value="ROLE_ADMIN">ADMIN</option>
-              <option value="ROLE_USER">USER</option>
-            </select>
-            {valid.role.isError ?  (<p>{valid.role.errorMessage}</p>) : null}
-          </div>
+              <select
+                name="role"
+                defaultValue=""
+                value={employee.role}
+                onChange={handleChange}
+              >
+                <option value="">--Select--</option>
+                <option value="ROLE_ADMIN">ADMIN</option>
+                <option value="ROLE_USER">USER</option>
+              </select>
+              {valid.role.isError ? <p>{valid.role.errorMessage}</p> : null}
+            </div>
 
+            <div className="inner-div">
+              <label>Department:</label>
 
+              <select
+                name="depId"
+                defaultValue=""
+                onChange={handleSelectChange}
+              >
+                <option value="">--Select--</option>
+                {department.map((dep) => {
+                  return (
+                    <option key={dep.depId} value={dep.depId}>
+                      {dep.depName}
+                    </option>
+                  );
+                })}
+              </select>
 
-          <div className='inner-div'>
+              {valid.department.isError ? (
+                <p>{valid.department.errorMessage}</p>
+              ) : null}
+            </div>
 
-            <label>Department:</label>
-
-            <select name="depId" defaultValue="" onChange={handleSelectChange} >
-              <option value="" >--Select--</option>
-              {department.map(dep=>{
-                  // console.log(dep)
-                  return <option  key={dep.depId} value={dep.depId}>{dep.depName}</option>
-              })}
-            </select>
-
-            {valid.department.isError ?  (<p>{valid.department.errorMessage}</p>) : null}
-          
-          </div>
-
-
-
-          <div className='submit-box'>
-                <input type='submit' value='Submit'  />
-          </div>
-
+            <div className="submit-box">
+              <input type="submit" value="Submit" />
+            </div>
           </div>
         </form>
-        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default UserRegistration
+export default UserRegistration;

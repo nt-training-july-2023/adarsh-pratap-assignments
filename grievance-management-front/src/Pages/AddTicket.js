@@ -107,7 +107,6 @@ function AddTicket() {
     checkErrorRendering();
 
     const { name, value } = e.target;
-    // console.log(value + " " + name);
     setTicket({
       ...ticket,
       department: {
@@ -184,7 +183,7 @@ function AddTicket() {
                 <textarea
                   id=""
                   name="description"
-                  placeholder="Enter Discription"
+                  placeholder="Enter Description"
                   rows="4"
                   cols="50"
                   value={ticket.description}
@@ -213,7 +212,6 @@ function AddTicket() {
                       </option>
                     );
                   })}
-                  {/* <option value="saab">fired</option> */}
                 </select>
 
                 {valid.department.isError ? (

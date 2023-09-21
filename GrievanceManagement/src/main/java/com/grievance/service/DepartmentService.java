@@ -5,6 +5,8 @@ import com.grievance.dto.DepartmentOutDto;
 import com.grievance.entity.Department;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.DepartmentRepo;
+import com.grievance.serviceinterface.DepartmentServiceInterface;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
  * Department service.
  */
 @Service
-public class DepartmentService {
+public class DepartmentService implements DepartmentServiceInterface {
 
   /**
    * Autowired Department Repository.
@@ -36,6 +38,7 @@ public class DepartmentService {
    *
    * @return Department.
    */
+  @Override
   public DepartmentOutDto addDepartment(final DepartmentInDto departmentDto) {
     Department department = this.modelMapper.map(
         departmentDto, Department.class);
@@ -52,6 +55,7 @@ public class DepartmentService {
    *
    * @return Department.
    */
+  @Override
   public DepartmentOutDto findById(final Integer id) {
     Department dep =
         this.departmentRepo.findById(id)
@@ -67,6 +71,7 @@ public class DepartmentService {
    *
    * @return List of all Department.
    */
+  @Override
   public List<DepartmentOutDto> getAllDepartment() {
     List<Department> allDepartment = this.departmentRepo.findAll();
 
@@ -87,6 +92,7 @@ public class DepartmentService {
    * @param id Integer
    * @return String
    */
+  @Override
   public String deleteById(Integer id) {
     Department dep = this.departmentRepo.findById(
         id).orElseThrow(() -> new ResourceNotFound(

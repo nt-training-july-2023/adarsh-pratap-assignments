@@ -11,11 +11,11 @@ import com.grievance.entity.TicketType;
 /**
  * Ticket In DTO.
  */
-public class TicketDto {
+public class TicketInDto {
   /**
    * ticketName.
    */
-  @NotEmpty(message = "Ticket name can not be empty")
+  @NotEmpty(message = "Ticket newDescription can not be empty")
   private String ticketName;
 
   /**
@@ -58,10 +58,10 @@ public class TicketDto {
   /**
    * setter for ticketName.
    *
-   * @param name the ticketName to set
+   * @param newTicketName the ticketName to set
    */
-  public void setTicketName(final String name) {
-    this.ticketName = name;
+  public void setTicketName(final String newTicketName) {
+    this.ticketName = newTicketName;
   }
 
   /**
@@ -76,10 +76,10 @@ public class TicketDto {
   /**
    * setter for description.
    *
-   * @param des the description to set
+   * @param newDescription the description to set
    */
-  public void setDescription(final String des) {
-    this.description = des;
+  public void setDescription(final String newDescription) {
+    this.description = newDescription;
   }
 
   /**
@@ -94,10 +94,10 @@ public class TicketDto {
   /**
    * setter for status.
    *
-   * @param stat the status to set.
+   * @param newStatus the status to set.
    */
-  public void setStatus(final TicketStatus stat) {
-    this.status = stat;
+  public void setStatus(final TicketStatus newStatus) {
+    this.status = newStatus;
   }
 
   /**
@@ -112,10 +112,10 @@ public class TicketDto {
   /**
    * set TicketType.
    *
-   * @param type the ticketType to set
+   * @param newTicketType the newTicketTypeetType to set
    */
-  public void setTicketType(final TicketType type) {
-    this.ticketType = type;
+  public void setTicketType(final TicketType newTicketType) {
+    this.ticketType = newTicketType;
   }
 
   /**
@@ -130,10 +130,10 @@ public class TicketDto {
   /**
    * setting the department.
    *
-   * @param dep the department to set
+   * @param newDepartment the department to set
    */
-  public void setDepartment(final Department dep) {
-    this.department = dep;
+  public void setDepartment(final Department newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -148,44 +148,44 @@ public class TicketDto {
   /**
    * Setting the employee.
    *
-   * @param emp the employee to set
+   * @param newEmployee the employee to set
    */
-  public void setEmployee(final Employee emp) {
-    this.employee = emp;
+  public void setEmployee(final Employee newEmployee) {
+    this.employee = newEmployee;
   }
 
   /**
    * All args constructor.
    *
-   * @param name String
-   * @param des String
-   * @param stat TicketStatus
-   * @param type TicketType
-   * @param dep Department
-   * @param emp Employee
+   * @param newTicketName String
+   * @param newDescription String
+   * @param newStatus TicketStatus
+   * @param newTicketType TicketType
+   * @param newDepartment Department
+   * @param newEmployee Employee
    *
    */
-  public TicketDto(
-      final String name,
-      final String des,
-      final TicketStatus stat,
-      final TicketType type,
-      final Department dep,
-      final Employee emp
+  public TicketInDto(
+      final String newTicketName,
+      final String newDescription,
+      final TicketStatus newStatus,
+      final TicketType newTicketType,
+      final Department newDepartment,
+      final Employee newEmployee
   ) {
     super();
-    this.ticketName = name;
-    this.description = des;
-    this.status = stat;
-    this.ticketType = type;
-    this.department = dep;
-    this.employee = emp;
+    this.ticketName = newTicketName;
+    this.description = newDescription;
+    this.status = newStatus;
+    this.ticketType = newTicketType;
+    this.department = newDepartment;
+    this.employee = newEmployee;
   }
 
   /**
   *No args constructor.
   */
-  public TicketDto() {
+  public TicketInDto() {
     super();
   }
 

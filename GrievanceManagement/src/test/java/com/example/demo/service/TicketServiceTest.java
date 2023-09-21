@@ -21,7 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import com.grievance.dto.EmployeeOutDto;
-import com.grievance.dto.TicketDto;
+import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
@@ -48,7 +48,7 @@ public class TicketServiceTest {
   @Mock
   private EmployeeService employeeService;
   
-  private TicketDto ticketDto;
+  private TicketInDto ticketInDto;
   
   private TicketOutDto ticketOutDto;
   
@@ -66,19 +66,19 @@ public class TicketServiceTest {
     Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
     ticket = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , dep , emp , null);
-    ticketDto = new TicketDto("Laptop problem" , "Having issues" , TicketStatus.OPEN , TicketType.GRIEVANCE , dep , emp);
+    ticketInDto = new TicketInDto("Laptop problem" , "Having issues" , TicketStatus.OPEN , TicketType.GRIEVANCE , dep , emp);
     ticketOutDto = new TicketOutDto(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,out , out, TicketType.GRIEVANCE , null , null , null);
   }
   
   @DisplayName("JUnit test for Save Ticket method Returns Ticket")
   @Test
   public void givenEmployeeObject_whenSaveTicket_thenReturnTicketOutDtoForSavingSuccessfully() {
-    when(this.modelMapper.map(ticketDto, Ticket.class)).thenReturn(ticket);
+    when(this.modelMapper.map(ticketInDto, Ticket.class)).thenReturn(ticket);
     when(this.modelMapper.map(ticket, TicketOutDto.class)).thenReturn(ticketOutDto);
 
     when(this.ticketRepo.save(ticket)).thenReturn(ticket);
 
-    Assertions.assertEquals(this.ticketService.addTicket(ticketDto), ticketOutDto);
+    Assertions.assertEquals(this.ticketService.addTicket(ticketInDto), ticketOutDto);
   }
 
 //  @Test

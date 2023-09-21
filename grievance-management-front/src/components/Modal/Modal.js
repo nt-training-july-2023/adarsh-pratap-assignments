@@ -9,7 +9,7 @@ export default function Modal(props) {
     const navigate = useNavigate();
 
     return (
-        <>
+        
         <div className="modal" >
             <div className="overlay" onClick={()=>{props.set(false);}}></div>
           <div className="modal-content">
@@ -33,6 +33,6 @@ export default function Modal(props) {
           
         </div>
       
-    </>
+    
   );
 }

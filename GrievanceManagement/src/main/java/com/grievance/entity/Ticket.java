@@ -1,13 +1,12 @@
 package com.grievance.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * Ticket class.
@@ -46,7 +44,6 @@ public class Ticket {
   /**
    * TicketStatus.
    */
-  @Enumerated(EnumType.STRING)
   private TicketStatus status;
 
   /**
@@ -64,7 +61,6 @@ public class Ticket {
    * TicketType.
    */
   @Column(name = "ticket_type")
-  @Enumerated(EnumType.STRING)
   private TicketType ticketType;
 
   /**
@@ -72,7 +68,7 @@ public class Ticket {
    */
   @ManyToOne
   @JoinColumn(name = "department_id")
-  @JsonBackReference(value = "dep")
+  @JsonBackReference(value = "newDepartment")
   private Department department;
 
   /**
@@ -80,7 +76,7 @@ public class Ticket {
    */
   @ManyToOne
   @JoinColumn(name = "employee_id")
-  @JsonBackReference(value = "emp")
+  @JsonBackReference(value = "newEmployee")
   private Employee employee;
 
   /**
@@ -102,10 +98,10 @@ public class Ticket {
   /**
    * setter for ticketId.
    *
-   * @param tickId the ticketId to set
+   * @param newTicketId the ticketId to set
    */
-  public void setTicketId(final Integer tickId) {
-    this.ticketId = tickId;
+  public void setTicketId(final Integer newTicketId) {
+    this.ticketId = newTicketId;
   }
 
   /**
@@ -120,10 +116,10 @@ public class Ticket {
   /**
    * setter for ticketName.
    *
-   * @param tickName the ticketName to set
+   * @param newTicketName the ticketName to set
    */
-  public void setTicketName(final String tickName) {
-    this.ticketName = tickName;
+  public void setTicketName(final String newTicketName) {
+    this.ticketName = newTicketName;
   }
 
   /**
@@ -138,10 +134,10 @@ public class Ticket {
   /**
    * setter for description.
    *
-   * @param des type String.
+   * @param newDescription type String.
    */
-  public void setDescription(final String des) {
-    this.description = des;
+  public void setDescription(final String newDescription) {
+    this.description = newDescription;
   }
 
   /**
@@ -156,10 +152,10 @@ public class Ticket {
   /**
    * setter for status .
    *
-   * @param stat the status to set
+   * @param newStatus the status to set
    */
-  public void setStatus(final TicketStatus stat) {
-    this.status = stat;
+  public void setStatus(final TicketStatus newStatus) {
+    this.status = newStatus;
   }
 
   /**
@@ -175,10 +171,10 @@ public class Ticket {
    * setter for creationDate.
    *
    *
-   * @param createDate the creationDate to set
+   * @param newCreationDate the creationDate to set
    */
-  public void setCreationDate(final Date createDate) {
-    this.creationDate = createDate;
+  public void setCreationDate(final Date newCreationDate) {
+    this.creationDate = newCreationDate;
   }
 
   /**
@@ -193,10 +189,10 @@ public class Ticket {
   /**
    * setter for lastUpdatedDate.
    *
-   * @param lastUpDate the lastUpdateDate to set
+   * @param newLastUpdateDate the lastUpdateDate to set
    */
-  public void setLastUpdateDate(final Date lastUpDate) {
-    this.lastUpdateDate = lastUpDate;
+  public void setLastUpdateDate(final Date newLastUpdateDate) {
+    this.lastUpdateDate = newLastUpdateDate;
   }
 
   /**
@@ -229,10 +225,10 @@ public class Ticket {
   /**
    * set department.
    *
-   * @param dep the department to set
+   * @param newDepartment the department to set
    */
-  public void setDepartment(final Department dep) {
-    this.department = dep;
+  public void setDepartment(final Department newDepartment) {
+    this.department = newDepartment;
   }
 
   /**
@@ -247,10 +243,10 @@ public class Ticket {
   /**
    * set employee.
    *
-   * @param emp the employee to set
+   * @param newEmployee the employee to set
    */
-  public void setEmployee(final Employee emp) {
-    this.employee = emp;
+  public void setEmployee(final Employee newEmployee) {
+    this.employee = newEmployee;
   }
 
   /**
@@ -265,44 +261,44 @@ public class Ticket {
   /**
    * set comments.
    *
-   * @param com the comments to set
+   * @param newComments the comments to set
    */
-  public void setComments(final List<Comment> com) {
-    this.comments = com;
+  public void setComments(final List<Comment> newComments) {
+    this.comments = newComments;
   }
 
   /**
    * All args constructor.
    *
-   * @param tickId Integer.
-   * @param tickName String.
-   * @param des String.
-   * @param stat TicketStatus.
-   * @param createDate Date.
-   * @param lastUpDate Date.
-   * @param tickType TicketType.
-   * @param dep Department.
-   * @param emp Employee.
-   * @param com Comments.
+   * @param newTicketId Integer.
+   * @param newTicketName String.
+   * @param newDescription String.
+   * @param newStatus TicketStatus.
+   * @param newCreationDate Date.
+   * @param newLastUpdateDate Date.
+   * @param newTicketType TicketType.
+   * @param newDepartment Department.
+   * @param newEmployee Employee.
+   * @param newComments Comments.
    */
-  public Ticket(final Integer tickId, final String tickName,
-      final String des,
-      final TicketStatus stat, final Date createDate,
-      final Date lastUpDate,
-      final TicketType tickType, final Department dep,
-      final Employee emp,
-      final List<Comment> com) {
+  public Ticket(final Integer newTicketId, final String newTicketName,
+      final String newDescription,
+      final TicketStatus newStatus, final Date newCreationDate,
+      final Date newLastUpdateDate,
+      final TicketType newTicketType, final Department newDepartment,
+      final Employee newEmployee,
+      final List<Comment> newComments) {
     super();
-    this.ticketId = tickId;
-    this.ticketName = tickName;
-    this.description = des;
-    this.status = stat;
-    this.creationDate = createDate;
-    this.lastUpdateDate = lastUpDate;
-    this.ticketType = tickType;
-    this.department = dep;
-    this.employee = emp;
-    this.comments = com;
+    this.ticketId = newTicketId;
+    this.ticketName = newTicketName;
+    this.description = newDescription;
+    this.status = newStatus;
+    this.creationDate = newCreationDate;
+    this.lastUpdateDate = newLastUpdateDate;
+    this.ticketType = newTicketType;
+    this.department = newDepartment;
+    this.employee = newEmployee;
+    this.comments = newComments;
   }
 
   /**

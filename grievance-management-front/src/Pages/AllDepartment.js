@@ -6,21 +6,22 @@ import { deleteDepartmentById, getAllDepartment } from "../api/Department_API";
 function AllDepartment() {
   const [dep, setDep] = useState([]);
 
-  const setAllDepartment=()=>{
-    getAllDepartment().then((resp)=>{
-        setDep(resp.data);
-    })
-  }
+  const setAllDepartment = () => {
+    getAllDepartment().then((resp) => {
+      setDep(resp.data);
+    });
+  };
+
+  const handleDelete = (e) => {
+    deleteDepartmentById(e).then((resp) => {
+      alert(resp.data);
+      setAllDepartment();
+    });
+  };
+
   useEffect(() => {
     setAllDepartment();
-  });
-
-  const handleDelete=(e)=>{
-        deleteDepartmentById(e).then((resp)=>{
-            alert(resp.data);
-        })
-  }
-
+  }, []);
 
   const header = ["Department Id", "Department Name", "Actions"];
 
@@ -38,7 +39,7 @@ function AllDepartment() {
               <Content data={d.depId} />
               <Content data={d.depName} />
               <td>
-                <button onClick={()=>handleDelete(d.depId)}>Delete</button>
+                <button onClick={() => handleDelete(d.depId)}>Delete</button>
               </td>
             </tr>
           );
