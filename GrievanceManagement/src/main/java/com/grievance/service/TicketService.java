@@ -33,7 +33,7 @@ import com.grievance.serviceinterface.TicketServiceInterface;
  * Ticket Service .
  */
 @Service
-public class TicketService implements TicketServiceInterface{
+public class TicketService implements TicketServiceInterface {
   /**
    * Ticket Repository.
    */
@@ -79,30 +79,37 @@ public class TicketService implements TicketServiceInterface{
    */
   @Override
   public List<TicketOutDto> findAll(final Integer id, String type, String filter, Integer offset) {
-	  System.out.println(type+" "+filter + " " + offset);
-	  Page<Ticket> ticket = null;
-	  EmployeeOutDto emp = this.employeeService.getById(id);
-	  if (emp.getRole().equals(Role.ROLE_ADMIN)) {
-		  ticket = ticketForAdmin(filter, type, emp, offset);
-	  }
-	  else {
-		  ticket = ticketForUser(filter, type, emp, offset);
-	  }
-	  List<TicketOutDto> result = new ArrayList<TicketOutDto>();
-	  for (Ticket temp : ticket) {
-	      result.add(this.mapper.map(temp, TicketOutDto.class));
-	    }
-	    return result;
+    Page<Ticket> ticket = null;
+    EmployeeOutDto emp = this.employeeService.getById(id);
+    if (emp.getRole().equals(Role.ROLE_ADMIN)) {
+      ticket = ticketForAdmin(filter, type, emp, offset);
+    } else {
+      ticket = ticketForUser(filter, type, emp, offset);
+    }
+    List<TicketOutDto> result = new ArrayList<TicketOutDto>();
+    for (Ticket temp : ticket) {
+      result.add(this.mapper.map(temp, TicketOutDto.class));
+    }
+    return result;
   }
 
-  
-  private Page<Ticket> ticketForUser(String filter,String type,EmployeeOutDto emp,Integer offset){
-	  Department department = this.mapper.map(emp.getDepartment(),Department.class);
-		Employee employee = this.mapper.map(emp, Employee.class);
-		
-	    if (filter.equals("all")) {
-	    	Pageable page = PageRequest.of(offset, 5, Sort.by("status"));
-	    	if (type.equals("my")) {
+  /**
+   * Helper method for ticket for user.
+   *
+   * @param filter String
+   * @param type String
+   * @param emp EmployeeOutDto
+   * @param offset Integer
+   * @return Page
+   */
+  private Page<Ticket> ticketForUser(
+        String filter, String type, EmployeeOutDto emp, Integer offset) {
+    Department department = this.mapper.map(emp.getDepartment(),Department.class);
+    Employee employee = this.mapper.map(emp, Employee.class);
+
+    if (filter.equals("all")) {
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      if (type.equals("my")) {
 	    		return this.ticketRepo.findByEmployee(employee, page);
 	    	}
 	    	else if (type.equals("all")) {
@@ -113,7 +120,7 @@ public class TicketService implements TicketServiceInterface{
 	    	}
 	    }
 	    else {
-	    	Pageable page = PageRequest.of(offset, 5);
+	    	Pageable page = PageRequest.of(offset, 10);
 	    	TicketStatus status = null;
 	    	
 	    	if (filter.equals("open")) {
@@ -144,7 +151,7 @@ private Page<Ticket> ticketForAdmin(String filter,String type,EmployeeOutDto emp
 	Employee employee = this.mapper.map(emp, Employee.class);
 	
     if (filter.equals("all")) {
-    	Pageable page = PageRequest.of(offset, 5, Sort.by("status"));
+    	Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
     	if (type.equals("my")) {
     		return this.ticketRepo.findByEmployee(employee, page);
     	}
@@ -156,7 +163,7 @@ private Page<Ticket> ticketForAdmin(String filter,String type,EmployeeOutDto emp
     	}
     }
     else {
-    	Pageable page = PageRequest.of(offset, 5);
+    	Pageable page = PageRequest.of(offset, 10);
     	TicketStatus status = null;
     	
     	if (filter.equals("open")) {
@@ -189,16 +196,17 @@ private Page<Ticket> ticketForAdmin(String filter,String type,EmployeeOutDto emp
    * @return TicketOutDto
    */
   @Override
-  public TicketOutDto updateTicket(final Integer id, final UpdateTicketInDto ticketDto) {
+  public TicketOutDtoWithComments updateTicket(final Integer id, final UpdateTicketInDto ticketDto) {
     Ticket ticket =
         this.ticketRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFound("Ticket", "Ticket Not found"));
 
+    
     if (ticketDto.getComment() != null && !ticketDto.getComment().isEmpty()) {
       Comment comment = new Comment();
       comment.setContent(ticketDto.getComment());
       comment.setCreationTime(getCurrentDateTime());
-      comment.setEmpName(ticket.getEmployee().getUserName());
+      comment.setEmpName(ticketDto.getEmpName());
       comment.setTicket(ticket);
 
       List<Comment> comments = ticket.getComments();
@@ -208,7 +216,7 @@ private Page<Ticket> ticketForAdmin(String filter,String type,EmployeeOutDto emp
     }
     ticket.setStatus(ticketDto.getStatus());
     ticket.setLastUpdateDate(getCurrentDateTime());
-    return this.mapper.map(this.ticketRepo.save(ticket), TicketOutDto.class);
+    return this.mapper.map(this.ticketRepo.save(ticket), TicketOutDtoWithComments.class);
   }
 
   /**

@@ -25,7 +25,7 @@ function Navbar(props) {
                   <div className="drop-down-content">
                     {item.value.map((value) => {
                       return value === "Create Department" ? (
-                        <a
+                        <a 
                           onClick={() => {
                             setDep(true);
                           }}
@@ -36,6 +36,15 @@ function Navbar(props) {
                         <a
                           onClick={() => {
                             setResetPass(true);
+                          }}
+                        >
+                          {value}
+                        </a>
+                      ) : value === "Logout" ? (
+                        <a
+                          onClick={() => {
+                            localStorage.clear();
+                            navigate("/");
                           }}
                         >
                           {value}

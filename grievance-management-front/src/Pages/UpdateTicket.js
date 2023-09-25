@@ -1,53 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../css/UpdateTicket.css";
-function UpdateTicket(props) {
-  const dummy = [
-    {
-      commentId: "152",
-      commentContent: "Lorem Ipsum is simply dummy text of the .",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "153",
-      commentContent:
-        "Lorem Ipsum is simply  to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "154",
-      commentContent: "Lorem Ipsum is standard Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "155",
-      commentContent: "Lorem Ipsum is  of Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "152",
-      commentContent: "Lorem Ipsum is simply dummy text of the .",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "153",
-      commentContent:
-        "Lorem Ipsum is simply  to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "154",
-      commentContent: "Lorem Ipsum is standard Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-    {
-      commentId: "155",
-      commentContent: "Lorem Ipsum is  of Lorem Ipsum.",
-      employee: "lorem@nucleusteq.com",
-    },
-  ];
+import { getTicketById, updateTicket } from "../api/Ticket_API";
+import PopUp from "../components/PopUp";
 
+
+function UpdateTicket(props) {
+
+  const canUpdate=()=>{
+    if(props.singleTicket.department.depName === JSON.parse(localStorage.getItem("user")).department.depName 
+    ||  props.singleTicket.employee.userName === JSON.parse(localStorage.getItem("user")).userName){
+      return true;
+    }
+    return false;
+  }
+  console.log(props.singleTicket);
+  const [updatedTicketData , setUpdatedTicket] = useState({
+    empName: JSON.parse(localStorage.getItem("user")).userName,
+    status:props.singleTicket.status,
+    comment:""
+  });
+
+  const handleChange=(e)=>{
+    setUpdatedTicket({...updatedTicketData,[e.target.name]:e.target.value});
+  }
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    updateTicket(props.singleTicket.ticketId,updatedTicketData).then(resp=>{
+      setPopUp(true);
+      props.setSingleTicket(resp.data);
+      setUpdatedTicket({...updateTicket , comment : ""});
+      props.setUpdate(false);
+      
+    })
+  }
+  const [popUp , setPopUp] = useState(false);
   return (
-    <div className="modal">
+    <>
+    {popUp && <PopUp set={setPopUp} header={"Ticket"} message={"Updated Sucessfully!!"}/>}
+    <div className="modal"> 
       <div
         className="overlay"
         onClick={() => {
@@ -63,66 +54,73 @@ function UpdateTicket(props) {
             <div className="left-parent">
               <div className="ticketdata">
                 <h3>Ticket Name:</h3>
-                <p>kjcbsdjcbd</p>
+                <p>{props.singleTicket.ticketName}</p>
               </div>
 
-              <div className="ticketdata">
+              <div className="ticket-des">
                 <h3>Ticket Description:</h3>
-                <p>kjcbsdjcbd</p>
+                <textarea id="ticket-des" placeholder={props.singleTicket.description} disabled/>
               </div>
 
               <div className="ticketdata">
                 <h3>Created By:</h3>
-                <p>kjcbsdjcbd</p>
+                <p>{props.singleTicket.creationDate}</p>
               </div>
 
               <div className="ticketdata">
                 <h3>Assigned to:</h3>
-                <p>kjcbsdjcbd</p>
+                <p>{props.singleTicket.department.depName}</p>
               </div>
 
               <div className="ticketdata">
                 <h3>Status:</h3>
-                <select name="" defaultValue="" onChange="">
-                  <option value="" disabled>
-                    --Select--
-                  </option>
 
-                  <option key="" value="">
+               { canUpdate()?( <select name='status' defaultValue={props.singleTicket.status} onChange={handleChange}>
+                
+                  <option key="OPEN" value="OPEN">
                     OPEN
                   </option>
-                  <option key="" value="">
+                  <option key="BEING_ADDRESSED" value="BEING_ADDRESSED">
                     BEING_ADDRESSED
                   </option>
-                  <option key="" value="">
-                    CLOSED
+                  <option key="RESOLVED" value="RESOLVED">
+                    RESOLVED
                   </option>
-                </select>
+                </select>):(<p>{props.singleTicket.status}</p>)}
               </div>
 
               <div className="ticketdata">
-                <textarea placeholder="Enter your Comment" />
+                { canUpdate()?
+                (<textarea name='comment' value={updatedTicketData.comment} placeholder="Enter your Comment" onChange={handleChange}/>)
+                :(<textarea name='comment'  placeholder="You can not Comment on this ticket!!" disabled/>)
+              }
               </div>
             </div>
           </div>
           <div className="right">
             <div className="comment">
-              {dummy.map((m) => {
-                return (
+              {props.singleTicket.comments.length !== 0 ? (props.singleTicket.comments.map((m) => { 
+                return ( 
                   <div className="comment-content">
-                    <h3>{m.employee}</h3>
-                    <p>{m.commentContent}</p>
+                    <div className="comment-header"><h3>{m.empName}</h3><p>{m.creationTime}</p></div>
+                    <p>{m.content}</p>
                   </div>
-                );
-              })}
+              );
+              })):(<div className="no-comments">
+                <h1>No comments yet!</h1>
+              </div>)}
             </div>
           </div>
         </div>
-        <div className="button-update">
-          <button>Update</button>
-        </div>
+        
+        { canUpdate()?
+        (<div className="button-update">
+          <button onClick={handleSubmit}>Update</button>
+        </div>):(<div className="button-update"><h4>You can only view this ticket!!</h4></div>)}
+        
       </div>
     </div>
+    </>
   );
 }
 

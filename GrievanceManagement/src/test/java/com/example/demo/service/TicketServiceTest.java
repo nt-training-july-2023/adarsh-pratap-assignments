@@ -23,6 +23,9 @@ import org.modelmapper.ModelMapper;
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
+import com.grievance.dto.TicketOutDtoWithComments;
+import com.grievance.dto.UpdateTicketInDto;
+import com.grievance.entity.Comment;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
@@ -81,35 +84,26 @@ public class TicketServiceTest {
     Assertions.assertEquals(this.ticketService.addTicket(ticketInDto), ticketOutDto);
   }
 
-//  @Test
-//  public void getAllTickets_forAdmin() {
-//	List<Ticket> list = new ArrayList<Ticket>();
-//	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN, true , null , null);
-//
-//	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
-//	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);
-//	when(this.ticketRepo.findAll()).thenReturn(list);
-//
-//    Assertions.assertEquals(this.ticketService.findAll(1), list);
-//  }
+  @Test
+  public void updateTickets() {
+	  UpdateTicketInDto updateTicketInDto = new UpdateTicketInDto();
+	  updateTicketInDto.setStatus(TicketStatus.OPEN);
+	  updateTicketInDto.setComment("");
+	  updateTicketInDto.setEmpName("Adarsh");
+	  Optional<Ticket> t = Optional.ofNullable(ticket);
+	  when(this.ticketRepo.findById(1)).thenReturn(t);
+	  when(this.ticketRepo.save(ticket)).thenReturn(ticket);
+	  when(this.modelMapper.map(ticket, TicketOutDtoWithComments.class)).thenReturn(null);
+	  Assertions.assertEquals(this.ticketService.updateTicket(1, updateTicketInDto),null);
+  }
   
-//  @Test
-//  public void getAllTickets_forUser() {
-//	List<Ticket> list = new ArrayList<Ticket>();
-//	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_USER, true , null , null);
-//
-//	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
-//	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);
-//
-//    Assertions.assertEquals(this.ticketService.findAll(1), list);
-//  }
-
-//  @Test
-//  public void updateTickets() {
-//	  Optional<Ticket> t = Optional.ofNullable(ticket);
-//	  when(this.ticketRepo.findById(1)).thenReturn(t);
-//	  when(this.ticketRepo.save(ticket)).thenReturn(ticket);
-//	  when(this.modelMapper.map(ticket, TicketOutDto.class)).thenReturn(ticketOutDto);
-//	  Assertions.assertEquals(this.ticketService.updateTicket(1, ticketDto),ticketOutDto);
-//  }
+  @Test
+  public void getTicketbyId() {
+	  
+	  Optional<Ticket> t = Optional.ofNullable(ticket);
+	  when(this.ticketRepo.findById(1)).thenReturn(t);
+	  
+	  when(this.modelMapper.map(ticket, TicketOutDtoWithComments.class)).thenReturn(null);
+	  Assertions.assertEquals(this.ticketService.ticketById(1),null);
+  }
 }

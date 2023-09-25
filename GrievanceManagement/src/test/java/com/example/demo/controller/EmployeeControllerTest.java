@@ -97,7 +97,7 @@ public class EmployeeControllerTest {
           .contentType(MediaType.APPLICATION_JSON)
           .content(objectMapper.writeValueAsString(log))
       )
-      .andExpect(status().isUnauthorized())
+      .andExpect(status().isBadRequest())
         .andDo(MockMvcResultHandlers.print());
   }
   
@@ -153,6 +153,23 @@ public class EmployeeControllerTest {
           .content(objectMapper.writeValueAsString(changePasswordDto))
       )
       .andExpect(status().isBadRequest())
+        .andDo(MockMvcResultHandlers.print());
+  }
+  
+  @Test
+  public void UpdateEmployee() throws JsonProcessingException, Exception {
+	  
+	  when(this.employeeService.updateEmployee(Mockito.anyInt(), Mockito.any(EmployeesInDto.class))).thenReturn(employeeOutDto);
+	  
+	  
+	  mockMvc
+        .perform(
+        MockMvcRequestBuilders
+          .put("/employee/update/1")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(employeesInDto))
+      )
+      .andExpect(status().isOk())
         .andDo(MockMvcResultHandlers.print());
   }
 }

@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -73,8 +77,25 @@ public class DepartmentService implements DepartmentServiceInterface {
    */
   @Override
   public List<DepartmentOutDto> getAllDepartment() {
+	
     List<Department> allDepartment = this.departmentRepo.findAll();
+	
+    List<DepartmentOutDto> departmentOutDtos
+        = new ArrayList<DepartmentOutDto>();
 
+    for (Department department : allDepartment) {
+      departmentOutDtos.add(this.modelMapper.map(
+          department, DepartmentOutDto.class));
+    }
+
+    return departmentOutDtos;
+  }
+
+  @Override
+  public List<DepartmentOutDto> getAllDepartmentByPagination(final Integer offset) {
+	Pageable page = PageRequest.of(offset, 10);
+    Page<Department> allDepartment = this.departmentRepo.findAll(page);
+	
     List<DepartmentOutDto> departmentOutDtos
         = new ArrayList<DepartmentOutDto>();
 

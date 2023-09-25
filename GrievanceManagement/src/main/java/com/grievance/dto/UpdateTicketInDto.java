@@ -1,5 +1,7 @@
 package com.grievance.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.grievance.entity.TicketStatus;
 
 /**
@@ -18,6 +20,12 @@ public class UpdateTicketInDto {
   private String comment;
 
   /**
+   * Employee Name.
+   */
+  @NotEmpty(message = "Employee Name can not be Empty")
+  private String empName;
+
+  /**
    * Get Status.
    *
   * @return the status
@@ -27,6 +35,18 @@ public class UpdateTicketInDto {
   }
 
   /**
+	 * @return the empName
+	 */
+	public String getEmpName() {
+	return empName;}
+	
+	/**
+	 * @param empName the empName to set
+	 */
+	public void setEmpName(String empName) {
+	this.empName = empName;}
+
+/**
   * Set Status.
   *
   * @param newStatus the status to set

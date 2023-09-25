@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.grievance.dto.DepartmentInDto;
 import com.grievance.dto.DepartmentOutDto;
@@ -15,6 +16,8 @@ import com.grievance.entity.Role;
 import com.grievance.entity.Ticket;
 import com.grievance.repo.DepartmentRepo;
 import com.grievance.service.DepartmentService;
+import com.jayway.jsonpath.Option;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,5 +79,24 @@ public class DepartmentServiceTest {
 	  when(this.departmentRepo.findAll()).thenReturn(dep);
 	  
 	  Assertions.assertEquals(this.departmentService.getAllDepartment(),depOut);
+  }
+  
+  @Test
+  public void whenDeleteDepartment_thenReturnString() {
+	  Optional<Department> dep = Optional.ofNullable(department); 
+	  when(this.departmentRepo.findById(1)).thenReturn(dep);
+	  
+	  Assertions.assertEquals(this.departmentService.deleteById(1), "IT Department Deleted Successfully");
+	  
+  }
+  
+  @Test
+  public void whenFindByID_thenReturnDepartment() {
+	  Optional<Department> dep = Optional.ofNullable(department); 
+	  when(this.departmentRepo.findById(1)).thenReturn(dep);
+	  when(this.modelMapper.map(department, DepartmentOutDto.class))
+	    .thenReturn(departmentOutDto);
+	  Assertions.assertEquals(departmentOutDto, this.departmentService.findById(1));
+	  
   }
 }

@@ -40,4 +40,6 @@ public interface DepartmentServiceInterface {
    * @return String
    */
   String deleteById(Integer id);
+
+List<DepartmentOutDto> getAllDepartmentByPagination(Integer offset);
 }

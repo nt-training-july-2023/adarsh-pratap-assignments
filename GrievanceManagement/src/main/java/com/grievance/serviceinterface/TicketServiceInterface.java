@@ -25,7 +25,7 @@ public interface TicketServiceInterface {
    * @param ticketDto TicketDto
    * @return TicketOutDto
    */
-  TicketOutDto updateTicket(Integer id, UpdateTicketInDto ticketDto);
+  TicketOutDtoWithComments updateTicket(Integer id, UpdateTicketInDto ticketDto);
 
   /**
    * Find all Ticket.

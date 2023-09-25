@@ -41,7 +41,7 @@ public class EmployeeOutDto {
   /**
    * Department of employee .
    */
-  @JsonIgnore
+//  @JsonIgnore
   private DepartmentOutDto department;
 
   /**

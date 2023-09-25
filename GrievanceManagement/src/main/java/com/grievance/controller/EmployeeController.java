@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -63,11 +65,12 @@ public class EmployeeController {
   @PostMapping("/login")
   public ResponseEntity<?> login(
       final @Valid @RequestBody UserLogin userLogin) {
+	System.out.println(userLogin.getPassword());
     EmployeeOutDto result = this.employeeService.login(userLogin);
     if (result != null) {
       return new ResponseEntity<>(result, HttpStatus.OK);
     } else {
-      return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
+      return new ResponseEntity<>("Invalid User!!", HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -105,5 +108,15 @@ public class EmployeeController {
     } else {
       return new ResponseEntity(apiResponse, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  /**
+   * Get All EMployees.
+   *
+   * @return EmployeeOutDto List
+   */
+  @GetMapping("/getall")
+  public ResponseEntity<?> getAllEmployee(final @RequestParam(required = true) Integer offset) {
+    return new ResponseEntity<>(this.employeeService.getAllEmployee(offset), HttpStatus.OK);
   }
 }

@@ -68,7 +68,7 @@ public class Ticket {
    */
   @ManyToOne
   @JoinColumn(name = "department_id")
-  @JsonBackReference(value = "newDepartment")
+  @JsonBackReference(value = "dep")
   private Department department;
 
   /**
@@ -76,7 +76,7 @@ public class Ticket {
    */
   @ManyToOne
   @JoinColumn(name = "employee_id")
-  @JsonBackReference(value = "newEmployee")
+  @JsonBackReference(value = "emp")
   private Employee employee;
 
   /**

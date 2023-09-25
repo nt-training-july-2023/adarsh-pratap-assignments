@@ -1,0 +1,122 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 2px solid #f0ebeb;
+    text-align: center;
+    padding: 0.35rem;
+
+  }
+
+  .department-table{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .department-table th{
+    background-color: #0a0c27;
+    color: #dddddd;
+    margin: 5px;
+  }
+
+  .department-table td{
+    font-size: 15px;
+    
+    
+    color: #3f5965;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .filters{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    width: 45%;
+    justify-content: left;
+    margin-top: 10px;
+  }
+
+  .header-filter{
+    display:flex;
+    justify-content: row;
+    width: 100%;
+    margin: 15px 0px;
+  }
+
+  .header-filter .header{
+    width:55%;
+    display: flex;
+    justify-content: end;
+    
+  }
+
+  .header-filter .header span{
+    color: #d43e25;
+    font-weight: 600;
+    font-size: 2rem;
+    text-transform: uppercase;
+    border-bottom: 4px solid #202850;
+    display: inline-block;
+    letter-spacing: 1px;
+  }
+
+  .header-filter .filters select{
+    border-radius: 10px;
+    padding-left: 12px;
+    height: 26px;
+    border: 1px solid #607d8b;
+    color: #607d8b;
+    background: transparent;
+    margin-left: 8px;
+  }
+
+  .header-filter .filters label{
+    margin-left: 25px;
+    font-size: 18px;
+    color: #3f5965;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  tr:hover{
+    background: whitesmoke;
+  }
+
+  .pre-next-button {
+    margin-top: 1rem;
+  }
+
+  .table-container{
+    
+    max-height: 423px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .pre-next-button button{
+    padding: 5px 30px;
+    margin: 5px;
+    background: #0a0c27;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.7rem;
+  }
+
+ .view-button{
+    padding: 5px 10px;
+    background: #0a0c27;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.7rem;
+ } 

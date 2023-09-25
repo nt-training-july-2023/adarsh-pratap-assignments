@@ -9,8 +9,15 @@ import com.grievance.exception.ApiResponse;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.EmployeeRepo;
 import com.grievance.serviceinterface.EmployeeServiceInterface;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -144,5 +151,16 @@ public class EmployeeService implements EmployeeServiceInterface {
       apiResponse.setMessage("New password and confirm password should be same");
     }
     return apiResponse;
+  }
+
+  public List<EmployeeOutDto> getAllEmployee(final Integer offset){
+	  Pageable page = PageRequest.of(offset, 10);
+	  Page<Employee> employee = this.employeeRepo.findAll(page);
+
+	  List<EmployeeOutDto> result = new ArrayList<EmployeeOutDto>();
+	  for(Employee emp : employee) {
+		  result.add(this.modelMapper.map(emp, EmployeeOutDto.class));
+	  }
+	  return result;
   }
 }

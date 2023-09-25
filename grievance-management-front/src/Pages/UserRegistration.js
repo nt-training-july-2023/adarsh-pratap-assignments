@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../css/UserRegistration.css";
 import { getAllDepartment } from "../api/Department_API";
 import axios from "axios";
+import { headers } from "../api/Headers";
+import PopUp from "../components/PopUp";
 
 function UserRegistration() {
   const [department, setDepartment] = useState([]);
@@ -146,18 +148,24 @@ function UserRegistration() {
       !valid.email.isError &&
       !valid.department.isError
     ) {
+      const pass = employee.password;
+      var emp={...employee};
+      emp.password=btoa(employee.password);
+      console.log(emp)
       axios
-        .post("http://localhost:8080/employee/add", employee)
+        .post("http://localhost:8080/employee/add", emp, {headers:headers()})
         .then((resp) => {
-          alert("Added!!");
+          setpopup(true);
         })
-        .catch((err) => {
-          alert("not added");
+        .catch((error) => {
+          alert(error.message);
         });
     }
   };
-
+  const [popup , setpopup] = useState(false);
   return (
+    <>
+    {popup && <PopUp set={setpopup} header={"Employee"} message={"Registered Sucessfully!!!"}/>}
     <div className="registration">
       <div className="content">
         <div className="header">
@@ -249,6 +257,7 @@ function UserRegistration() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

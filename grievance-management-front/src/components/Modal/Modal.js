@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import "../../css/Modal.css";
 import Input from "./Input";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+
 
 export default function Modal(props) {
 
-    const navigate = useNavigate();
-
+    
     return (
         
         <div className="modal" >

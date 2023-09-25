@@ -1,8 +1,8 @@
 import { headers } from "./Headers";
 import { deleteMapping, getMapping, postMapping } from "./AllUrls";
 
-export const getAllDepartment=()=>{
-    return getMapping(`/department/getall`,{headers:headers()})
+export const getAllDepartment=(params)=>{
+    return getMapping(`/department/getall`,{params:params , headers:headers()})
 }
 export const addDepartment=(department)=>{
     return postMapping(`/department/add`,department ,{headers:headers()});

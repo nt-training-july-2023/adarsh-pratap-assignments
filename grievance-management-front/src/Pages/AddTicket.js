@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../css/UserRegistration.css";
 import { getAllDepartment } from "../api/Department_API";
 import { addTicket } from "../api/Ticket_API";
+import { useNavigate } from "react-router-dom";
+import PopUp from "../components/PopUp";
 
 function AddTicket() {
+
+  const navigate = useNavigate();
+
   const [department, setDepartment] = useState([]);
 
   const [ticket, setTicket] = useState({
@@ -15,7 +20,7 @@ function AddTicket() {
       depId: 0,
     },
     employee: {
-      empId: 1,
+      empId: JSON.parse(localStorage.getItem("user")).empId,
     },
   });
 
@@ -126,7 +131,8 @@ function AddTicket() {
     ) {
       addTicket(ticket)
         .then((resp) => {
-          alert("Added successfully");
+          setPopUp(true);
+          navigate("/admin")
         })
         .catch((error) => {
           console.log(error);
@@ -134,9 +140,11 @@ function AddTicket() {
         });
     }
   };
-
+  const [popUp , setPopUp] = useState(false);
   return (
     <>
+    
+    {popUp && (<PopUp set={setPopUp} header={"Ticket"} message={"Saved Sucessfully!!"}/>)}
       <div className="registration">
         <div className="content">
           <div className="header">

@@ -11,31 +11,4 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class CommentService {
 
-  /**
-   * CommentRepository autowired.
-   */
-  @Autowired
-  private CommentsRepo commentsRepo;
-
-  /**
-   * Model Mapper Autowired.
-   */
-  @Autowired
-  private ModelMapper modelMapper;
-
-  /**
-   * Save Comments.
-   *
-   * @param commentsDto CommentDto type.
-   *
-   * @return CommentDto
-   */
-  public CommentsDto saveComment(final CommentsDto commentsDto) {
-    Comment comment = this.modelMapper.map(commentsDto, Comment.class);
-
-    Comment savedComment = this.commentsRepo.save(comment);
-
-    return this.modelMapper.map(savedComment, CommentsDto.class);
-  }
-
 }

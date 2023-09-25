@@ -61,7 +61,6 @@ public class TicketController {
       final @RequestParam String ticket,
       final @RequestParam String filter,
       final @RequestParam Integer offset) {
-	  System.out.println(empid+" "+ticket+" "+filter+" "+offset);
     return new ResponseEntity<>(
       this.ticketService.findAll(empid, ticket, filter , offset),
       HttpStatus.OK);

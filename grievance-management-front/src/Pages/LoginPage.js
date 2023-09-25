@@ -40,16 +40,25 @@ function LoginPage(props) {
     e.preventDefault();
     validation();
     if (!valid.userName.isError && !valid.password.isError) {
-      login(user)
+      const pass = user.password;
+      setUser({...user, password:pass})
+
+      let value = {
+        userName : user.userName,
+        password : btoa(pass)
+      }
+      console.log(value);
+      login(value)
         .then((res) => {
+          console.log(res?.data);
           localStorage.setItem("user", JSON.stringify(res?.data));
-          localStorage.setItem("password", user.password);
+          localStorage.setItem("password", value.password);
           props.setUser(JSON.parse(localStorage.getItem("user")));
 
           navigate("/admin");
         })
         .catch((error) => {
-          alert("Invalid User");
+          alert(error.response.data);
         });
     }
   };

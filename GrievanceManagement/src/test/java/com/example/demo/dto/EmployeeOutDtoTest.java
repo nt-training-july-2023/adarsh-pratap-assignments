@@ -21,6 +21,7 @@ public class EmployeeOutDtoTest {
 		employeeOutDto.setIsFirstLogin(true);
 		employeeOutDto.setRole(Role.ROLE_ADMIN);
 		employeeOutDto.setUserName("Tester121");
+		employeeOutDto.setTicket(null);
 	}
 	
 	@Test
@@ -31,6 +32,7 @@ public class EmployeeOutDtoTest {
 		assertEquals(employeeOutDto.getIsFirstLogin(), true);
 		assertEquals(employeeOutDto.getRole(), Role.ROLE_ADMIN);
 		assertEquals(employeeOutDto.getUserName(), "Tester121");
+		assertEquals(employeeOutDto.getTicket(), null);
 	}
 	
 	@Test
@@ -40,7 +42,6 @@ public class EmployeeOutDtoTest {
 	
 	@Test
 	public void toString_Testing() {
-//		System.out.println(employeeOutDto);
 		String value = "EmployeeOutDto [empId=1, userName=Tester121, email=testing@gmail.com, role=ROLE_ADMIN, isFirstLogin=true, department=null, ticket=null]";
 		assertEquals(employeeOutDto.toString(), value);
 	}

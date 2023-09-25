@@ -157,4 +157,60 @@ public class EmployeeServiceTest {
 
 	  Assertions.assertEquals(employeeOutDto, this.employeeService.getById(1));
   }
+  
+  @Test
+  public void whenChangePassword_ReturnsApiResponse() {
+	  employee.setPassword("Sachin23");
+	  Optional<Employee> emp= Optional.ofNullable(employee);
+	  when(this.employeeRepo.findById(1)).thenReturn(emp);
+	  ChangePasswordDto changePasswordDto = new ChangePasswordDto("Sachin23" , "Sachin23" , "Sachin123");
+	  ApiResponse apiResponse = new ApiResponse();
+	  apiResponse.setEntity("Employee");
+      apiResponse.setMessage(
+    		  "old password and new password should not be same");
+       Assertions.assertEquals(this.employeeService.changePassword(1, changePasswordDto).getMessage(), apiResponse.getMessage());
+       
+      
+  }
+  
+  @Test
+  public void whenChangePassword_ReturnsApiResponseNotChanged() {
+	  Optional<Employee> emp= Optional.ofNullable(employee);
+	  when(this.employeeRepo.findById(1)).thenReturn(emp);
+	  ChangePasswordDto changePasswordDto = new ChangePasswordDto("adarsh" , "Sachin23" , "Sachin123");
+	  ApiResponse apiResponse = new ApiResponse();
+	  apiResponse.setEntity("Employee");
+      apiResponse.setMessage(
+    		  "New password and confirm password should be same");
+       Assertions.assertEquals(this.employeeService.changePassword(1, changePasswordDto).getMessage(), apiResponse.getMessage());
+       
+      
+  }
+  
+  @Test
+  public void whenChangePassword_ReturnsApiResponseChanged() {
+	  Optional<Employee> emp= Optional.ofNullable(employee);
+	  when(this.employeeRepo.findById(1)).thenReturn(emp);
+	  when(this.employeeRepo.save(employee)).thenReturn(employee);
+	  ChangePasswordDto changePasswordDto = new ChangePasswordDto("adarsh" , "Sachin123" , "Sachin123");
+	  ApiResponse apiResponse = new ApiResponse();
+	  apiResponse.setEntity("Employee");
+      apiResponse.setMessage(
+    		  "Password changed Sucessfully!!");
+       Assertions.assertEquals(this.employeeService.changePassword(1, changePasswordDto).getMessage(), apiResponse.getMessage());
+       
+      
+  }
+  
+  @Test
+  public void whenUpdateEmployee_ReturnsEmployee() {
+	  Optional<Employee> emp= Optional.ofNullable(employee);
+	  when(this.employeeRepo.findById(1)).thenReturn(emp);
+	  when(this.employeeRepo.save(employee)).thenReturn(employee);
+	  when(this.modelMapper.map(employee, EmployeeOutDto.class)).thenReturn(employeeOutDto);
+       Assertions.assertEquals(employeeOutDto, this.employeeService.updateEmployee(1, employeeDto));
+       
+      
+  }
+  
 }

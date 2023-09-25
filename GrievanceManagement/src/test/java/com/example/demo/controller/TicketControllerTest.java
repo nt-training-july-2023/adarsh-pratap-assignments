@@ -116,4 +116,35 @@ public class TicketControllerTest {
       .andExpect(status().isOk())
       .andDo(MockMvcResultHandlers.print());
   }
+  
+  @Test
+  public void getallTikcets() throws JsonProcessingException, Exception {
+
+//	  when(ticketService.findAll(Mockito.anyInt(),Mockito.any(String.class),Mockito.any(String.class) , Mockito.anyInt()))
+//      .thenReturn(Mockito.anyList());
+
+	  mockMvc
+      .perform(
+        MockMvcRequestBuilders
+          .get("/ticket/getall/?empid=19&ticket=all&filter=open&offset=0")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(null))
+      )
+      .andExpect(status().isOk())
+      .andDo(MockMvcResultHandlers.print());
+  }
+  
+  @Test
+  public void getTicketById() throws JsonProcessingException, Exception {
+
+	  mockMvc
+      .perform(
+        MockMvcRequestBuilders
+          .get("/ticket/get/1")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(objectMapper.writeValueAsString(null))
+      )
+      .andExpect(status().isOk())
+      .andDo(MockMvcResultHandlers.print());
+  }
 }

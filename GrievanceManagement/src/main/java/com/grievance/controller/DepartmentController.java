@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Department Controller.
  * @author adarsh
  */
 @Controller
-@RequestMapping("/department/")
+@RequestMapping("/department")
 @CrossOrigin("*")
 public class DepartmentController {
 
@@ -37,10 +38,14 @@ public class DepartmentController {
    *
    * @return ResonseEntity
    */
-  @GetMapping("getall")
-  public ResponseEntity<?> getAllDepartment() {
-    return new ResponseEntity<>(
-      this.departmentService.getAllDepartment(), HttpStatus.OK);
+  @GetMapping("/getall")
+  public ResponseEntity<?> getAllDepartment(@RequestParam(required = false) Integer offset) {
+    if(offset == null) {
+    	return new ResponseEntity<>(this.departmentService.getAllDepartment(),HttpStatus.OK);
+    }
+    else {
+       	return new ResponseEntity<>(this.departmentService.getAllDepartmentByPagination(offset),HttpStatus.OK);
+    }
   }
 
   /**
@@ -50,7 +55,7 @@ public class DepartmentController {
    *
    * @return Department.
    */
-  @PostMapping("add")
+  @PostMapping("/add")
   public ResponseEntity<?> saveDepartment(
       final @Valid @RequestBody DepartmentInDto departmentDto) {
     return new ResponseEntity<>(
@@ -66,7 +71,7 @@ public class DepartmentController {
    * @return String
    */
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<?> deleteDepartment(@PathVariable(name = "id") Integer id){
+  public ResponseEntity<?> deleteDepartment(@PathVariable(name = "id") Integer id) {
     return new ResponseEntity<>(this.departmentService.deleteById(id),
         HttpStatus.OK);
   }

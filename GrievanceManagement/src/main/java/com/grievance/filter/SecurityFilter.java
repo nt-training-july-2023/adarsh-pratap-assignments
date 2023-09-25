@@ -77,7 +77,8 @@ public class SecurityFilter implements Filter {
     String password = httpServletRequest.getHeader("password");
     String currentUrl = httpServletRequest.getRequestURI();
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-    System.out.println(currentUrl + email+password);
+
+    System.out.println(password +" "+ currentUrl);
     if(currentUrl.equals("/employee/login")) {
     	chain.doFilter(request, response);
     }
@@ -105,7 +106,6 @@ public class SecurityFilter implements Filter {
       employeeRepo.existsByEmailAndPasswordAndRole(email, password, Role.ROLE_ADMIN) &&
       checkAdminUrl(currentUrl)
     ) {
-      System.out.println("Inside admin");
       chain.doFilter(request, response);
     } else if (
       employeeRepo.existsByEmailAndPassword(email, password) &&
