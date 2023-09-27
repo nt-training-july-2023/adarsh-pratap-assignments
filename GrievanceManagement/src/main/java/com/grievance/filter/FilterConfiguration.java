@@ -1,16 +1,16 @@
 package com.grievance.filter;
 
+import com.grievance.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import com.grievance.repo.EmployeeRepo;
+
 
 /**
  * Security Filter Configuration.
@@ -30,25 +30,31 @@ public class FilterConfiguration {
    *
    * @param employeeRepo EmployeeRepo
    */
-  public FilterConfiguration(EmployeeRepo employeeRepo) {
+  public FilterConfiguration(final EmployeeRepo employeeRepo) {
     super();
     this.employeeRepo = employeeRepo;
   }
 
+  /**
+   * CORS FILTER.
+   *
+   * @return CorsFilter
+   */
   @Bean
   public CorsFilter corsFilter() {
-      org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
-      CorsConfiguration config = new CorsConfiguration();
-      config.addAllowedOrigin("http://localhost:3000");
-      config.addAllowedHeader("*");
-      config.addAllowedMethod("GET");
-      config.addAllowedMethod("POST");
-      config.addAllowedMethod("PUT");
-      config.addAllowedMethod("DELETE");
+    UrlBasedCorsConfigurationSource source =
+        new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOrigin("http://localhost:3000");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("GET");
+    config.addAllowedMethod("POST");
+    config.addAllowedMethod("PUT");
+    config.addAllowedMethod("DELETE");
 
-      source.registerCorsConfiguration("/**", config);
+    source.registerCorsConfiguration("/**", config);
       
-      return new CorsFilter(source);
+    return new CorsFilter(source);
   }
 
   /**

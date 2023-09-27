@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -73,8 +76,28 @@ public class DepartmentService implements DepartmentServiceInterface {
    */
   @Override
   public List<DepartmentOutDto> getAllDepartment() {
-    List<Department> allDepartment = this.departmentRepo.findAll();
 
+    List<Department> allDepartment = this.departmentRepo.findAll();
+    List<DepartmentOutDto> departmentOutDtos
+        = new ArrayList<DepartmentOutDto>();
+
+    for (Department department : allDepartment) {
+      departmentOutDtos.add(this.modelMapper.map(
+          department, DepartmentOutDto.class));
+    }
+
+    return departmentOutDtos;
+  }
+
+  /**
+   * Get all Department By Pagination.
+   */
+  @Override
+  public List<DepartmentOutDto> getAllDepartmentByPagination(
+      final Integer offset) {
+    final Integer pageSize = 10;
+    Pageable page = PageRequest.of(offset, pageSize);
+    Page<Department> allDepartment = this.departmentRepo.findAll(page);
     List<DepartmentOutDto> departmentOutDtos
         = new ArrayList<DepartmentOutDto>();
 
@@ -93,7 +116,7 @@ public class DepartmentService implements DepartmentServiceInterface {
    * @return String
    */
   @Override
-  public String deleteById(Integer id) {
+  public String deleteById(final Integer id) {
     Department dep = this.departmentRepo.findById(
         id).orElseThrow(() -> new ResourceNotFound(
         "Department", "Not Found"));

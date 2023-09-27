@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../css/UserRegistration.css";
 import { getAllDepartment } from "../api/Department_API";
-import axios from "axios";
+import PopUp from "../components/PopUp";
+import { useNavigate } from "react-router-dom";
+import { addEmployee } from "../api/Employee_API";
 
 function UserRegistration() {
   const [department, setDepartment] = useState([]);
@@ -135,6 +137,7 @@ function UserRegistration() {
     }
   };
 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -146,18 +149,25 @@ function UserRegistration() {
       !valid.email.isError &&
       !valid.department.isError
     ) {
-      axios
-        .post("http://localhost:8080/employee/add", employee)
-        .then((resp) => {
-          alert("Added!!");
+      const pass = employee.password;
+      var emp={...employee};
+      emp.password=btoa(employee.password);
+      
+      addEmployee(emp).then((resp) => {
+          setpopup(true);
+          setTimeout(()=>{
+            navigate("/admin/allEmployee")
+          }, 1000)
         })
-        .catch((err) => {
-          alert("not added");
+        .catch((error) => {
+          alert(error.message);
         });
     }
   };
-
+  const [popup , setpopup] = useState(false);
   return (
+    <>
+    {popup && <PopUp set={setpopup} header={"Employee"} message={"Registered Sucessfully!!!"}/>}
     <div className="registration">
       <div className="content">
         <div className="header">
@@ -249,6 +259,7 @@ function UserRegistration() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

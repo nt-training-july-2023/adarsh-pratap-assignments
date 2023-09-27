@@ -45,6 +45,11 @@ public class EmployeeOutDto {
   private DepartmentOutDto department;
 
   /**
+   * DepName.
+   */
+  private String depName;
+
+  /**
    * Tickets Out Dto.
    */
   @JsonIgnore
@@ -177,6 +182,18 @@ public class EmployeeOutDto {
   }
 
   /**
+ * @return the depName
+ */
+public String getDepName() {
+return depName;}
+
+/**
+ * @param depName the depName to set
+ */
+public void setDepName(String depName) {
+this.depName = depName;}
+
+/**
    * All args constructor.
    *
    * @param newEmpId Integer.

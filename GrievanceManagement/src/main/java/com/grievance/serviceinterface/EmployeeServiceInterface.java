@@ -29,27 +29,32 @@ public interface EmployeeServiceInterface {
    */
   EmployeeOutDto login(UserLogin login);
 
-   /**
+  /**
    * Get By Id.
    *
    * @param id Integer.
    *
    * @return EmployeeOutDto
-   */EmployeeOutDto getById(Integer id);
+   */
+  EmployeeOutDto getById(Integer id);
 
-   /**
+  /**
    * Update Employee.
    *
    * @param id Integer
    * @param emp Employee
    * @return EmployeeOutDto
-   */EmployeeOutDto updateEmployee(Integer id, EmployeesInDto emp);
+   */
+  EmployeeOutDto updateEmployee(
+        Integer id, EmployeesInDto emp);
 
-   /**
+  /**
    * change Password.
    *
    * @param id Integer
    * @param changePasswordDto ChangePasswordDto
    * @return ApiResponse
-   */ApiResponse changePassword(Integer id, ChangePasswordDto changePasswordDto);
+   */
+  ApiResponse changePassword(
+         Integer id, ChangePasswordDto changePasswordDto);
 }

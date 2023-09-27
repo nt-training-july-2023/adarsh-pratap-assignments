@@ -1,6 +1,7 @@
 package com.grievance.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.grievance.entity.Ticket;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class CommentsDto {
   /**
    * Creation time.
    */
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
   private Date creationTime;
 
   /**

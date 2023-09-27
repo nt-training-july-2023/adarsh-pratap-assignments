@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { addDepartment } from "../api/Department_API";
+import PopUp from "../components/PopUp";
+import { useNavigate } from "react-router-dom";
 
 function AddDepartment(props) {
   const [department, setDepartment] = useState({
     depName: "",
   });
-
   const [valid, setValid] = useState({
     isError: false,
     errorMessage: "",
   });
-
   const handleChange = (e) => {
     if (valid.isError) {
       setValid({
@@ -22,31 +22,45 @@ function AddDepartment(props) {
     setDepartment({ ...department, [e.target.name]: e.target.value });
   };
 
-  const isValid = () => {
+  const isValid =  () => {
     if (department.depName === "") {
-      setValid({
-        ...valid,
+      setValid((prevValid) => ({
+        ...prevValid,
         isError: true,
-        errorMessage: "Depatment name can not be empty",
-      });
+        errorMessage: "Department name can not be empty",
+      }));
+      return true;
+      
     }
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleSubmit =  (e) => {
     e.preventDefault();
-    isValid();
-    if (valid.isError === false) {
-      addDepartment(department)
+
+    const flag = isValid();
+
+    if (!flag) {
+       addDepartment(department)
         .then((resp) => {
           alert("Depatment is Added!!");
+          props.set(false);
+          navigate("/admin/allDepartment");
         })
         .catch((error) => {
-          console.log(error);
+          if(error.code === "ERR_BAD_REQUEST"){
+            alert(error.response.data.depName)
+          }
+          else{
           alert(error);
-        });
+    }
+  });
     }
     return;
   };
+
+
+  
   const fields = [
     {
       field: "Input",
@@ -67,14 +81,17 @@ function AddDepartment(props) {
       value: "Submit",
     },
   ];
-
+  
   return (
+    <>
+    
     <Modal
       set={props.set}
       header={"Add Department"}
       fields={fields}
       onsubmit={handleSubmit}
     />
+    </>
   );
 }
 

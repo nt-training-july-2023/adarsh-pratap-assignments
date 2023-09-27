@@ -13,7 +13,7 @@
   height: 60%;
   width: 40%;
   border: 1.5px solid black;
-  border-radius: 20px;
+  border-radius: 4px;
   margin-top: 6px;
   box-shadow: 20px 20px 10px grey;
   /* margin-bottom: 100px; */
@@ -30,7 +30,7 @@
   background-color: #0a0c27;
   display: flex;
   justify-content: center;
-  border-radius: 17px 17px 0px 0px;
+  border-radius: 2px 2px 0px 0px;
   height: 44px;
 }
 
@@ -64,8 +64,6 @@
 
 .inner-div input {
   height: 30px;
-  /* border-radius: 10px; */
-  /* border: 2px solid black; */
   padding-left: 12px;
 
   font-weight: 400;
@@ -73,13 +71,12 @@
     font-size: 16px;
     letter-spacing: 1px;
     color: #607d8b;
-    border-radius: 30px;
+    border-radius: 4px;
     background: transparent ;
 }
 
 .inner-div textarea{
-  border-radius: 10px;
-  /* border: 2px solid black; */
+  border-radius: 4px;
   padding-left: 12px;
 
   font-weight: 400;
@@ -87,7 +84,6 @@
   font-size: 16px;
   letter-spacing: 1px;
   color: #607d8b;
-  /* border-radius: 30px; */
   background: transparent ;
 }
 
@@ -98,8 +94,7 @@
 
 .user-details select{
   height: 30px;
-  /* border: 2px solid black; */
-  border-radius: 10px;
+  border-radius: 4px;
   padding-left: 12px;
   height: 33px;
 
@@ -108,10 +103,13 @@
   font-size: 16px;
   letter-spacing: 1px;
   color: #607d8b;
-  /* border-radius: 30px; */
   background: transparent ;
 }
 
+.user-details .submit-box{
+  display: flex;
+  justify-content: center;
+}
 .user-details .submit-box input[type="submit"]{
   height: 41px;
   background: #0a0c27;
@@ -119,10 +117,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
-  margin-left: 20px;
   width: 90%;
-  margin-left: 26px;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-bottom: 16px;
   font-size: 16px;
   letter-spacing: 1px;

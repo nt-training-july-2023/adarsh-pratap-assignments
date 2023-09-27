@@ -1,42 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserRegistration from "./Pages/UserRegistration";
 import AddTicket from "./Pages/AddTicket";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Department from "./components/Department";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
-import AddDepartment from "./Pages/AddDepartment";
-import ResetPassword from "./Pages/ResetPassword";
-import Navbar from "./components/Navbar";
+
 import AllTickets from "./Pages/AllTickets";
 import AllDepartment from "./Pages/AllDepartment";
-import AdminDashboard from "./Pages/AdminDashboard";
-import UpdateTicket from "./Pages/UpdateTicket";
 import Admin from "./Pages/Admin";
+import AllEmployees from "./Pages/AllEmployees";
+import User from "./Pages/User";
+import { getCurrentUserDetails } from "./Authentication/auth";
+import ResetPassword from "./Pages/ResetPassword";
 
 function App() {
   const [user, setUser] = useState();
+  const userDetails = getCurrentUserDetails();
+  console.log(userDetails)
+  
+  
   const navigate = useNavigate();
   return (
     <div className="">
       <Routes>
-        <Route path="/navbar" element={<Navbar />} />
-        <Route path="/" element={<LoginPage setUser={setUser} />} />
-
-        {user && user.role === "ROLE_ADMIN" ? (
-          <Route path="depatment" element={<AddDepartment />} />
-        ) : null}
-        <Route path="/registration" element={<UserRegistration />} />
-        <Route path="/addticket" element={<AddTicket />} />
-        <Route path="/allticket" element={<AllTickets />} />
-        {user && user.role === "ROLE_ADMIN" ? (
-          <Route path="/admin" element={<AdminDashboard />} />
-        ) : (
-          navigate("/")
-        )}
-        <Route path="/reset" element={<ResetPassword />} />
-        <Route path="/alldep" element={<AllDepartment />} />
-        <Route path="/update" element={<UpdateTicket />} />
-        <Route path="/demo" element={<Admin />} />
+      <Route path="*" element={<Navigate to={"/"}/>} />
+      <Route path="/" element={<LoginPage setUser={setUser} />} />
+      <Route path="/reset" element={<ResetPassword set={()=>{}}/>}/>
+      
+        {userDetails && userDetails.role === 'ROLE_ADMIN' && (<Route path="/admin" element={<Admin user={user}/>} >
+          <Route index element={<AllTickets/>}/>
+          <Route path="/admin/addTicket" element={<AddTicket/>}/>
+          <Route path="/admin/registration" element={<UserRegistration />} />
+          <Route path="/admin/allDepartment" element={<AllDepartment />} />
+          <Route path="/admin/allEmployee" element={<AllEmployees />} />
+        </Route>)}
+        <Route path="/user" element={<User user={user}/>} >
+          <Route index element={<AllTickets/>}/>
+          <Route path="/user/addTicket" element={<AddTicket/>}/>
+        </Route>
       </Routes>
     </div>
   );

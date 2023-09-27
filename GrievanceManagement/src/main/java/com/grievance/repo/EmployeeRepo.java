@@ -30,7 +30,8 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
    * @param password String
    * @return Optional Of Employee
    */
-  Optional<Employee> findByEmailAndPassword(String email,String password);
+  Optional<Employee> findByEmailAndPassword(
+      String email, String password);
 
   /**
    * Employee Exist By Email And Password And Role.
@@ -40,7 +41,8 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
    * @param roleAdmin Role
    * @return Boolean
    */
-  boolean existsByEmailAndPasswordAndRole(String email,String password,Role roleAdmin);
+  boolean existsByEmailAndPasswordAndRole(
+      String email, String password, Role roleAdmin);
 
   /**
    * Employee Exist By Email And Password.
@@ -49,5 +51,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
    * @param password String
    * @return Boolean
    */
-  boolean existsByEmailAndPassword(String email,String password);
+  boolean existsByEmailAndPassword(
+      String email, String password);
 }

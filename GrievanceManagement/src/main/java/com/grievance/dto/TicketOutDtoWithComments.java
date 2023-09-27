@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
@@ -33,11 +34,13 @@ public class TicketOutDtoWithComments {
 	  /**
 	   * creation date.
 	   */
+	  @JsonFormat(pattern = "yyyy-MM-dd hh:mm aa", timezone = "Asia/Kolkata")
 	  private Date creationDate;
 
 	  /**
 	   * last updation date.
 	   */
+	  @JsonFormat(pattern = "yyyy-MM-dd hh:mm aa", timezone = "Asia/Kolkata")
 	  private Date lastUpdateDate;
 
 	  /**
@@ -48,20 +51,16 @@ public class TicketOutDtoWithComments {
 	  /**
 	   * department.
 	   */
-	  @JsonBackReference(value = "newDepartment")
 	  private DepartmentOutDto department;
 
 	  /**
 	   * employee.
 	   */
-	  @JsonBackReference(value = "newEmployee")
 	  private EmployeeOutDto employee;
 
 	  /**
 	   * comments.
 	   */
-//	  @JsonIgnore
-	  @JsonManagedReference(value = "newComments")
 	  private List<CommentsDto> comments;
 
 	  /**

@@ -38,13 +38,13 @@ public class TicketOutDto {
   /**
    * creation date.
    */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
+  @JsonFormat(pattern = "yyyy-MM-dd hh:mm aa", timezone = "Asia/Kolkata")
   private Date creationDate;
 
   /**
    * last updation date.
    */
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Kolkata")
+  @JsonFormat(pattern = "yyyy-MM-dd hh:mm aa", timezone = "Asia/Kolkata")
   private Date lastUpdateDate;
 
   /**
@@ -58,6 +58,9 @@ public class TicketOutDto {
   @JsonBackReference(value = "dep")
   private DepartmentOutDto department;
 
+  private String depName;
+
+  private String empName;
   /**
    * employee.
    */
@@ -242,6 +245,32 @@ public class TicketOutDto {
   }
 
   /**
+   * getter for depName.
+   *
+ * @return the depName
+ */
+public String getDepName() {
+return depName;}
+
+/**
+ * @param depName the depName to set
+ */
+public void setDepName(String depName) {
+this.depName = depName;}
+
+/**
+ * @return the empName
+ */
+public String getEmpName() {
+return empName;}
+
+/**
+ * @param empName the empName to set
+ */
+public void setEmpName(String empName) {
+this.empName = empName;}
+
+/**
   * setter for comments.
   *
   * @param newComment the comments to set

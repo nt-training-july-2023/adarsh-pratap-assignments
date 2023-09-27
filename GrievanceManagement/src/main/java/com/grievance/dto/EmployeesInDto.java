@@ -40,11 +40,11 @@ public class EmployeesInDto {
    * Password of account .
    */
   @NotEmpty(message = "Password field is mendatory")
-  @Size(
-      min = minPassword,
-      max = maxPassword,
-      message = "password should be in range between 5 to 18"
-  )
+//  @Size(
+//      min = minPassword,
+//      max = maxPassword,
+//      message = "password should be in range between 5 to 18"
+//  )
   private String password;
 
   /**

@@ -1,36 +1,41 @@
 import React, { useEffect, useState } from "react";
-import TableHeader from "../components/Table/TableHeader";
-import Content from "../components/Table/Content";
 import { deleteDepartmentById, getAllDepartment } from "../api/Department_API";
+import { Table } from "../components/Table/Table";
 
 function AllDepartment() {
   const [dep, setDep] = useState([]);
 
+  const [offset, setOffset] = useState(0);
+  const params ={
+    offset:offset
+  }
   const setAllDepartment = () => {
-    getAllDepartment().then((resp) => {
+    getAllDepartment(params).then((resp) => {
       setDep(resp.data);
     });
   };
 
   const handleDelete = (e) => {
-    deleteDepartmentById(e).then((resp) => {
-      alert(resp.data);
+    deleteDepartmentById(e.depId).then((resp) => {
       setAllDepartment();
     });
   };
 
   useEffect(() => {
     setAllDepartment();
-  }, []);
+  },[offset]);
 
-  const header = ["Department Id", "Department Name", "Actions"];
+  const table = [{key:'depId',title:'Department ID'},{key:'depName',title:'Department Name'},{key:'delete',title:'Delete'}]
 
   return (
     <div className="department-table">
-      <div>
-        <h1>Add Department</h1>
+      <div className="header-filter">
+          <div className="header">
+            <span>All Department</span>
+          </div>
       </div>
-      <table>
+      <div className="table-container">
+      {/* <table>
         <TableHeader header={header} />
 
         {dep.map((d) => {
@@ -39,12 +44,32 @@ function AllDepartment() {
               <Content data={d.depId} />
               <Content data={d.depName} />
               <td>
-                <button onClick={() => handleDelete(d.depId)}>Delete</button>
+                <button className="view-button" onClick={() => handleDelete(d.depId)}>Delete</button>
               </td>
             </tr>
           );
         })}
-      </table>
+      </table> */}
+      <Table data={dep} columns={table} onRowClick={()=>{}} onDelete={handleDelete}/>
+      </div>
+      <div className="pre-next-button">
+          {offset !== 0 && (<button
+            disabled={offset === 0}
+            onClick={() => {
+              setOffset(offset - 1);
+            }}
+          >
+            previous
+          </button>)}
+          {dep.length !== 0 &&(<button
+            disabled={dep.length === 0}
+            onClick={() => {
+              setOffset(offset + 1);
+            }}
+          >
+            Next
+          </button>)}
+        </div>
     </div>
   );
 }

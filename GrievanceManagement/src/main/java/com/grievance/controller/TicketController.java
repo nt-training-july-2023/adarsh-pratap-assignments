@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Ticket Controller.
+ *
+ * @author adarsh
  */
 @RestController
 @RequestMapping("/ticket")
@@ -61,9 +63,8 @@ public class TicketController {
       final @RequestParam String ticket,
       final @RequestParam String filter,
       final @RequestParam Integer offset) {
-	  System.out.println(empid+" "+ticket+" "+filter+" "+offset);
     return new ResponseEntity<>(
-      this.ticketService.findAll(empid, ticket, filter , offset),
+      this.ticketService.findAll(empid, ticket, filter, offset),
       HttpStatus.OK);
   }
 

@@ -1,21 +1,15 @@
 package com.grievance.repo;
 
-import com.grievance.dto.DepartmentOutDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
-import com.grievance.entity.Role;
 import com.grievance.entity.Ticket;
 import com.grievance.entity.TicketStatus;
-
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+
 
 /**
  * Ticket Repository.
@@ -51,7 +45,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  Page<Ticket> findByEmployeeAndStatus(Employee employee, TicketStatus status, Pageable page);
+  Page<Ticket> findByEmployeeAndStatus(
+      Employee employee, TicketStatus status, Pageable page);
 
   /**
    * Find tickets By Status.
@@ -70,7 +65,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  Page<Ticket> findByDepartmentAndStatus(Department department, TicketStatus status, Pageable page);
+  Page<Ticket> findByDepartmentAndStatus(
+      Department department, TicketStatus status, Pageable page);
 
   /**
    * Find Ticket By Department And Employee.
@@ -80,7 +76,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  Page<Ticket> findByEmployeeAndDepartment(Employee employee, Department department, Pageable page);
+  Page<Ticket> findByEmployeeAndDepartment(
+      Employee employee, Department department, Pageable page);
 
   /**
    * Find Ticket By Department And Employee And Status.
@@ -91,7 +88,9 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  Page<Ticket> findByDepartmentAndEmployeeAndStatus(Department department,Employee employee,TicketStatus status,Pageable page);
+  Page<Ticket> findByDepartmentAndEmployeeAndStatus(
+      Department department, Employee employee,
+      TicketStatus status, Pageable page);
 
   /**
    * Find Ticket By Status And Department Or Employee.
@@ -102,8 +101,11 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  @Query("SELECT t FROM Ticket t WHERE (t.status = :status) AND (t.employee = :employee OR t.department = :department)")
-  Page<Ticket> findByStatusAndDepartmentOrEmployee(Department department,Employee employee,TicketStatus status,Pageable page);
+  @Query("SELECT t FROM Ticket t WHERE (t.status = :status) AND"
+        + "(t.employee = :employee OR t.department = :department)")
+  Page<Ticket> findByStatusAndDepartmentOrEmployee(
+      Department department, Employee employee,
+      TicketStatus status, Pageable page);
 
   /**
    * Find Ticket By Employee Or Department.
@@ -113,7 +115,8 @@ public interface TicketRepo extends JpaRepository<Ticket, Integer> {
    * @param page Page
    * @return Page of tickets
    */
-  Page<Ticket> findByEmployeeOrDepartment(Employee employee,Department department,Pageable page);
+  Page<Ticket> findByEmployeeOrDepartment(
+      Employee employee, Department department, Pageable page);
 
 
 }

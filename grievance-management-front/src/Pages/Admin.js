@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Nav from "./Nav";
-import AllTickets from "./AllTickets";
-import AllDepartment from "./AllDepartment";
-import AddTicket from "./AddTicket";
-import UserRegistration from "./UserRegistration";
+import { isLoggedIn } from "../Authentication/auth";
 
 function AdminDashboard() {
-  const ticket = ["All Ticket", "Create Ticket"];
-  const department = ["All Department", "Create Department"];
-  const employee = ["All Employee", "Add Employee"];
-  const profile = ["Change Password", "Logout"];
-
+  const ticket = [
+    { name: "All Tickets", to: "/admin" },
+    { name: "Add Ticket", to: "/admin/addTicket" },
+  ];
+  const department = [
+    { name: "All Department", to: "/admin/allDepartment" },
+    { name: "Create Department" },
+  ];
+  const employee = [
+    { name: "All Employee", to: "/admin/allEmployee" },
+    { name: "Add Employee", to: "/admin/registration" },
+  ];
+  const profile = [{ name: "Change Password" }, { name: "Logout" }];
+  const navigate = useNavigate();
   const elements = [
     {
       name: "Ticket",
@@ -30,30 +37,16 @@ function AdminDashboard() {
     },
   ];
 
-  const [active, setActive] = useState("All Ticket");
-
-  const renderComponent = () => {
-    switch (active) {
-      case "All Ticket":
-        return <AllTickets />;
-      case "Create Department":
-        return <AllDepartment />;
-      case "Create Ticket":
-        return <AddTicket />;
-      case "Add Employee":
-        return <UserRegistration />;
-      case "All Department":
-        return <AllDepartment />;
-      case "All Employee":
-        return <></>;
-    }
-  };
-  return (
-    <>
-      <Nav tag={elements} setActive={setActive} />
-      <div>{renderComponent()}</div>
-    </>
-  );
+  if (isLoggedIn()) {
+    return (
+      <>
+        <Nav tag={elements} />
+        <Outlet></Outlet>
+      </>
+    );
+  } else {
+    return <Navigate to={"/"} />;
+  }
 }
 
 export default AdminDashboard;

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/LoginPage.css";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/Employee_API";
+import { doLogin, getCurrentUserDetails } from "../Authentication/auth";
 function LoginPage(props) {
   const navigate = useNavigate();
 
@@ -10,6 +11,15 @@ function LoginPage(props) {
     password: "",
   });
 
+  useEffect(()=>{
+    const user = getCurrentUserDetails();
+    if(user && !user?.isFirstLogin && user?.role === 'ROLE_ADMIN'){
+      navigate("/admin")
+    }
+    else if(user && !user?.isFirstLogin && user?.role === 'ROLE_USER'){
+      navigate("/user");
+    }
+  })
   const [valid, setValid] = useState({
     userName: {
       isError: false,
@@ -40,16 +50,32 @@ function LoginPage(props) {
     e.preventDefault();
     validation();
     if (!valid.userName.isError && !valid.password.isError) {
-      login(user)
-        .then((res) => {
-          localStorage.setItem("user", JSON.stringify(res?.data));
-          localStorage.setItem("password", user.password);
-          props.setUser(JSON.parse(localStorage.getItem("user")));
+      const pass = user.password;
+      setUser({...user, password:pass})
 
-          navigate("/admin");
+      let value = {
+        userName : user.userName,
+        password : btoa(pass)
+      }
+      console.log(value);
+      login(value)
+        .then((res) => {
+          localStorage.setItem("password", value.password);
+          doLogin(res.data,()=>{
+            if(res.data.isFirstLogin){
+              navigate("/reset");
+              return;
+            }
+            if(res.data.role === "ROLE_ADMIN"){
+              navigate("/admin");
+            }
+            else{
+              navigate("/user");
+            }
+          })
         })
         .catch((error) => {
-          alert("Invalid User");
+          alert(error.response.data);
         });
     }
   };
@@ -74,8 +100,8 @@ function LoginPage(props) {
       setValid(temp);
     }
   };
-
   return (
+    <>
     <div className="outer-div">
       <div className="image-box">
         <img src="./logo.png" />
@@ -113,6 +139,7 @@ function LoginPage(props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -16,7 +16,7 @@ public class ApiResponse {
   private String message;
 
 
-/**
+  /**
    * Getter for entity.
    *
    * @return the entity

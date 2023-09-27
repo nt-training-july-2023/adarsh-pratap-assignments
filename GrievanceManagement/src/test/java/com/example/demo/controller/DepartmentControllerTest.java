@@ -92,4 +92,34 @@ public class DepartmentControllerTest {
     .andExpect(status().isOk())
 	.andDo(MockMvcResultHandlers.print());
   }
+  
+  @Test
+  public void deleteDepartment() throws JsonProcessingException, Exception {
+
+   
+
+    mockMvc
+    .perform(
+    MockMvcRequestBuilders
+    .delete("/department/delete/1")
+    .contentType(MediaType.APPLICATION_JSON)
+    .content(objectMapper.writeValueAsString(null))
+    )
+    .andExpect(status().isOk())
+	.andDo(MockMvcResultHandlers.print());
+  }
+  
+  @Test
+  public void getAll() throws JsonProcessingException, Exception {
+
+    mockMvc
+    .perform(
+    MockMvcRequestBuilders
+    .get("/department/getall?offset=0")
+    .contentType(MediaType.APPLICATION_JSON)
+    .content(objectMapper.writeValueAsString(null))
+    )
+    .andExpect(status().isOk())
+	.andDo(MockMvcResultHandlers.print());
+  }
 }

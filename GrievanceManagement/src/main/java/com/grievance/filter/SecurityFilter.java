@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Component
 public class SecurityFilter implements Filter {
   /**
-   * Employee Repo Autowired.
+   * Employee Repository Autowired.
    */
   @Autowired
   private EmployeeRepo employeeRepo;
 
   /**
-   * List to store Admin urls.
+   * List to store Admin URLS.
    */
   private static List<String> adminUrls = new ArrayList<String>();
 
@@ -44,17 +44,17 @@ public class SecurityFilter implements Filter {
    *
    * @param employeeRepo2 Employee Repository
    */
-  public SecurityFilter(EmployeeRepo employeeRepo2) {
+  public SecurityFilter(final EmployeeRepo employeeRepo2) {
     this.employeeRepo = employeeRepo2;
   }
 
   /**
-   * Chack if url is in the admin urls or not.
+   * Check if URL is in the ADMIN URLS or not.
    *
    * @param currentUrl String
    * @return Boolean
    */
-  public Boolean checkAdminUrl(String currentUrl) {
+  public Boolean checkAdminUrl(final String currentUrl) {
     if (adminUrls.contains(currentUrl)) {
       return true;
     }
@@ -62,27 +62,25 @@ public class SecurityFilter implements Filter {
   }
 
   /**
-   * Filter for urls.
+   * Filter.
    */
   @Override
   public void doFilter(
-    ServletRequest request,
-    ServletResponse response,
-    FilterChain chain
+      final ServletRequest request,
+      final ServletResponse response,
+      final FilterChain chain
   )
-    throws IOException, ServletException {
+      throws IOException, ServletException {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 
     String email = httpServletRequest.getHeader("email");
     String password = httpServletRequest.getHeader("password");
     String currentUrl = httpServletRequest.getRequestURI();
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-    System.out.println(currentUrl + email+password);
-    if(currentUrl.equals("/employee/login")) {
-    	chain.doFilter(request, response);
-    }
 
-    else if (httpServletRequest.getMethod().equals("OPTIONS")) {
+    if (currentUrl.equals("/employee/login")) {
+      chain.doFilter(request, response);
+    } else if (httpServletRequest.getMethod().equals("OPTIONS")) {
       httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
       httpServletResponse.setHeader(
            "Access-Control-Allow-Methods",
@@ -98,26 +96,26 @@ public class SecurityFilter implements Filter {
 
       if (email == null || password == null) {
         ((HttpServletResponse) response).sendError(
-         HttpServletResponse.SC_UNAUTHORIZED,
+            HttpServletResponse.SC_UNAUTHORIZED,
             "Invalid User"
         );
-    } else if (
-      employeeRepo.existsByEmailAndPasswordAndRole(email, password, Role.ROLE_ADMIN) &&
-      checkAdminUrl(currentUrl)
-    ) {
-      System.out.println("Inside admin");
-      chain.doFilter(request, response);
-    } else if (
-      employeeRepo.existsByEmailAndPassword(email, password) &&
-      !(checkAdminUrl(currentUrl))
-    ) {
-      chain.doFilter(request, response);
-    } else {
-      ((HttpServletResponse) response).sendError(
-          HttpServletResponse.SC_UNAUTHORIZED,
-          "Unauthorized User"
+      } else if (
+          employeeRepo.existsByEmailAndPasswordAndRole(
+            email, password, Role.ROLE_ADMIN)
+          && checkAdminUrl(currentUrl)
+      ) {
+        chain.doFilter(request, response);
+      } else if (
+          employeeRepo.existsByEmailAndPassword(email, password)
+          && !(checkAdminUrl(currentUrl))
+      ) {
+        chain.doFilter(request, response);
+      } else {
+        ((HttpServletResponse) response).sendError(
+            HttpServletResponse.SC_UNAUTHORIZED,
+            "Unauthorized User"
         );
-    }
+      }
     }
   }
 }

@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Nav.css";
 import { Link, useNavigate } from "react-router-dom";
 import AddDepartment from "./AddDepartment";
 import ResetPassword from "./ResetPassword";
 
-function Navbar(props) {
+function Nav(props) {
   const navigate = useNavigate();
   const [dep, setDep] = useState(false);
   const [resetPass, setResetPass] = useState(false);
+
   return (
     <>
       {dep ? <AddDepartment set={setDep} /> : null}
@@ -24,30 +25,33 @@ function Navbar(props) {
                   <a className="active nav-link">{item.name}</a>
                   <div className="drop-down-content">
                     {item.value.map((value) => {
-                      return value === "Create Department" ? (
-                        <a
+                      return value.name === "Create Department" ? (
+                        <a 
                           onClick={() => {
                             setDep(true);
                           }}
                         >
-                          {value}
+                          {value.name}
                         </a>
-                      ) : value === "Change Password" ? (
+                      ) : value.name === "Change Password" ? (
                         <a
                           onClick={() => {
                             setResetPass(true);
                           }}
                         >
-                          {value}
+                          {value.name}
                         </a>
-                      ) : (
+                      ) : value.name === "Logout" ? (
                         <a
                           onClick={() => {
-                            props.setActive(value);
+                            localStorage.clear();
+                            navigate("/");
                           }}
                         >
-                          {value}
+                          {value.name}
                         </a>
+                      ) : (
+                        <Link to={value.to}>{value.name}</Link>
                       );
                     })}
                   </div>
@@ -62,4 +66,4 @@ function Navbar(props) {
   );
 }
 
-export default Navbar;
+export default Nav;

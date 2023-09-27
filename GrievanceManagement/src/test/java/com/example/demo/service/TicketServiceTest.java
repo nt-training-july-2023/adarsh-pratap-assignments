@@ -1,6 +1,10 @@
 package com.example.demo.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -17,12 +21,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
+import com.grievance.dto.TicketOutDtoWithComments;
+import com.grievance.dto.UpdateTicketInDto;
+import com.grievance.entity.Comment;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
@@ -81,35 +94,89 @@ public class TicketServiceTest {
     Assertions.assertEquals(this.ticketService.addTicket(ticketInDto), ticketOutDto);
   }
 
-//  @Test
-//  public void getAllTickets_forAdmin() {
-//	List<Ticket> list = new ArrayList<Ticket>();
-//	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_ADMIN, true , null , null);
-//
-//	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
-//	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);
-//	when(this.ticketRepo.findAll()).thenReturn(list);
-//
-//    Assertions.assertEquals(this.ticketService.findAll(1), list);
-//  }
+  @Test
+  public void updateTickets() {
+	  UpdateTicketInDto updateTicketInDto = new UpdateTicketInDto();
+	  updateTicketInDto.setStatus(TicketStatus.OPEN);
+	  updateTicketInDto.setComment("");
+	  updateTicketInDto.setEmpName("Adarsh");
+	  Optional<Ticket> t = Optional.ofNullable(ticket);
+	  when(this.ticketRepo.findById(1)).thenReturn(t);
+	  when(this.ticketRepo.save(ticket)).thenReturn(ticket);
+	  when(this.modelMapper.map(ticket, TicketOutDtoWithComments.class)).thenReturn(null);
+	  Assertions.assertEquals(this.ticketService.updateTicket(1, updateTicketInDto),null);
+  }
   
-//  @Test
-//  public void getAllTickets_forUser() {
-//	List<Ticket> list = new ArrayList<Ticket>();
-//	EmployeeOutDto employeeOutDto = new EmployeeOutDto(1 , "Adarsh" , "adarsh@gmail.com" , Role.ROLE_USER, true , null , null);
-//
-//	Ticket temp = new Ticket(1,"Laptop problem" , "Having issues" , TicketStatus.OPEN ,null , null, TicketType.GRIEVANCE , null , null , null);
-//	when(this.employeeService.getById(1)).thenReturn(employeeOutDto);
-//
-//    Assertions.assertEquals(this.ticketService.findAll(1), list);
-//  }
+  @Test
+  public void getTicketbyId() {
+	  
+	  Optional<Ticket> t = Optional.ofNullable(ticket);
+	  when(this.ticketRepo.findById(1)).thenReturn(t);
+	  
+	  when(this.modelMapper.map(ticket, TicketOutDtoWithComments.class)).thenReturn(null);
+	  Assertions.assertEquals(this.ticketService.ticketById(1),null);
+  }
+  
+  @Test
+  public void testTicketForAdmin_AllTypeMyFilterAll() {
+      String filter = "all";
+      String type = "my";
+      EmployeeOutDto emp = new EmployeeOutDto();
+      Integer offset = 0;
 
-//  @Test
-//  public void updateTickets() {
-//	  Optional<Ticket> t = Optional.ofNullable(ticket);
-//	  when(this.ticketRepo.findById(1)).thenReturn(t);
-//	  when(this.ticketRepo.save(ticket)).thenReturn(ticket);
-//	  when(this.modelMapper.map(ticket, TicketOutDto.class)).thenReturn(ticketOutDto);
-//	  Assertions.assertEquals(this.ticketService.updateTicket(1, ticketDto),ticketOutDto);
-//  }
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      when(modelMapper.map(any(), eq(Department.class))).thenReturn(new Department());
+      when(modelMapper.map(any(), eq(Employee.class))).thenReturn(new Employee());      
+      List<Ticket> ticketList = new ArrayList<>();
+      when(ticketRepo.findByEmployee(any(), eq(page))).thenReturn(new PageImpl<>(ticketList));
+
+      
+      Page<Ticket> result = ticketService.ticketForAdmin(filter, type, emp, offset);
+
+      
+      assertEquals(ticketList, result.getContent());
+      
+  }
+  
+ 
+
+  @Test
+  public void testFindAll_AdminRole() {
+      Integer id = 1;
+      String type = "my";
+      String filter = "open";
+      Integer offset = 0;
+
+      EmployeeOutDto adminEmp = new EmployeeOutDto();
+      adminEmp.setRole(Role.ROLE_ADMIN);
+
+      Page<Ticket> mockTicketPage = new PageImpl<>(new ArrayList<>());
+      when(employeeService.getById(id)).thenReturn(adminEmp);
+      when(ticketService.ticketForAdmin(filter, type, adminEmp, offset)).thenReturn(mockTicketPage);
+
+      List<TicketOutDto> result = ticketService.findAll(id, type, filter, offset);
+
+      assertEquals(0, result.size());
+      
+  }
+  
+  @Test
+  public void testFindAll_UserRole() {
+      Integer id = 2;
+      String type = "my";
+      String filter = "open";
+      Integer offset = 0;
+
+      EmployeeOutDto userEmp = new EmployeeOutDto();
+      userEmp.setRole(Role.ROLE_USER);
+
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+      when(employeeService.getById(id)).thenReturn(userEmp);
+      when(ticketService.ticketForUser(filter, type, userEmp, offset)).thenReturn(ticketPage);
+
+      List<TicketOutDto> result = ticketService.findAll(id, type, filter, offset);
+
+      assertEquals(0, result.size());
+     
+  }
 }

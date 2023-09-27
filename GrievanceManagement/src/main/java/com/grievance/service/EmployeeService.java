@@ -9,8 +9,15 @@ import com.grievance.exception.ApiResponse;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.EmployeeRepo;
 import com.grievance.serviceinterface.EmployeeServiceInterface;
+
+
+import java.util.List;
+import java.util.ArrayList;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -58,8 +65,9 @@ public class EmployeeService implements EmployeeServiceInterface {
     Employee emp = this.employeeRepo.findByEmail(login.getUserName());
 
     if (emp != null && emp.getPassword().equals(login.getPassword())) {
-
-      return this.modelMapper.map(emp, EmployeeOutDto.class);
+      EmployeeOutDto empOut = this.modelMapper.map(emp, EmployeeOutDto.class);
+      empOut.setDepName(emp.getDepartment().getDepName());
+      return empOut;
     }
     return null;
   }
@@ -92,7 +100,7 @@ public class EmployeeService implements EmployeeServiceInterface {
     Employee employee = this.employeeRepo.findById(id)
         .orElseThrow(
           () -> new ResourceNotFound("Employee", "Employee Not found"));
-    employee.setDepartment(emp.getDepartment());;
+    employee.setDepartment(emp.getDepartment());
     employee.setEmail(emp.getEmail());
     employee.setRole(emp.getRole());
     employee.setUserName(emp.getUserName());
@@ -135,14 +143,50 @@ public class EmployeeService implements EmployeeServiceInterface {
           changePasswordDto.getConfirmPassword())) {
 
       employee.setPassword(changePasswordDto.getNewPassword());
+      employee.setIsFirstLogin(false);
       this.employeeRepo.save(employee);
       apiResponse.setEntity("Employee");
       apiResponse.setMessage("Password changed Sucessfully!!");
 
     } else {
       apiResponse.setEntity("Employee");
-      apiResponse.setMessage("New password and confirm password should be same");
+      apiResponse.setMessage(
+          "New password and confirm password should be same");
     }
     return apiResponse;
+  }
+
+  /**
+   * Get All Employee.
+   *
+   * @param offset Integer
+   * @return List of EmployeeOutDto
+   */
+  public List<EmployeeOutDto> getAllEmployee(final Integer offset) {
+    final Integer pageSize = 10;
+    Pageable page = PageRequest.of(offset, pageSize);
+    Page<Employee> employee = this.employeeRepo.findAll(page);
+
+    List<EmployeeOutDto> result = new ArrayList<EmployeeOutDto>();
+    for (Employee emp : employee) {
+      EmployeeOutDto employeeDto =  this.modelMapper.map(
+          emp, EmployeeOutDto.class);
+      employeeDto.setDepName(emp.getDepartment().getDepName());
+      result.add(employeeDto);
+    }
+    return result;
+  }
+
+  /**
+   * Delete Employee.
+   *
+   * @param id Integer
+   * @return String
+   */
+  public String deleteEmployee(final Integer id) {
+    Employee emp = this.employeeRepo.findById(id).orElseThrow(() ->
+          new ResourceNotFound("Employee", "Employee not found"));
+    this.employeeRepo.deleteById(id);
+    return "Employee deleted Sucessfully!!";
   }
 }

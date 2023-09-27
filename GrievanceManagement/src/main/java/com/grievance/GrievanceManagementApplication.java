@@ -39,24 +39,24 @@ public class GrievanceManagementApplication {
     return new ModelMapper();
   }
   
-  /**
-   * Configure CORS settings.
-   *
-   * @return CorsConfigurationSource with CORS configuration.
-   */
-  @Bean
-  public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("*"));
-    configuration.setAllowedMethods(
-      Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
-    );
-    configuration.setAllowedHeaders(Arrays.asList("http://localhost:3000"));
-    configuration.setAllowCredentials(true);
-    UrlBasedCorsConfigurationSource source =
-         new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-  }
+//  /**
+//   * Configure CORS settings.
+//   *
+//   * @return CorsConfigurationSource with CORS configuration.
+//   */
+//  @Bean
+//  public CorsConfigurationSource corsConfigurationSource() {
+//    CorsConfiguration configuration = new CorsConfiguration();
+//    configuration.setAllowedOrigins(Arrays.asList("*"));
+//    configuration.setAllowedMethods(
+//      Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")
+//    );
+//    configuration.setAllowedHeaders(Arrays.asList("http://localhost:3000"));
+//    configuration.setAllowCredentials(true);
+//    UrlBasedCorsConfigurationSource source =
+//         new UrlBasedCorsConfigurationSource();
+//    source.registerCorsConfiguration("/**", configuration);
+//    return source;
+//  }
 
 }

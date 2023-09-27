@@ -25,14 +25,20 @@ public interface TicketServiceInterface {
    * @param ticketDto TicketDto
    * @return TicketOutDto
    */
-  TicketOutDto updateTicket(Integer id, UpdateTicketInDto ticketDto);
+  TicketOutDtoWithComments updateTicket(
+      Integer id, UpdateTicketInDto ticketDto);
 
   /**
    * Find all Ticket.
    *
-   * @return TicketOutDto
+   * @param id Integer
+   * @param type String
+   * @param filter String
+   * @param offset Integer
+   * @return List of TicketOutDto
    */
-  List<TicketOutDto> findAll(Integer id, String type, String filter, Integer offset);
+  List<TicketOutDto> findAll(
+       Integer id, String type, String filter, Integer offset);
 
   /**
    * Add Ticket.

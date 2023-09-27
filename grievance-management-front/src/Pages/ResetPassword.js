@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { changePassword } from "../api/Employee_API";
+import { useNavigate } from "react-router-dom";
 
 function ResetPassword(props) {
+
+  const navigate = useNavigate();
+
+
   const [pass, setPass] = useState({
     oldPassword: "",
     newPassword: "",
@@ -74,6 +79,7 @@ function ResetPassword(props) {
         "Password Range should between 5 to 18";
       setValid(temp);
     }
+    
   };
 
   const handleChange = (e) => {
@@ -96,8 +102,23 @@ function ResetPassword(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    isValid();
-    console.log(pass);
+    const res = isValid();
+    console.log(res)
+    const temp = {...pass};
+    temp.oldPassword = btoa(pass.oldPassword);
+    temp.newPassword = btoa(pass.newPassword);
+    temp.confirmPassword = btoa(pass.confirmPassword);
+    setPass({...temp});
+    
+    if(!valid.oldPassword.isError ||
+      !valid.newPassword.isError ||
+      !valid.confirmPassword.isError){
+        console.log(temp);
+        changePassword(JSON.parse(localStorage.getItem("user")).empId , temp).then(resp=>{
+          localStorage.clear();
+          navigate("/")
+        })
+      }
   };
 
   const fields = [
