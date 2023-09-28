@@ -1,0 +1,133 @@
+.registration{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+  flex-direction: column;
+ 
+}
+
+.content{
+  display:flex;
+  flex-direction: column;
+  height: 60%;
+  width: 40%;
+  border: 1.5px solid black;
+  border-radius: 4px;
+  margin-top: 6px;
+  box-shadow: 20px 20px 10px grey;
+  /* margin-bottom: 100px; */
+}
+
+.user-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.registration .content .header{
+  background-color: #0a0c27;
+  display: flex;
+  justify-content: center;
+  border-radius: 2px 2px 0px 0px;
+  height: 44px;
+}
+
+.inner-div{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.inner-div p{
+  color: #d43e25;
+  margin-left: 5px;
+  margin-top: 6px;
+}
+
+.inner-div label{
+  margin-bottom: 10px;
+  /* font-size: 18px; */
+  /* font-weight: 500; */
+
+  font-size: 16px;
+    /* margin-bottom: 5px; */
+    display: inline-block;
+    color: #607d8b;
+    font-weight: 300;
+    letter-spacing: 1px;
+
+}
+
+.inner-div input {
+  height: 30px;
+  padding-left: 12px;
+
+  font-weight: 400;
+    border: 1px solid #607d8b;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #607d8b;
+    border-radius: 4px;
+    background: transparent ;
+}
+
+.inner-div textarea{
+  border-radius: 4px;
+  padding-left: 12px;
+
+  font-weight: 400;
+  border: 1px solid #607d8b;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #607d8b;
+  background: transparent ;
+}
+
+.content h1{
+  color: rgb(255, 255, 255);
+  
+}
+
+.user-details select{
+  height: 30px;
+  border-radius: 4px;
+  padding-left: 12px;
+  height: 33px;
+
+  font-weight: 400;
+  border: 1px solid #607d8b;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #607d8b;
+  background: transparent ;
+}
+
+.user-details .submit-box{
+  display: flex;
+  justify-content: center;
+}
+.user-details .submit-box input[type="submit"]{
+  height: 41px;
+  background: #0a0c27;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 90%;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.submit-box input[type="submit"]:hover{
+  background: #000000;
+  
+}
+
+
+
