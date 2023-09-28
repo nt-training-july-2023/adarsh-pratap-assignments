@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionHandling.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.exception</a> &gt; <span class="el_source">ExceptionHandling.java</span></div><h1>ExceptionHandling.java</h1><pre class="source lang-java linenums">package com.grievance.exception;
+
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+/**
+ * Handling Global Exception.
+ */
+@RestControllerAdvice
+<span class="nc" id="L17">public class ExceptionHandling {</span>
+
+  /**
+   * handling resource not found exception.
+   *
+   * @param e of type ResourceNotFound exception.
+   *
+   * @return ResponseEntity.
+   */
+  @ExceptionHandler(ResourceNotFound.class)
+  public ResponseEntity&lt;ApiResponse&gt; resourceNotFound(
+      final ResourceNotFound e) {
+<span class="nc" id="L29">    ApiResponse apiResponse = new ApiResponse();</span>
+<span class="nc" id="L30">    apiResponse.setEntity(e.getEntity());</span>
+<span class="nc" id="L31">    apiResponse.setMessage(e.getMessage());</span>
+<span class="nc" id="L32">    return new ResponseEntity&lt;&gt;(apiResponse, HttpStatus.NOT_FOUND);</span>
+  }
+
+  /**
+   * Method argument not found exception.
+   *
+   * @param ex type Exception
+   *
+   * @return Error.
+   */
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity&lt;?&gt; methodArgumentNotValid(
+      final MethodArgumentNotValidException ex) {
+<span class="nc" id="L45">    Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L46">    ex</span>
+<span class="nc" id="L47">        .getBindingResult()</span>
+<span class="nc" id="L48">        .getAllErrors()</span>
+<span class="nc" id="L49">        .forEach(</span>
+          error -&gt; {
+<span class="nc" id="L51">            String fieldName = ((FieldError) error).getField();</span>
+<span class="nc" id="L52">            String errorMessage = error.getDefaultMessage();</span>
+<span class="nc" id="L53">            errors.put(fieldName, errorMessage);</span>
+<span class="nc" id="L54">          }</span>
+        );
+<span class="nc" id="L56">    return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);</span>
+  }
+
+  /**
+   * DataIntegrity Violation Exception.
+   *
+   * @param ex Exception type.
+   * @return ResponseEntity of String type.
+   */
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  public ResponseEntity&lt;?&gt; dataIntegrityViolationException(
+      final DataIntegrityViolationException ex
+  ) {
+<span class="nc" id="L69">    return new ResponseEntity(</span>
+      &quot;Check the not null and unique fields&quot;,
+      HttpStatus.BAD_REQUEST
+    );
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

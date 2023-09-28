@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ticket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.entity</a> &gt; <span class="el_source">Ticket.java</span></div><h1>Ticket.java</h1><pre class="source lang-java linenums">package com.grievance.entity;
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+
+/**
+ * Ticket class.
+ */
+@Entity
+public class Ticket {
+
+  /**
+   * TicketId.
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer ticketId;
+
+  /**
+   * TicketName.
+   */
+  @Column(name = &quot;ticket_name&quot;, nullable = false)
+  private String ticketName;
+
+  /**
+   * Description.
+   */
+  @Column(name = &quot;description&quot;)
+  private String description;
+
+  /**
+   * TicketStatus.
+   */
+  private TicketStatus status;
+
+  /**
+   * CreationDate.
+   */
+  private Date creationDate;
+
+  /**
+   * LastUpdateDate.
+   */
+  @Column(name = &quot;last_update&quot;)
+  private Date lastUpdateDate;
+
+  /**
+   * TicketType.
+   */
+  @Column(name = &quot;ticket_type&quot;)
+  private TicketType ticketType;
+
+  /**
+   * Department.
+   */
+  @ManyToOne
+  @JoinColumn(name = &quot;department_id&quot;)
+  @JsonBackReference(value = &quot;dep&quot;)
+  private Department department;
+
+  /**
+   * Employee.
+   */
+  @ManyToOne
+  @JoinColumn(name = &quot;employee_id&quot;)
+  @JsonBackReference(value = &quot;emp&quot;)
+  private Employee employee;
+
+  /**
+   * List of Comments.
+   */
+  @OneToMany(
+      cascade = CascadeType.ALL, mappedBy = &quot;ticket&quot;, fetch = FetchType.LAZY)
+  private List&lt;Comment&gt; comments;
+
+  /**
+   * getter for ticketId.
+   *
+   * @return the ticketId
+   */
+  public Integer getTicketId() {
+<span class="fc" id="L95">    return ticketId;</span>
+  }
+
+  /**
+   * setter for ticketId.
+   *
+   * @param newTicketId the ticketId to set
+   */
+  public void setTicketId(final Integer newTicketId) {
+<span class="fc" id="L104">    this.ticketId = newTicketId;</span>
+<span class="fc" id="L105">  }</span>
+
+  /**
+   * getter for ticketName.
+   *
+   * @return the ticketName
+   */
+  public String getTicketName() {
+<span class="fc" id="L113">    return ticketName;</span>
+  }
+
+  /**
+   * setter for ticketName.
+   *
+   * @param newTicketName the ticketName to set
+   */
+  public void setTicketName(final String newTicketName) {
+<span class="fc" id="L122">    this.ticketName = newTicketName;</span>
+<span class="fc" id="L123">  }</span>
+
+  /**
+   * getter for description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+<span class="fc" id="L131">    return description;</span>
+  }
+
+  /**
+   * setter for description.
+   *
+   * @param newDescription type String.
+   */
+  public void setDescription(final String newDescription) {
+<span class="fc" id="L140">    this.description = newDescription;</span>
+<span class="fc" id="L141">  }</span>
+
+  /**
+   * getter for status.
+   *
+   * @return the status
+   */
+  public TicketStatus getStatus() {
+<span class="fc" id="L149">    return status;</span>
+  }
+
+  /**
+   * setter for status .
+   *
+   * @param newStatus the status to set
+   */
+  public void setStatus(final TicketStatus newStatus) {
+<span class="fc" id="L158">    this.status = newStatus;</span>
+<span class="fc" id="L159">  }</span>
+
+  /**
+   * getter CreationDate.
+   *
+   * @return the creationDate
+   */
+  public Date getCreationDate() {
+<span class="fc" id="L167">    return creationDate;</span>
+  }
+
+  /**
+   * setter for creationDate.
+   *
+   *
+   * @param newCreationDate the creationDate to set
+   */
+  public void setCreationDate(final Date newCreationDate) {
+<span class="fc" id="L177">    this.creationDate = newCreationDate;</span>
+<span class="fc" id="L178">  }</span>
+
+  /**
+   * getter lastUpdateDate.
+   *
+   * @return the lastUpdateDate
+   */
+  public Date getLastUpdateDate() {
+<span class="fc" id="L186">    return lastUpdateDate;</span>
+  }
+
+  /**
+   * setter for lastUpdatedDate.
+   *
+   * @param newLastUpdateDate the lastUpdateDate to set
+   */
+  public void setLastUpdateDate(final Date newLastUpdateDate) {
+<span class="fc" id="L195">    this.lastUpdateDate = newLastUpdateDate;</span>
+<span class="fc" id="L196">  }</span>
+
+  /**
+   * getter for ticketType.
+   *
+   * @return the ticketType
+   */
+  public TicketType getTicketType() {
+<span class="fc" id="L204">    return ticketType;</span>
+  }
+
+  /**
+   * set ticketType.
+   *
+   * @param ticketT the ticketType to set
+   */
+  public void setTicketType(final TicketType ticketT) {
+<span class="fc" id="L213">    this.ticketType = ticketT;</span>
+<span class="fc" id="L214">  }</span>
+
+  /**
+   * get department.
+   *
+   * @return the department
+   */
+  public Department getDepartment() {
+<span class="fc" id="L222">    return department;</span>
+  }
+
+  /**
+   * set department.
+   *
+   * @param newDepartment the department to set
+   */
+  public void setDepartment(final Department newDepartment) {
+<span class="fc" id="L231">    this.department = newDepartment;</span>
+<span class="fc" id="L232">  }</span>
+
+  /**
+   * get employee.
+   *
+   * @return the employee
+   */
+  public Employee getEmployee() {
+<span class="fc" id="L240">    return employee;</span>
+  }
+
+  /**
+   * set employee.
+   *
+   * @param newEmployee the employee to set
+   */
+  public void setEmployee(final Employee newEmployee) {
+<span class="fc" id="L249">    this.employee = newEmployee;</span>
+<span class="fc" id="L250">  }</span>
+
+  /**
+   * get comments.
+   *
+   * @return the comments
+   */
+  public List&lt;Comment&gt; getComments() {
+<span class="fc" id="L258">    return comments;</span>
+  }
+
+  /**
+   * set comments.
+   *
+   * @param newComments the comments to set
+   */
+  public void setComments(final List&lt;Comment&gt; newComments) {
+<span class="fc" id="L267">    this.comments = newComments;</span>
+<span class="fc" id="L268">  }</span>
+
+//  /**
+//   * All args constructor.
+//   *
+//   * @param newTicketId Integer.
+//   * @param newTicketName String.
+//   * @param newDescription String.
+//   * @param newStatus TicketStatus.
+//   * @param newCreationDate Date.
+//   * @param newLastUpdateDate Date.
+//   * @param newTicketType TicketType.
+//   * @param newDepartment Department.
+//   * @param newEmployee Employee.
+//   * @param newComments Comments.
+//   */
+//  public Ticket(final Integer newTicketId, final String newTicketName,
+//      final String newDescription,
+//      final TicketStatus newStatus, final Date newCreationDate,
+//      final Date newLastUpdateDate,
+//      final TicketType newTicketType, final Department newDepartment,
+//      final Employee newEmployee,
+//      final List&lt;Comment&gt; newComments) {
+//    super();
+//    this.ticketId = newTicketId;
+//    this.ticketName = newTicketName;
+//    this.description = newDescription;
+//    this.status = newStatus;
+//    this.creationDate = newCreationDate;
+//    this.lastUpdateDate = newLastUpdateDate;
+//    this.ticketType = newTicketType;
+//    this.department = newDepartment;
+//    this.employee = newEmployee;
+//    this.comments = newComments;
+//  }
+
+  /**
+   * No args constructor.
+   */
+<span class="fc" id="L307">  public Ticket() {</span>
+
+<span class="fc" id="L309">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

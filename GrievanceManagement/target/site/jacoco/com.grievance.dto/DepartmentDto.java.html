@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DepartmentDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">DepartmentDto.java</span></div><h1>DepartmentDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import com.grievance.entity.Employee;
+import com.grievance.entity.Ticket;
+import java.util.List;
+
+/**
+ * Department Dto.
+ */
+<span class="nc" id="L10">public class DepartmentDto {</span>
+  private Integer depId;
+
+  private String depName;
+
+  private List&lt;Employee&gt; employee;
+
+  private List&lt;Ticket&gt; ticket;
+
+  /**
+   * @return the depId
+   */
+  public Integer getDepId() {
+<span class="nc" id="L23">    return depId;</span>
+  }
+
+  /**
+   * @param depId the depId to set
+   */
+  public void setDepId(Integer depId) {
+<span class="nc" id="L30">    this.depId = depId;</span>
+<span class="nc" id="L31">  }</span>
+
+  /**
+   * @return the depName
+   */
+  public String getDepName() {
+<span class="nc" id="L37">    return depName;</span>
+  }
+
+  /**
+   * @param depName the depName to set
+   */
+  public void setDepName(String depName) {
+<span class="nc" id="L44">    this.depName = depName;</span>
+<span class="nc" id="L45">  }</span>
+
+  /**
+   * @return the employee
+   */
+  public List&lt;Employee&gt; getEmployee() {
+<span class="nc" id="L51">    return employee;</span>
+  }
+
+  /**
+   * @param employee the employee to set
+   */
+  public void setEmployee(List&lt;Employee&gt; employee) {
+<span class="nc" id="L58">    this.employee = employee;</span>
+<span class="nc" id="L59">  }</span>
+
+  /**
+   * @return the ticket
+   */
+  public List&lt;Ticket&gt; getTicket() {
+<span class="nc" id="L65">    return ticket;</span>
+  }
+
+  /**
+   * @param ticket the ticket to set
+   */
+  public void setTicket(List&lt;Ticket&gt; ticket) {
+<span class="nc" id="L72">    this.ticket = ticket;</span>
+<span class="nc" id="L73">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

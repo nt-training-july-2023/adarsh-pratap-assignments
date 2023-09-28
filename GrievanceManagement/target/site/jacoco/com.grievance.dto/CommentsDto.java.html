@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentsDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">CommentsDto.java</span></div><h1>CommentsDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.grievance.entity.Ticket;
+import java.util.Date;
+
+/**
+ * Comments In DTO.
+ */
+<span class="fc" id="L11">public class CommentsDto {</span>
+  /**
+   * Comments Id.
+   */
+  private Integer commentId;
+
+  /**
+   * content.
+   */
+  private String content;
+
+  /**
+   * Creation time.
+   */
+  @JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;, timezone = &quot;Asia/Kolkata&quot;)
+  private Date creationTime;
+
+  /**
+   * employee name.
+   */
+  private String empName;
+
+  /**
+   * ticket.
+   */
+  @JsonBackReference(value = &quot;comm&quot;)
+  private Ticket ticket;
+
+  /**
+   * getter for CommentID.
+   *
+   * @return the commentId
+   */
+  public Integer getCommentId() {
+<span class="fc" id="L45">    return commentId;</span>
+  }
+
+  /**
+   * setter for commentId.
+   *
+   * @param newCommentId the commentId to set
+   */
+  public void setCommentId(final Integer newCommentId) {
+<span class="fc" id="L54">    this.commentId = newCommentId;</span>
+<span class="fc" id="L55">  }</span>
+
+  /**
+   * getter for content.
+   *
+   * @return the content
+   */
+  public String getContent() {
+<span class="fc" id="L63">    return content;</span>
+  }
+
+  /**
+   * setter for content.
+   *
+   * @param newContent the content to set
+   */
+  public void setContent(final String newContent) {
+<span class="fc" id="L72">    this.content = newContent;</span>
+<span class="fc" id="L73">  }</span>
+
+  /**
+   * getter for creation time.
+   *
+   * @return the creationTime
+   */
+  public Date getCreationTime() {
+<span class="fc" id="L81">    return creationTime;</span>
+  }
+
+  /**
+   * Setter for creationTime.
+   *
+   * @param newCreationTime the creationTime to set
+   */
+  public void setCreationTime(final Date newCreationTime) {
+<span class="fc" id="L90">    this.creationTime = newCreationTime;</span>
+<span class="fc" id="L91">  }</span>
+
+  /**
+   * getter for empName.
+   *
+   * @return the empName
+   */
+  public String getEmpName() {
+<span class="fc" id="L99">    return empName;</span>
+  }
+
+  /**
+   * setter for empName.
+   *
+   * @param newEmpName the empName to set
+   */
+  public void setEmpName(final String newEmpName) {
+<span class="fc" id="L108">    this.empName = newEmpName;</span>
+<span class="fc" id="L109">  }</span>
+
+  /**
+   * getter for ticket.
+   *
+   * @return the ticket
+   */
+  public Ticket getTicket() {
+<span class="fc" id="L117">    return ticket;</span>
+  }
+
+  /**
+   * setter for ticket.
+   *
+   * @param newTicket the ticket to set
+   */
+  public void setTicket(final Ticket newTicket) {
+<span class="fc" id="L126">    this.ticket = newTicket;</span>
+<span class="fc" id="L127">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

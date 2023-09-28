@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TicketService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.service</a> &gt; <span class="el_source">TicketService.java</span></div><h1>TicketService.java</h1><pre class="source lang-java linenums">package com.grievance.service;
+
+import com.grievance.dto.EmployeeOutDto;
+import com.grievance.dto.TicketInDto;
+import com.grievance.dto.TicketOutDto;
+import com.grievance.dto.TicketOutDtoWithComments;
+import com.grievance.dto.UpdateTicketInDto;
+import com.grievance.entity.Comment;
+import com.grievance.entity.Department;
+import com.grievance.entity.Employee;
+import com.grievance.entity.Role;
+import com.grievance.entity.Ticket;
+import com.grievance.entity.TicketStatus;
+import com.grievance.exception.ResourceNotFound;
+import com.grievance.repo.TicketRepo;
+import com.grievance.serviceinterface.TicketServiceInterface;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+
+
+import org.modelmapper.ModelMapper;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+
+
+
+/**
+ * Ticket Service .
+ */
+@Service
+<span class="fc" id="L40">public class TicketService implements TicketServiceInterface {</span>
+  /**
+   * Ticket Repository.
+   */
+  @Autowired
+  private TicketRepo ticketRepo;
+
+  /**
+   * Employee Service.
+   */
+  @Autowired
+  private EmployeeService employeeService;
+
+  /**
+   * Model Mapper .
+   */
+  @Autowired
+  private ModelMapper mapper;
+
+  /**
+   * Add Ticket.
+   *
+   * @param ticketInDto type TicketDto.
+   *
+   * @return TicketOutDto.
+   */
+  @Override
+  public TicketOutDto addTicket(final TicketInDto ticketInDto) {
+<span class="fc" id="L68">    Ticket ticket = this.mapper.map(ticketInDto, Ticket.class);</span>
+
+<span class="fc" id="L70">    ticket.setCreationDate(getCurrentDateTime());</span>
+<span class="fc" id="L71">    ticket.setLastUpdateDate(getCurrentDateTime());</span>
+
+<span class="fc" id="L73">    Ticket savedTicket = this.ticketRepo.save(ticket);</span>
+
+<span class="fc" id="L75">    return this.mapper.map(savedTicket, TicketOutDto.class);</span>
+  }
+
+
+  /**
+   * Find all Ticket.
+   *
+   * @return TicketOutDto
+   */
+  @Override
+  public List&lt;TicketOutDto&gt; findAll(
+      final Integer id, final String type,
+      final String filter, final Integer offset) {
+<span class="fc" id="L88">    Page&lt;Ticket&gt; ticket = null;</span>
+<span class="fc" id="L89">    EmployeeOutDto emp = this.employeeService.getById(id);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">    if (emp.getRole().equals(Role.ROLE_ADMIN)) {</span>
+<span class="fc" id="L91">      ticket = ticketForAdmin(filter, type, emp, offset);</span>
+<span class="fc" id="L92">    } else {</span>
+<span class="fc" id="L93">      ticket = ticketForUser(filter, type, emp, offset);</span>
+    }
+<span class="fc" id="L95">    List&lt;TicketOutDto&gt; result = new ArrayList&lt;TicketOutDto&gt;();</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">    for (Ticket temp : ticket) {</span>
+<span class="nc" id="L97">      TicketOutDto ticketDto = this.mapper.map(temp, TicketOutDto.class);</span>
+<span class="nc" id="L98">      ticketDto.setDepName(temp.getDepartment().getDepName());</span>
+<span class="nc" id="L99">      ticketDto.setEmpName(temp.getEmployee().getUserName());</span>
+<span class="nc" id="L100">      result.add(ticketDto);</span>
+    }
+<span class="fc" id="L102">    return result;</span>
+  }
+
+  /**
+   * Helper method for ticket for user.
+   *
+   * @param filter String
+   * @param type String
+   * @param emp EmployeeOutDto
+   * @param offset Integer
+   * @return Page
+   */
+  public Page&lt;Ticket&gt; ticketForUser(
+        final String filter, final String type,
+        final EmployeeOutDto emp, final Integer offset) {
+<span class="fc" id="L117">    final Integer pageSize = 10;</span>
+<span class="fc" id="L118">    Department department = this.mapper.map(</span>
+<span class="fc" id="L119">        emp.getDepartment(), Department.class);</span>
+<span class="fc" id="L120">    Employee employee = this.mapper.map(emp, Employee.class);</span>
+
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">    if (filter.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L123">      Pageable page = PageRequest.of(offset, pageSize, Sort.by(&quot;status&quot;));</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">      if (type.equals(&quot;my&quot;)) {</span>
+<span class="nc" id="L125">        return this.ticketRepo.findByEmployee(employee, page);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">      } else if (type.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L127">        return this.ticketRepo.findByEmployeeOrDepartment(</span>
+<span class="nc" id="L128">            employee, department, page);</span>
+      } else {
+<span class="nc" id="L130">        return this.ticketRepo.findByDepartment(department, page);</span>
+      }
+    } else {
+<span class="fc" id="L133">      Pageable page = PageRequest.of(offset, pageSize);</span>
+<span class="fc" id="L134">      TicketStatus status = null;</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">      if (filter.equals(&quot;open&quot;)) {</span>
+<span class="fc" id="L136">        status = TicketStatus.OPEN;</span>
+<span class="pc bnc" id="L137" title="All 2 branches missed.">      } else if (filter.equals(&quot;resolved&quot;)) {</span>
+<span class="nc" id="L138">        status = TicketStatus.RESOLVED;</span>
+<span class="nc" id="L139">      } else {</span>
+<span class="nc" id="L140">        status = TicketStatus.BEING_ADDRESSED;</span>
+      }
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">      if (type.equals(&quot;my&quot;)) {</span>
+<span class="fc" id="L143">        return this.ticketRepo.findByEmployeeAndStatus(</span>
+<span class="fc" id="L144">            employee, status, page);</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      } else if (type.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L146">        return this.ticketRepo.findByStatusAndDepartmentOrEmployee(</span>
+<span class="nc" id="L147">            department, employee, status, page);</span>
+      } else {
+<span class="nc" id="L149">        return this.ticketRepo.findByDepartmentAndStatus(</span>
+<span class="nc" id="L150">        department, status, page);</span>
+      }
+    }
+  }
+
+  /**
+   * Get all Tickets for Admin.
+   *
+   * @param filter String
+   * @param type String
+   * @param emp Integer
+   * @param offset Integer
+   * @return Tickets
+   */
+  public Page&lt;Ticket&gt; ticketForAdmin(
+      final String filter, final String type,
+      final EmployeeOutDto emp, final Integer offset) {
+<span class="fc" id="L167">    final Integer pageSize = 10;</span>
+<span class="fc" id="L168">    Department department = this.mapper.map(</span>
+<span class="fc" id="L169">        emp.getDepartment(), Department.class);</span>
+<span class="fc" id="L170">    Employee employee = this.mapper.map(emp, Employee.class);</span>
+
+<span class="fc bfc" id="L172" title="All 2 branches covered.">    if (filter.equals(&quot;all&quot;)) {</span>
+<span class="fc" id="L173">      Pageable page = PageRequest.of(offset, pageSize, Sort.by(&quot;status&quot;));</span>
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">      if (type.equals(&quot;my&quot;)) {</span>
+<span class="fc" id="L175">        return this.ticketRepo.findByEmployee(employee, page);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">      } else if (type.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L177">        return this.ticketRepo.findAll(page);</span>
+      } else {
+<span class="nc" id="L179">        return this.ticketRepo.findByDepartment(department, page);</span>
+      }
+    } else {
+<span class="fc" id="L182">      Pageable page = PageRequest.of(offset, pageSize);</span>
+<span class="fc" id="L183">      TicketStatus status = null;</span>
+
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">      if (filter.equals(&quot;open&quot;)) {</span>
+<span class="fc" id="L186">        status = TicketStatus.OPEN;</span>
+<span class="pc bnc" id="L187" title="All 2 branches missed.">      } else if (filter.equals(&quot;resolved&quot;)) {</span>
+<span class="nc" id="L188">        status = TicketStatus.RESOLVED;</span>
+<span class="nc" id="L189">      } else {</span>
+<span class="nc" id="L190">        status = TicketStatus.BEING_ADDRESSED;</span>
+      }
+
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">      if (type.equals(&quot;my&quot;)) {</span>
+<span class="fc" id="L194">        return this.ticketRepo.findByEmployeeAndStatus(</span>
+<span class="fc" id="L195">        employee, status, page);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">      } else if (type.equals(&quot;all&quot;)) {</span>
+<span class="nc" id="L197">        return this.ticketRepo.findByStatus(status, page);</span>
+      } else {
+<span class="nc" id="L199">        return this.ticketRepo.findByDepartmentAndStatus(</span>
+<span class="nc" id="L200">        department, status, page);</span>
+      }
+    }
+  }
+
+  /**
+   * Update Ticket.
+   *
+   * @param id Integer
+   * @param ticketDto TicketDto
+   * @return TicketOutDto
+   */
+  @Override
+  public TicketOutDtoWithComments updateTicket(
+      final Integer id, final UpdateTicketInDto ticketDto) {
+<span class="fc" id="L215">    Ticket ticket =</span>
+<span class="fc" id="L216">        this.ticketRepo.findById(id)</span>
+<span class="pc" id="L217">        .orElseThrow(() -&gt; new ResourceNotFound(</span>
+<span class="nc" id="L218">            &quot;Ticket&quot;, &quot;Ticket Not found&quot;));</span>
+
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">    if (ticketDto.getComment() != null</span>
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">         &amp;&amp; !ticketDto.getComment().isEmpty()) {</span>
+<span class="nc" id="L222">      Comment comment = new Comment();</span>
+<span class="nc" id="L223">      comment.setContent(ticketDto.getComment());</span>
+<span class="nc" id="L224">      comment.setCreationTime(getCurrentDateTime());</span>
+<span class="nc" id="L225">      comment.setEmpName(ticketDto.getEmpName());</span>
+<span class="nc" id="L226">      comment.setTicket(ticket);</span>
+
+<span class="nc" id="L228">      List&lt;Comment&gt; comments = ticket.getComments();</span>
+<span class="nc" id="L229">      comments.add(comment);</span>
+
+<span class="nc" id="L231">      ticket.setComments(comments);</span>
+    }
+<span class="fc" id="L233">    ticket.setStatus(ticketDto.getStatus());</span>
+<span class="fc" id="L234">    ticket.setLastUpdateDate(getCurrentDateTime());</span>
+<span class="fc" id="L235">    return this.mapper.map(</span>
+<span class="fc" id="L236">        this.ticketRepo.save(ticket), TicketOutDtoWithComments.class);</span>
+  }
+
+  /**
+   * Get current Date and time.
+   *
+   * @return Date.
+   */
+  public Date getCurrentDateTime() {
+<span class="fc" id="L245">    Date in = new Date();</span>
+<span class="fc" id="L246">    LocalDateTime ldt = LocalDateTime.ofInstant(</span>
+<span class="fc" id="L247">        in.toInstant(), ZoneId.systemDefault());</span>
+<span class="fc" id="L248">    Date out = Date.from(ldt.atZone(</span>
+<span class="fc" id="L249">        ZoneId.systemDefault()).toInstant());</span>
+<span class="fc" id="L250">    return out;</span>
+  }
+
+  /**
+   * Get ticket By Id.
+   *
+   * @param id Integer
+   * @return TicketOutDtoWithComments
+   */
+  @Override
+  public TicketOutDtoWithComments ticketById(final Integer id) {
+<span class="fc" id="L261">    Ticket ticket = this.ticketRepo.findById(id)</span>
+<span class="pc" id="L262">        .orElseThrow(() -&gt; new ResourceNotFound(</span>
+<span class="nc" id="L263">        &quot;Ticket&quot;, &quot;Ticket not found&quot;));</span>
+<span class="fc" id="L264">    return this.mapper.map(ticket, TicketOutDtoWithComments.class);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

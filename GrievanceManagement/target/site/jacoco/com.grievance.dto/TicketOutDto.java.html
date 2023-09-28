@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TicketOutDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">TicketOutDto.java</span></div><h1>TicketOutDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.grievance.entity.TicketStatus;
+import com.grievance.entity.TicketType;
+import java.util.Date;
+import java.util.List;
+
+
+
+/**
+ * TicketOutDto.
+ */
+public class TicketOutDto {
+
+  /**
+   * Ticket ID.
+   */
+  private Integer ticketId;
+
+  /**
+   * TicketName.
+   */
+  private String ticketName;
+
+  /**
+   * description.
+   */
+  private String description;
+
+  /**
+   * status.
+   */
+  private TicketStatus status;
+
+  /**
+   * creation date.
+   */
+  @JsonFormat(pattern = &quot;yyyy-MM-dd hh:mm aa&quot;, timezone = &quot;Asia/Kolkata&quot;)
+  private Date creationDate;
+
+  /**
+   * last updation date.
+   */
+  @JsonFormat(pattern = &quot;yyyy-MM-dd hh:mm aa&quot;, timezone = &quot;Asia/Kolkata&quot;)
+  private Date lastUpdateDate;
+
+  /**
+   * ticket type.
+   */
+  private TicketType ticketType;
+
+  /**
+   * department.
+   */
+  @JsonBackReference(value = &quot;dep&quot;)
+  private DepartmentOutDto department;
+
+  /**
+   * Department Name.
+   */
+  private String depName;
+
+  /**
+   * Employee Name.
+   */
+  private String empName;
+  /**
+   * employee.
+   */
+  @JsonBackReference(value = &quot;emp&quot;)
+  private EmployeeOutDto employee;
+
+  /**
+   * comments.
+   */
+  @JsonIgnore
+  private List&lt;CommentsDto&gt; comments;
+
+  /**
+   * Ticket id getter.
+   *
+  * @return the ticketId.
+  */
+  public Integer getTicketId() {
+<span class="fc" id="L88">    return ticketId;</span>
+  }
+
+  /**
+   * Setter for ticket id.
+   *
+  * @param newTicketId the ticketId to set
+  */
+  public void setTicketId(final Integer newTicketId) {
+<span class="fc" id="L97">    this.ticketId = newTicketId;</span>
+<span class="fc" id="L98">  }</span>
+
+  /**
+   * Getter for ticket name.
+   *
+  * @return the ticketName
+  */
+  public String getTicketName() {
+<span class="fc" id="L106">    return ticketName;</span>
+  }
+
+  /**
+   * setter for ticket name.
+   *
+  * @param newTicketName the ticketName to set
+  */
+  public void setTicketName(final String newTicketName) {
+<span class="fc" id="L115">    this.ticketName = newTicketName;</span>
+<span class="fc" id="L116">  }</span>
+
+  /**
+   * getter for description.
+   *
+  * @return the description
+  */
+  public String getDescription() {
+<span class="fc" id="L124">    return description;</span>
+  }
+
+  /**
+   * Setter for description.
+   *
+  * @param newDescription the description to set
+  */
+  public void setDescription(final String newDescription) {
+<span class="fc" id="L133">    this.description = newDescription;</span>
+<span class="fc" id="L134">  }</span>
+
+  /**
+  * getter for status.
+  *
+  * @return the status
+  */
+  public TicketStatus getStatus() {
+<span class="fc" id="L142">    return status;</span>
+  }
+
+  /**
+   * Setter for status.
+   *
+  * @param newStatus the status to set
+  */
+  public void setStatus(final TicketStatus newStatus) {
+<span class="fc" id="L151">    this.status = newStatus;</span>
+<span class="fc" id="L152">  }</span>
+
+  /**
+   * getter for creation Date.
+   *
+  * @return the creationDate
+  */
+  public Date getCreationDate() {
+<span class="fc" id="L160">    return creationDate;</span>
+  }
+
+  /**
+  * setter for creation Date.
+  *
+  * @param newCreationDate the creationDate to set
+  */
+  public void setCreationDate(final Date newCreationDate) {
+<span class="fc" id="L169">    this.creationDate = newCreationDate;</span>
+<span class="fc" id="L170">  }</span>
+
+  /**
+  * getter for last update date.
+  *
+  * @return the lastUpdateDate
+  */
+  public Date getLastUpdateDate() {
+<span class="fc" id="L178">    return lastUpdateDate;</span>
+  }
+
+  /**
+  * setter for last update date.
+  *
+  * @param newLastUpdateDate the lastUpdateDate to set
+  */
+  public void setLastUpdateDate(final Date newLastUpdateDate) {
+<span class="fc" id="L187">    this.lastUpdateDate = newLastUpdateDate;</span>
+<span class="fc" id="L188">  }</span>
+
+  /**
+  * getter for ticket type.
+  *
+  * @return the ticketType
+  */
+  public TicketType getTicketType() {
+<span class="fc" id="L196">    return ticketType;</span>
+  }
+
+  /**
+  * set TicketType.
+  *
+  * @param newTicketType the ticketType to set
+  */
+  public void setTicketType(final TicketType newTicketType) {
+<span class="fc" id="L205">    this.ticketType = newTicketType;</span>
+<span class="fc" id="L206">  }</span>
+
+  /**
+  * get Department.
+  *
+  * @return the department
+  */
+  public DepartmentOutDto getDepartment() {
+<span class="fc" id="L214">    return department;</span>
+  }
+
+  /**
+  * setter the department.
+  *
+  * @param newDepartment the department to set
+  */
+  public void setDepartment(final DepartmentOutDto newDepartment) {
+<span class="fc" id="L223">    this.department = newDepartment;</span>
+<span class="fc" id="L224">  }</span>
+
+  /**
+  * Get employee.
+  *
+  * @return the employee
+  */
+  public EmployeeOutDto getEmployee() {
+<span class="fc" id="L232">    return employee;</span>
+  }
+
+  /**
+  * Setting the employee.
+  *
+  * @param newEmployee the employee to set
+  */
+  public void setEmployee(final EmployeeOutDto newEmployee) {
+<span class="fc" id="L241">    this.employee = newEmployee;</span>
+<span class="fc" id="L242">  }</span>
+
+  /**
+  * getter for comments.
+  *
+  * @return the comments
+  */
+  public List&lt;CommentsDto&gt; getComments() {
+<span class="fc" id="L250">    return comments;</span>
+  }
+
+  /**
+   * getter for depName.
+   *
+   * @return the depName
+   */
+  public String getDepName() {
+<span class="fc" id="L259">    return depName;</span>
+  }
+
+  /**
+   *setter for DepName.
+   *
+   * @param newDepName the depName to set
+   */
+  public void setDepName(final String newDepName) {
+<span class="fc" id="L268">    this.depName = newDepName;</span>
+<span class="fc" id="L269">  }</span>
+
+  /**
+   * Get Employee Name.
+   *
+   * @return the empName
+   */
+  public String getEmpName() {
+<span class="fc" id="L277">    return empName;</span>
+  }
+
+  /**
+   * setter for EmpName.
+   *
+   * @param newEmpName the empName to set
+   */
+  public void setEmpName(final String newEmpName) {
+<span class="fc" id="L286">    this.empName = newEmpName;</span>
+<span class="fc" id="L287">  }</span>
+
+  /**
+  * setter for comments.
+  *
+  * @param newComment the comments to set
+  */
+  public void setComments(final List&lt;CommentsDto&gt; newComment) {
+<span class="fc" id="L295">    this.comments = newComment;</span>
+<span class="fc" id="L296">  }</span>
+
+  /**
+  * NO args constructor.
+  */
+  public TicketOutDto() {
+<span class="fc" id="L302">    super();</span>
+<span class="fc" id="L303">  }</span>
+
+  /**
+   * to String method.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L310">    return &quot;TicketOutDto [ticketId=&quot;</span>
+      +
+<span class="fc" id="L312">      ticketId</span>
+      +
+<span class="fc" id="L314">      &quot;, ticketName=&quot;</span>
+      +
+<span class="fc" id="L316">      ticketName</span>
+      +
+<span class="fc" id="L318">      &quot;, description=&quot;</span>
+      +
+<span class="fc" id="L320">      description</span>
+      +
+<span class="fc" id="L322">      &quot;, status=&quot;</span>
+      +
+<span class="fc" id="L324">      status</span>
+      +
+<span class="fc" id="L326">      &quot;, creationDate=&quot;</span>
+      +
+<span class="fc" id="L328">      creationDate</span>
+      +
+<span class="fc" id="L330">      &quot;, lastUpdateDate=&quot;</span>
+      +
+<span class="fc" id="L332">      lastUpdateDate</span>
+      +
+<span class="fc" id="L334">      &quot;, ticketType=&quot;</span>
+      +
+<span class="fc" id="L336">      ticketType</span>
+      +
+<span class="fc" id="L338">      &quot;, department=&quot;</span>
+      +
+<span class="fc" id="L340">      department</span>
+      +
+<span class="fc" id="L342">      &quot;, employee=&quot;</span>
+      +
+<span class="fc" id="L344">      employee</span>
+      +
+<span class="fc" id="L346">      &quot;, comments=&quot;</span>
+      +
+<span class="fc" id="L348">      comments</span>
+      +
+<span class="fc" id="L350">      &quot;]&quot;;</span>
+  }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

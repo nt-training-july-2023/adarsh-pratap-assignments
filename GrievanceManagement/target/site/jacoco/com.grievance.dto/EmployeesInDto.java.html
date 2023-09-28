@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeesInDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">EmployeesInDto.java</span></div><h1>EmployeesInDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import com.grievance.entity.Department;
+import com.grievance.entity.Role;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+/**
+ * Employee DTO .
+ */
+public class EmployeesInDto {
+  /**
+   * maximum size of password.
+   */
+<span class="fc" id="L18">  private final int maxPassword = 15;</span>
+
+  /**
+   * minimum size of password.
+   */
+<span class="fc" id="L23">  private final int minPassword = 5;</span>
+
+  /**
+   * Employee Name.
+   */
+  @NotEmpty(message = &quot;Username can not be null&quot;)
+  private String userName;
+
+  /**
+   * Email of employee .
+   */
+  @Email(message = &quot;Email id not valid&quot;)
+  @Pattern(regexp = &quot;^[A-Za-z0-9._%+-]+@nucleusteq\\.com$&quot;,
+      message = &quot;Email should end with @nucleusteq.com&quot;)
+  private String email;
+
+  /**
+   * Password of account .
+   */
+  @NotEmpty(message = &quot;Password field is mendatory&quot;)
+//  @Size(
+//      min = minPassword,
+//      max = maxPassword,
+//      message = &quot;password should be in range between 5 to 18&quot;
+//  )
+  private String password;
+
+  /**
+   * Role of employee .
+   */
+  private Role role;
+
+  /**
+   * Department of employee .
+   */
+  @NotNull(message = &quot;Department can not be null&quot;)
+  private Department department;
+
+  /**
+   * Getter of user name .
+   *
+   * @return user name .
+   */
+  public String getUserName() {
+<span class="fc" id="L67">    return userName;</span>
+  }
+
+  /**
+   * Setter of User Name .
+   *
+   * @param newUserName of string type .
+   */
+  public void setUserName(final String newUserName) {
+<span class="fc" id="L76">    this.userName = newUserName;</span>
+<span class="fc" id="L77">  }</span>
+
+  /**
+   * Getter of email .
+   *
+   * @return email
+   */
+  public String getEmail() {
+<span class="fc" id="L85">    return email;</span>
+  }
+
+  /**
+   * Setter of email .
+   *
+   * @param newEmail of string type.
+   */
+  public void setEmail(final String newEmail) {
+<span class="fc" id="L94">    this.email = newEmail;</span>
+<span class="fc" id="L95">  }</span>
+
+  /**
+   * Getter of password .
+   *
+   * @return password.
+   */
+  public String getPassword() {
+<span class="fc" id="L103">    return password;</span>
+  }
+
+  /**
+   * Setter of password .
+   *
+   * @param newPassword of String type.
+   */
+  public void setPassword(final String newPassword) {
+<span class="fc" id="L112">    this.password = newPassword;</span>
+<span class="fc" id="L113">  }</span>
+
+  /**
+   *Getter of Role.
+   *
+   * @return Role of string type .
+   */
+  public Role getRole() {
+<span class="fc" id="L121">    return role;</span>
+  }
+
+  /**
+   * Setter for Role .
+   *
+   * @param newRole of string type .
+   */
+  public void setRole(final Role newRole) {
+<span class="fc" id="L130">    this.role = newRole;</span>
+<span class="fc" id="L131">  }</span>
+
+  /**
+   * Getter for Department .
+   *
+   * @return department of String type .
+   */
+  public Department getDepartment() {
+<span class="fc" id="L139">    return department;</span>
+  }
+
+  /**
+   * setter for department .
+   *
+   * @param newDepartment of string type .
+   */
+  public void setDepartment(final Department newDepartment) {
+<span class="fc" id="L148">    this.department = newDepartment;</span>
+<span class="fc" id="L149">  }</span>
+
+  /**
+   * To string method.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L156">    return (</span>
+<span class="fc" id="L157">      &quot;EmployeesDto [maxPassword=&quot;</span>
+      +
+      maxPassword
+      +
+      &quot;, minPassword=&quot;
+      +
+      minPassword
+      +
+      &quot;, userName=&quot;
+      +
+<span class="fc" id="L167">      userName</span>
+      +
+<span class="fc" id="L169">      &quot;, email=&quot;</span>
+      +
+<span class="fc" id="L171">      email</span>
+      +
+<span class="fc" id="L173">      &quot;, password=&quot;</span>
+      +
+<span class="fc" id="L175">      password</span>
+      +
+<span class="fc" id="L177">      &quot;, role=&quot;</span>
+      +
+<span class="fc" id="L179">      role</span>
+      +
+<span class="fc" id="L181">      &quot;, department=&quot;</span>
+      +
+<span class="fc" id="L183">      department</span>
+      +
+<span class="fc" id="L185">      &quot;]&quot;</span>
+      );
+  }
+
+  /**
+   * Employee dto all Args constructor.
+   *
+   * @param newUserName of type String
+   * @param newEmail of string type
+   * @param newPassword of string type
+   * @param newRole of Role type
+   * @param newDepartment of Department type
+   */
+  public EmployeesInDto(
+      final @NotEmpty(message = &quot;Username can not be null&quot;) String newUserName,
+      final @Email(message = &quot;Email id not valid&quot;) String newEmail,
+      final @NotEmpty(message = &quot;Password field is mendatory&quot;) @Size(
+      min = minPassword,
+      max = maxPassword,
+      message = &quot;password should be in range between 5 to 18&quot;
+    ) String newPassword,
+      final Role newRole,
+      final @NotNull(message = &quot;Department can not be null&quot;)
+      Department newDepartment
+  ) {
+<span class="fc" id="L210">    super();</span>
+<span class="fc" id="L211">    this.userName = newUserName;</span>
+<span class="fc" id="L212">    this.email = newEmail;</span>
+<span class="fc" id="L213">    this.password = newPassword;</span>
+<span class="fc" id="L214">    this.role = newRole;</span>
+<span class="fc" id="L215">    this.department = newDepartment;</span>
+<span class="fc" id="L216">  }</span>
+
+  /**
+   * No Args Constructor .
+   */
+  public EmployeesInDto() {
+<span class="fc" id="L222">    super();</span>
+<span class="fc" id="L223">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

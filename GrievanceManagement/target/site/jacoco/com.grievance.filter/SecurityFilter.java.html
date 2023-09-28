@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityFilter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.filter</a> &gt; <span class="el_source">SecurityFilter.java</span></div><h1>SecurityFilter.java</h1><pre class="source lang-java linenums">package com.grievance.filter;
+
+import com.grievance.entity.Role;
+import com.grievance.repo.EmployeeRepo;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+
+
+/**
+ * Security Filter class.
+ */
+
+@Component
+public class SecurityFilter implements Filter {
+  /**
+   * Employee Repository Autowired.
+   */
+  @Autowired
+  private EmployeeRepo employeeRepo;
+
+  /**
+   * List to store Admin URLS.
+   */
+<span class="nc" id="L35">  private static List&lt;String&gt; adminUrls = new ArrayList&lt;String&gt;();</span>
+
+  static {
+<span class="nc" id="L38">    adminUrls.add(&quot;/department/add&quot;);</span>
+<span class="nc" id="L39">    adminUrls.add(&quot;/employee/add&quot;);</span>
+<span class="nc" id="L40">    adminUrls.add(&quot;/employee/getall&quot;);</span>
+<span class="nc" id="L41">  }</span>
+
+  /**
+   * Constructor.
+   *
+   * @param employeeRepo2 Employee Repository
+   */
+<span class="nc" id="L48">  public SecurityFilter(final EmployeeRepo employeeRepo2) {</span>
+<span class="nc" id="L49">    this.employeeRepo = employeeRepo2;</span>
+<span class="nc" id="L50">  }</span>
+
+  /**
+   * Check if URL is in the ADMIN URLS or not.
+   *
+   * @param currentUrl String
+   * @return Boolean
+   */
+  public Boolean checkAdminUrl(final String currentUrl) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">    if (adminUrls.contains(currentUrl)) {</span>
+<span class="nc" id="L60">      return true;</span>
+    }
+<span class="nc" id="L62">    return false;</span>
+  }
+
+  /**
+   * Filter.
+   */
+  @Override
+  public void doFilter(
+      final ServletRequest request,
+      final ServletResponse response,
+      final FilterChain chain
+  )
+      throws IOException, ServletException {
+<span class="nc" id="L75">    HttpServletRequest httpServletRequest = (HttpServletRequest) request;</span>
+
+<span class="nc" id="L77">    String email = httpServletRequest.getHeader(&quot;email&quot;);</span>
+<span class="nc" id="L78">    String password = httpServletRequest.getHeader(&quot;password&quot;);</span>
+<span class="nc" id="L79">    String currentUrl = httpServletRequest.getRequestURI();</span>
+<span class="nc" id="L80">    HttpServletResponse httpServletResponse = (HttpServletResponse) response;</span>
+
+<span class="nc bnc" id="L82" title="All 2 branches missed.">    if (currentUrl.equals(&quot;/employee/login&quot;)) {</span>
+<span class="nc" id="L83">      chain.doFilter(request, response);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">    } else if (httpServletRequest.getMethod().equals(&quot;OPTIONS&quot;)) {</span>
+<span class="nc" id="L85">      httpServletResponse.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span>
+<span class="nc" id="L86">      httpServletResponse.setHeader(</span>
+<span class="nc" id="L87">           &quot;Access-Control-Allow-Methods&quot;,</span>
+<span class="nc" id="L88">           &quot;GET, POST, PUT, DELETE&quot;</span>
+      );
+<span class="nc" id="L90">      httpServletResponse.setHeader(</span>
+<span class="nc" id="L91">          &quot;Access-Control-Allow-Headers&quot;,</span>
+<span class="nc" id="L92">          &quot;Authorization, Content-Type, email, password&quot;</span>
+      );
+<span class="nc" id="L94">      httpServletResponse.setContentType(&quot;application/json&quot;);</span>
+<span class="nc" id="L95">      httpServletResponse.setStatus(HttpServletResponse.SC_OK);</span>
+<span class="nc" id="L96">    } else {</span>
+
+<span class="nc bnc" id="L98" title="All 4 branches missed.">      if (email == null || password == null) {</span>
+<span class="nc" id="L99">        ((HttpServletResponse) response).sendError(</span>
+<span class="nc" id="L100">            HttpServletResponse.SC_UNAUTHORIZED,</span>
+<span class="nc" id="L101">            &quot;Invalid User&quot;</span>
+        );
+<span class="nc" id="L103">      } else if (</span>
+<span class="nc" id="L104">          employeeRepo.existsByEmailAndPasswordAndRole(</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            email, password, Role.ROLE_ADMIN)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">          &amp;&amp; checkAdminUrl(currentUrl)</span>
+      ) {
+<span class="nc" id="L108">        chain.doFilter(request, response);</span>
+<span class="nc" id="L109">      } else if (</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">          employeeRepo.existsByEmailAndPassword(email, password)</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">          &amp;&amp; !(checkAdminUrl(currentUrl))</span>
+      ) {
+<span class="nc" id="L113">        chain.doFilter(request, response);</span>
+<span class="nc" id="L114">      } else {</span>
+<span class="nc" id="L115">        ((HttpServletResponse) response).sendError(</span>
+<span class="nc" id="L116">            HttpServletResponse.SC_UNAUTHORIZED,</span>
+<span class="nc" id="L117">            &quot;Unauthorized User&quot;</span>
+        );
+      }
+    }
+<span class="nc" id="L121">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

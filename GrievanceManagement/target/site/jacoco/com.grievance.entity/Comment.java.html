@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Comment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.entity</a> &gt; <span class="el_source">Comment.java</span></div><h1>Comment.java</h1><pre class="source lang-java linenums">package com.grievance.entity;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.springframework.data.annotation.CreatedDate;
+
+/**
+ * Comments of ticket.
+ */
+@Entity
+public class Comment {
+
+  /**
+   * CommentId.
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer commentId;
+
+  /**
+   * Content.
+   */
+  @Column(name = &quot;comments&quot;, nullable = false)
+  private String content;
+
+  /**
+   * creation time.
+   */
+  @Column(name = &quot;creation_time&quot;)
+  @CreatedDate
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date creationTime;
+
+  /**
+   * employee Name.
+   */
+  @Column(name = &quot;emp_name&quot;, nullable = false)
+  private String empName;
+
+  /**
+   * Ticket.
+   */
+  @ManyToOne
+  @JoinColumn(name = &quot;ticket_id&quot;)
+  private Ticket ticket;
+
+  /**
+   * getter for comentId.
+   *
+   * @return the commentId
+   */
+  public Integer getCommentId() {
+<span class="fc" id="L61">    return commentId;</span>
+  }
+
+  /**
+   * setter  for commentId.
+   *
+   * @param newCommentId the commentId to set
+   */
+  public void setCommentId(final Integer newCommentId) {
+<span class="fc" id="L70">    this.commentId = newCommentId;</span>
+<span class="fc" id="L71">  }</span>
+
+  /**
+   * getter for content.
+   *
+   * @return the content
+   */
+  public String getContent() {
+<span class="fc" id="L79">    return content;</span>
+  }
+
+  /**
+   * setter for content.
+   *
+   * @param newContent the content to set
+   */
+  public void setContent(final String newContent) {
+<span class="fc" id="L88">    this.content = newContent;</span>
+<span class="fc" id="L89">  }</span>
+
+  /**
+   * getter for creationDate.
+   *
+   * @return the creationTime
+   */
+  public Date getCreationTime() {
+<span class="fc" id="L97">    return creationTime;</span>
+  }
+
+  /**
+   * Setter for creation date.
+   *
+   * @param createTime the creationTime to set
+   */
+  public void setCreationTime(final Date createTime) {
+<span class="fc" id="L106">    this.creationTime = createTime;</span>
+<span class="fc" id="L107">  }</span>
+
+  /**
+   * getter for empName.
+   *
+   * @return the empName
+   */
+  public String getEmpName() {
+<span class="fc" id="L115">    return empName;</span>
+  }
+
+  /**
+   * Setter for empName.
+   *
+   * @param newEmpName the empName to set
+   */
+  public void setEmpName(final String newEmpName) {
+<span class="fc" id="L124">    this.empName = newEmpName;</span>
+<span class="fc" id="L125">  }</span>
+
+  /**
+   * Getter for ticket.
+   *
+   * @return the ticket
+   */
+  public Ticket getTicket() {
+<span class="fc" id="L133">    return ticket;</span>
+  }
+
+  /**
+   * Setter for ticket.
+   *
+   * @param newTicket the ticket to set
+   */
+  public void setTicket(final Ticket newTicket) {
+<span class="fc" id="L142">    this.ticket = newTicket;</span>
+<span class="fc" id="L143">  }</span>
+
+  /**
+   * All args constructor.
+   *
+   * @param newCommentId type Interger
+   * @param newContent type String
+   * @param newCreationTime type Date
+   * @param newEmpName type String
+   * @param newTicket type Ticket
+   */
+  public Comment(
+      final Integer newCommentId,
+      final String newContent,
+      final Date newCreationTime,
+      final String newEmpName,
+      final Ticket newTicket
+  ) {
+<span class="fc" id="L161">    super();</span>
+<span class="fc" id="L162">    this.commentId = newCommentId;</span>
+<span class="fc" id="L163">    this.content = newContent;</span>
+<span class="fc" id="L164">    this.creationTime = newCreationTime;</span>
+<span class="fc" id="L165">    this.empName = newEmpName;</span>
+<span class="fc" id="L166">    this.ticket = newTicket;</span>
+<span class="fc" id="L167">  }</span>
+
+  /**
+   * NO args constructor.
+   */
+  public Comment() {
+<span class="fc" id="L173">    super();</span>
+<span class="fc" id="L174">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

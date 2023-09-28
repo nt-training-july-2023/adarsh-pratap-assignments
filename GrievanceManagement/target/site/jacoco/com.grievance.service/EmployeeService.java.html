@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.service</a> &gt; <span class="el_source">EmployeeService.java</span></div><h1>EmployeeService.java</h1><pre class="source lang-java linenums">package com.grievance.service;
+
+import com.grievance.dto.ChangePasswordDto;
+import com.grievance.dto.EmployeeOutDto;
+import com.grievance.dto.EmployeesInDto;
+import com.grievance.dto.UserLogin;
+import com.grievance.entity.Employee;
+import com.grievance.exception.ApiResponse;
+import com.grievance.exception.ResourceNotFound;
+import com.grievance.repo.EmployeeRepo;
+import com.grievance.serviceinterface.EmployeeServiceInterface;
+import java.util.ArrayList;
+import java.util.List;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+/**
+ * Employee Service .
+ */
+@Service
+<span class="fc" id="L25">public class EmployeeService implements EmployeeServiceInterface {</span>
+  /**
+   * Employee Repository .
+   */
+  @Autowired
+  private EmployeeRepo employeeRepo;
+
+  /**
+   * Mapper.
+   */
+  @Autowired
+  private ModelMapper modelMapper;
+
+  /**
+   * Save Employee .
+   *
+   * @param empDto .
+   * @return .
+   */
+  @Override
+  public EmployeeOutDto saveEmployee(final EmployeesInDto empDto) {
+<span class="fc" id="L46">    Employee emp = this.modelMapper.map(empDto, Employee.class);</span>
+
+<span class="fc" id="L48">    emp.setIsFirstLogin(true);</span>
+
+<span class="fc" id="L50">    return this.modelMapper.map(</span>
+<span class="fc" id="L51">      this.employeeRepo.save(emp), EmployeeOutDto.class);</span>
+  }
+
+  /**
+   * User login Method .
+   *
+   * @param login .
+   *
+   * @return String .
+   */
+  @Override
+  public EmployeeOutDto login(final UserLogin login) {
+<span class="fc" id="L63">    Employee emp = this.employeeRepo.findByEmail(login.getUserName());</span>
+
+<span class="fc bfc" id="L65" title="All 4 branches covered.">    if (emp != null &amp;&amp; emp.getPassword().equals(login.getPassword())) {</span>
+<span class="fc" id="L66">      EmployeeOutDto empOut = this.modelMapper.map(emp, EmployeeOutDto.class);</span>
+<span class="fc" id="L67">      empOut.setDepName(emp.getDepartment().getDepName());</span>
+<span class="fc" id="L68">      return empOut;</span>
+    }
+<span class="fc" id="L70">    return null;</span>
+  }
+
+  /**
+   * Get By Id.
+   *
+   * @param id Integer.
+   *
+   * @return EmployeeOutDto
+   */
+  @Override
+  public EmployeeOutDto getById(final Integer id) {
+<span class="fc" id="L82">    Employee emp = this.employeeRepo.findById(id)</span>
+<span class="fc" id="L83">        .orElseThrow(() -&gt; new ResourceNotFound(</span>
+<span class="fc" id="L84">          &quot;Employee&quot;, &quot;Employee not Found for this Id&quot;));</span>
+<span class="fc" id="L85">    return this.modelMapper.map(emp, EmployeeOutDto.class);</span>
+  }
+
+  /**
+   * Update Employee.
+   *
+   * @param id Integer
+   * @param emp Employee
+   * @return EmployeeOutDto
+   */
+  @Override
+  public EmployeeOutDto updateEmployee(
+      final Integer id, final EmployeesInDto emp) {
+<span class="fc" id="L98">    Employee employee = this.employeeRepo.findById(id)</span>
+<span class="fc" id="L99">        .orElseThrow(</span>
+<span class="fc" id="L100">          () -&gt; new ResourceNotFound(&quot;Employee&quot;, &quot;Employee Not found&quot;));</span>
+<span class="fc" id="L101">    employee.setDepartment(emp.getDepartment());</span>
+<span class="fc" id="L102">    employee.setEmail(emp.getEmail());</span>
+<span class="fc" id="L103">    employee.setRole(emp.getRole());</span>
+<span class="fc" id="L104">    employee.setUserName(emp.getUserName());</span>
+
+<span class="fc" id="L106">    Employee result = this.employeeRepo.save(employee);</span>
+<span class="fc" id="L107">    return this.modelMapper.map(result, EmployeeOutDto.class);</span>
+  }
+
+  /**
+   * change Password.
+   *
+   * @param id Integer
+   * @param changePasswordDto ChangePasswordDto
+   * @return ApiResponse
+   */
+  @Override
+  public ApiResponse changePassword(
+      final Integer id, final ChangePasswordDto changePasswordDto) {
+<span class="fc" id="L120">    Employee employee  = this.employeeRepo.findById(id)</span>
+<span class="fc" id="L121">        .orElseThrow(</span>
+<span class="fc" id="L122">          () -&gt; new ResourceNotFound(&quot;Employee&quot;, &quot;Employee Not found&quot;));</span>
+
+<span class="fc" id="L124">    ApiResponse apiResponse = new ApiResponse();</span>
+
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">    if (!employee.getPassword().equals(changePasswordDto.getOldPassword())) {</span>
+<span class="nc" id="L127">      apiResponse.setEntity(&quot;Employee&quot;);</span>
+<span class="nc" id="L128">      apiResponse.setMessage(</span>
+<span class="nc" id="L129">            &quot;old password is incorrect!!&quot;);</span>
+<span class="nc" id="L130">      return apiResponse;</span>
+    }
+<span class="fc" id="L132">    if (changePasswordDto.getNewPassword().equals(</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        changePasswordDto.getOldPassword())) {</span>
+<span class="fc" id="L134">      apiResponse.setEntity(&quot;Employee&quot;);</span>
+<span class="fc" id="L135">      apiResponse.setMessage(</span>
+<span class="fc" id="L136">          &quot;old password and new password should not be same&quot;);</span>
+<span class="fc" id="L137">      return apiResponse;</span>
+    }
+
+<span class="fc" id="L140">    if (changePasswordDto.getNewPassword().equals(</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">          changePasswordDto.getConfirmPassword())) {</span>
+
+<span class="fc" id="L143">      employee.setPassword(changePasswordDto.getNewPassword());</span>
+<span class="fc" id="L144">      employee.setIsFirstLogin(false);</span>
+<span class="fc" id="L145">      this.employeeRepo.save(employee);</span>
+<span class="fc" id="L146">      apiResponse.setEntity(&quot;Employee&quot;);</span>
+<span class="fc" id="L147">      apiResponse.setMessage(&quot;Password changed Sucessfully!!&quot;);</span>
+
+<span class="fc" id="L149">    } else {</span>
+<span class="fc" id="L150">      apiResponse.setEntity(&quot;Employee&quot;);</span>
+<span class="fc" id="L151">      apiResponse.setMessage(</span>
+<span class="fc" id="L152">          &quot;New password and confirm password should be same&quot;);</span>
+    }
+<span class="fc" id="L154">    return apiResponse;</span>
+  }
+
+  /**
+   * Get All Employee.
+   *
+   * @param offset Integer
+   * @return List of EmployeeOutDto
+   */
+  public List&lt;EmployeeOutDto&gt; getAllEmployee(final Integer offset) {
+<span class="fc" id="L164">    final Integer pageSize = 10;</span>
+<span class="fc" id="L165">    Pageable page = PageRequest.of(offset, pageSize);</span>
+<span class="fc" id="L166">    Page&lt;Employee&gt; employee = this.employeeRepo.findAll(page);</span>
+
+<span class="fc" id="L168">    List&lt;EmployeeOutDto&gt; result = new ArrayList&lt;EmployeeOutDto&gt;();</span>
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">    for (Employee emp : employee) {</span>
+<span class="nc" id="L170">      EmployeeOutDto employeeDto =  this.modelMapper.map(</span>
+<span class="nc" id="L171">          emp, EmployeeOutDto.class);</span>
+<span class="nc" id="L172">      employeeDto.setDepName(emp.getDepartment().getDepName());</span>
+<span class="nc" id="L173">      result.add(employeeDto);</span>
+    }
+<span class="fc" id="L175">    return result;</span>
+  }
+
+  /**
+   * Delete Employee.
+   *
+   * @param id Integer
+   * @return String
+   */
+  public String deleteEmployee(final Integer id) {
+<span class="fc" id="L185">    Employee emp = this.employeeRepo.findById(id).orElseThrow(() -&gt;</span>
+<span class="fc" id="L186">          new ResourceNotFound(&quot;Employee&quot;, &quot;Employee not found&quot;));</span>
+<span class="fc" id="L187">    this.employeeRepo.deleteById(id);</span>
+<span class="fc" id="L188">    return &quot;Employee deleted Sucessfully!!&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

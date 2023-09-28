@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TicketDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">TicketDto.java</span></div><h1>TicketDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.grievance.entity.Department;
+import com.grievance.entity.Employee;
+import com.grievance.entity.TicketStatus;
+import com.grievance.entity.TicketType;
+
+/**
+ * Ticket In DTO.
+ */
+public class TicketDto {
+  /**
+   * ticketName.
+   */
+  @NotEmpty(message = &quot;Ticket name can not be empty&quot;)
+  private String ticketName;
+
+  /**
+   * description.
+   */
+  @NotEmpty(message = &quot;description is required filed&quot;)
+  private String description;
+
+  /**
+   * status.
+   */
+  private TicketStatus status;
+
+  /**
+   * ticketType.
+   */
+  private TicketType ticketType;
+
+  /**
+   * department.
+   */
+  @NotNull
+  private Department department;
+
+  /**
+   * employee.
+   */
+  @NotNull
+  private Employee employee;
+
+  /**
+   * getter for ticketName.
+   *
+   * @return the ticketName
+   */
+  public String getTicketName() {
+<span class="fc" id="L55">    return ticketName;</span>
+  }
+
+  /**
+   * setter for ticketName.
+   *
+   * @param name the ticketName to set
+   */
+  public void setTicketName(final String name) {
+<span class="fc" id="L64">    this.ticketName = name;</span>
+<span class="fc" id="L65">  }</span>
+
+  /**
+   * getter for description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+<span class="fc" id="L73">    return description;</span>
+  }
+
+  /**
+   * setter for description.
+   *
+   * @param des the description to set
+   */
+  public void setDescription(final String des) {
+<span class="fc" id="L82">    this.description = des;</span>
+<span class="fc" id="L83">  }</span>
+
+  /**
+   * getter for status.
+   *
+   * @return the status
+   */
+  public TicketStatus getStatus() {
+<span class="fc" id="L91">    return status;</span>
+  }
+
+  /**
+   * setter for status.
+   *
+   * @param stat the status to set.
+   */
+  public void setStatus(final TicketStatus stat) {
+<span class="fc" id="L100">    this.status = stat;</span>
+<span class="fc" id="L101">  }</span>
+
+  /**
+   * getter for type of ticket.
+   *
+   * @return the ticketType
+   */
+  public TicketType getTicketType() {
+<span class="fc" id="L109">    return ticketType;</span>
+  }
+
+  /**
+   * set TicketType.
+   *
+   * @param type the ticketType to set
+   */
+  public void setTicketType(final TicketType type) {
+<span class="fc" id="L118">    this.ticketType = type;</span>
+<span class="fc" id="L119">  }</span>
+
+  /**
+   * get Department.
+   *
+   * @return the department
+   */
+  public Department getDepartment() {
+<span class="fc" id="L127">    return department;</span>
+  }
+
+  /**
+   * setting the department.
+   *
+   * @param dep the department to set
+   */
+  public void setDepartment(final Department dep) {
+<span class="fc" id="L136">    this.department = dep;</span>
+<span class="fc" id="L137">  }</span>
+
+  /**
+   * Get employee.
+   *
+   * @return the employee
+   */
+  public Employee getEmployee() {
+<span class="fc" id="L145">    return employee;</span>
+  }
+
+  /**
+   * Setting the employee.
+   *
+   * @param emp the employee to set
+   */
+  public void setEmployee(final Employee emp) {
+<span class="fc" id="L154">    this.employee = emp;</span>
+<span class="fc" id="L155">  }</span>
+
+  /**
+   * All args constructor.
+   *
+   * @param name String
+   * @param des String
+   * @param stat TicketStatus
+   * @param type TicketType
+   * @param dep Department
+   * @param emp Employee
+   *
+   */
+  public TicketDto(
+      final String name,
+      final String des,
+      final TicketStatus stat,
+      final TicketType type,
+      final Department dep,
+      final Employee emp
+  ) {
+<span class="fc" id="L176">    super();</span>
+<span class="fc" id="L177">    this.ticketName = name;</span>
+<span class="fc" id="L178">    this.description = des;</span>
+<span class="fc" id="L179">    this.status = stat;</span>
+<span class="fc" id="L180">    this.ticketType = type;</span>
+<span class="fc" id="L181">    this.department = dep;</span>
+<span class="fc" id="L182">    this.employee = emp;</span>
+<span class="fc" id="L183">  }</span>
+
+  /**
+  *No args constructor.
+  */
+  public TicketDto() {
+<span class="fc" id="L189">    super();</span>
+<span class="fc" id="L190">  }</span>
+
+  /**
+  * to string method.
+  */
+  @Override
+  public String toString() {
+<span class="fc" id="L197">    return (</span>
+      &quot;TicketDto [ticketName=&quot;
+      +
+      ticketName
+      +
+      &quot;, description=&quot;
+      +
+      description
+      +
+      &quot;, status=&quot;
+      +
+      status
+      +
+      &quot;, ticketType=&quot;
+      +
+      ticketType
+      +
+      &quot;, department=&quot;
+      +
+      department
+      +
+      &quot;, employee=&quot;
+      +
+      employee
+      +
+      &quot;]&quot;
+      );
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

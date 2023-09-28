@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+   <duplication lines="84" tokens="120">
+      <file line="66"
+            path="C:\Users\adars\OneDrive\Desktop\Project\GrievanceManagement\src\main\java\com\grievance\dto\EmployeesDto.java"/>
+      <file line="106"
+            path="C:\Users\adars\OneDrive\Desktop\Project\GrievanceManagement\src\main\java\com\grievance\entity\Employee.java"/>
+      <codefragment><![CDATA[  public String getUserName() {
+    return userName;
+  }
+
+  /**
+   * Setter of User Name .
+   *
+   * @param name of string type .
+   */
+  public void setUserName(final String name) {
+    this.userName = name;
+  }
+
+  /**
+   * Getter of email .
+   *
+   * @return email
+   */
+  public String getEmail() {
+    return email;
+  }
+
+  /**
+   * Setter of email .
+   *
+   * @param em of string type.
+   */
+  public void setEmail(final String em) {
+    this.email = em;
+  }
+
+  /**
+   * Getter of password .
+   *
+   * @return password.
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * Setter of password .
+   *
+   * @param pass of String type.
+   */
+  public void setPassword(final String pass) {
+    this.password = pass;
+  }
+
+  /**
+   *Getter of Role.
+   *
+   * @return Role of string type .
+   */
+  public Role getRole() {
+    return role;
+  }
+
+  /**
+   * Setter for Role .
+   *
+   * @param ro of string type .
+   */
+  public void setRole(final Role ro) {
+    this.role = ro;
+  }
+
+  /**
+   * Getter for Department .
+   *
+   * @return department of String type .
+   */
+  public Department getDepartment() {
+    return department;
+  }
+
+  /**
+   * setter for department .
+   *
+   * @param dep of string type .
+   */
+  public void setDepartment(final Department dep) {
+    this.department = dep;
+  }]]></codefragment>
+   </duplication>
+   <duplication lines="83" tokens="115">
+      <file line="30"
+            path="C:\Users\adars\OneDrive\Desktop\Project\GrievanceManagement\src\main\java\com\grievance\dto\DepartmentOutDto.java"/>
+      <file line="46"
+            path="C:\Users\adars\OneDrive\Desktop\Project\GrievanceManagement\src\main\java\com\grievance\entity\Department.java"/>
+      <codefragment><![CDATA[  private List<Ticket> ticket;
+
+  /**
+   * getter for depId.
+   *
+   * @return the depId
+   */
+  public Integer getDepId() {
+    return depId;
+  }
+
+  /**
+   * setter for depId.
+   *
+   * @param id the depId to set
+   */
+  public void setDepId(final Integer id) {
+    this.depId = id;
+  }
+
+  /**
+   * getter for depName.
+   *
+   * @return the depName
+   */
+  public String getDepName() {
+    return depName;
+  }
+
+  /**
+   * setter for depName.
+   *
+   * @param name the depName to set
+   */
+  public void setDepName(final String name) {
+    this.depName = name;
+  }
+
+  /**
+   * getter for employee.
+   *
+   * @return the employee
+   */
+  public List<Employee> getEmployee() {
+    return employee;
+  }
+
+  /**
+   * setter for employee.
+   *
+   * @param emp the employee to set
+   */
+  public void setEmployee(final List<Employee> emp) {
+    this.employee = emp;
+  }
+
+  /**
+   * getter for ticket.
+   *
+   * @return the ticket
+   */
+  public List<Ticket> getTicket() {
+    return ticket;
+  }
+
+  /**
+   * setter for ticket.
+   *
+   * @param tick the ticket to set
+   */
+  public void setTicket(final List<Ticket> tick) {
+    this.ticket = tick;
+  }
+
+  /**
+   * all args constructor.
+   *
+   * @param id Integer
+   * @param name String
+   * @param emp Employee
+   * @param tick Ticket
+   */
+  public DepartmentOutDto(]]></codefragment>
+   </duplication>
+</pmd-cpd>

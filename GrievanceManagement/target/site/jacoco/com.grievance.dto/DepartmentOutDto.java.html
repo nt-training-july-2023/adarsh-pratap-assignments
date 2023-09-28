@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DepartmentOutDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.dto</a> &gt; <span class="el_source">DepartmentOutDto.java</span></div><h1>DepartmentOutDto.java</h1><pre class="source lang-java linenums">package com.grievance.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
+import javax.validation.constraints.NotEmpty;
+
+/**
+ * Department Dto.
+ */
+public class DepartmentOutDto {
+  /**
+   * depId.
+   */
+  private Integer depId;
+
+  /**
+   * depName.
+   */
+  private String depName;
+
+  /**
+   * employee.
+   */
+  @JsonIgnore
+  private List&lt;EmployeeOutDto&gt; employee;
+
+  /**
+   * ticket.
+   */
+  @JsonIgnore
+  private List&lt;TicketOutDto&gt; ticket;
+
+  /**
+   * getter for depId.
+   *
+   * @return the depId
+   */
+  public Integer getDepId() {
+<span class="fc" id="L39">    return depId;</span>
+  }
+
+  /**
+   * setter for depId.
+   *
+   * @param newDepId the depId to set
+   */
+  public void setDepId(final Integer newDepId) {
+<span class="fc" id="L48">    this.depId = newDepId;</span>
+<span class="fc" id="L49">  }</span>
+
+  /**
+   * getter for depName.
+   *
+   * @return the depName
+   */
+  public String getDepName() {
+<span class="fc" id="L57">    return depName;</span>
+  }
+
+  /**
+   * setter for depName.
+   *
+   * @param newDepName the depName to set
+   */
+  public void setDepName(final String newDepName) {
+<span class="fc" id="L66">    this.depName = newDepName;</span>
+<span class="fc" id="L67">  }</span>
+
+  /**
+   * getter for employee.
+   *
+   * @return the employee
+   */
+  public List&lt;EmployeeOutDto&gt; getEmployee() {
+<span class="fc" id="L75">    return employee;</span>
+  }
+
+  /**
+   * setter for employee.
+   *
+   * @param newEmployee the employee to set
+   */
+  public void setEmployee(final List&lt;EmployeeOutDto&gt; newEmployee) {
+<span class="fc" id="L84">    this.employee = newEmployee;</span>
+<span class="fc" id="L85">  }</span>
+
+  /**
+   * getter for ticket.
+   *
+   * @return the ticket
+   */
+  public List&lt;TicketOutDto&gt; getTicket() {
+<span class="fc" id="L93">    return ticket;</span>
+  }
+
+  /**
+   * setter for ticket.
+   *
+   * @param newTicket the ticket to set
+   */
+  public void setTicket(final List&lt;TicketOutDto&gt; newTicket) {
+<span class="fc" id="L102">    this.ticket = newTicket;</span>
+<span class="fc" id="L103">  }</span>
+
+  /**
+   * all args constructor.
+   *
+   * @param newDepId Integer
+   * @param newDepName String
+   * @param newEmployee Employee
+   * @param newTicket Ticket
+   */
+  public DepartmentOutDto(
+      final Integer newDepId,
+      final @NotEmpty(
+        message = &quot;Department is a required field&quot;) String newDepName,
+      final List&lt;EmployeeOutDto&gt; newEmployee,
+      final List&lt;TicketOutDto&gt; newTicket
+  ) {
+<span class="fc" id="L120">    super();</span>
+<span class="fc" id="L121">    this.depId = newDepId;</span>
+<span class="fc" id="L122">    this.depName = newDepName;</span>
+<span class="fc" id="L123">    this.employee = newEmployee;</span>
+<span class="fc" id="L124">    this.ticket = newTicket;</span>
+<span class="fc" id="L125">  }</span>
+
+  /**
+   * No args constructor.
+   */
+<span class="fc" id="L130">  public DepartmentOutDto() {</span>
+<span class="fc" id="L131">  }</span>
+
+  /**
+   * to string method.
+   */
+  @Override
+  public String toString() {
+<span class="fc" id="L138">    return (</span>
+<span class="fc" id="L139">      &quot;DepartmentOutDto [depId=&quot;</span>
+      +
+<span class="fc" id="L141">      depId</span>
+      +
+<span class="fc" id="L143">      &quot;, depName=&quot;</span>
+      +
+<span class="fc" id="L145">      depName</span>
+      +
+<span class="fc" id="L147">      &quot;, employee=&quot;</span>
+      +
+<span class="fc" id="L149">      employee</span>
+      +
+<span class="fc" id="L151">      &quot;, ticket=&quot;</span>
+      +
+<span class="fc" id="L153">      ticket</span>
+      +
+<span class="fc" id="L155">      &quot;]&quot;</span>
+      );
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

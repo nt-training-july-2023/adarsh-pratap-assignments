@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Employee.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">GrievanceManagement</a> &gt; <a href="index.source.html" class="el_package">com.grievance.entity</a> &gt; <span class="el_source">Employee.java</span></div><h1>Employee.java</h1><pre class="source lang-java linenums">package com.grievance.entity;
+
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+
+/**
+ * Entity for Employees .
+ */
+
+@Entity
+public class Employee {
+
+  /**
+   * Employee Id.
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = &quot;emp_id&quot;)
+  private Integer empId;
+
+  /**
+   * User name of employee.
+   */
+  @Column(name = &quot;username&quot;, nullable = false)
+  private String userName;
+
+  /**
+   * email of employee.
+   */
+  @Column(name = &quot;email&quot;, unique = true)
+  private String email;
+
+  /**
+   * password of employee .
+   */
+  @Column(name = &quot;password&quot;, nullable = false)
+  private String password;
+
+  /**
+   * IsFirstLogin.
+   */
+  @Column(name = &quot;is_first_login&quot;)
+  private Boolean isFirstLogin;
+
+
+  /**
+   * Roles of employee field.
+   */
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Role role;
+
+  /**
+   * Department field.
+   */
+  @ManyToOne
+  @JoinColumn(name = &quot;department_id&quot;)
+  @JsonBackReference
+  private Department department;
+
+  /**
+   * Ticket.
+   */
+  @OneToMany(
+      cascade = CascadeType.ALL, mappedBy = &quot;employee&quot;, fetch = FetchType.LAZY)
+  @JsonManagedReference(value = &quot;emp&quot;)
+  private List&lt;Ticket&gt; ticket;
+
+  /**
+   * getter for employee.
+   *
+   * @return empId of type Integer.
+   */
+  public Integer getEmpId() {
+<span class="fc" id="L89">    return empId;</span>
+  }
+
+  /**
+   *Set employee.
+   *
+   * @param newEmpId of type integer.
+   */
+  public void setEmpId(final Integer newEmpId) {
+<span class="fc" id="L98">    this.empId = newEmpId;</span>
+<span class="fc" id="L99">  }</span>
+
+  /**
+   * Getter of userName.
+   *
+   * @return String type userName.
+   */
+  public String getUserName() {
+<span class="fc" id="L107">    return userName;</span>
+  }
+
+  /**
+  * Setter of password.
+  *
+  * @param newName of String.
+  */
+  public void setUserName(final String newName) {
+<span class="fc" id="L116">    this.userName = newName;</span>
+<span class="fc" id="L117">  }</span>
+
+  /**
+  * Getter for email.
+  *
+  * @return email.
+  */
+  public String getEmail() {
+<span class="fc" id="L125">    return email;</span>
+  }
+
+  /**
+   * Setter of email.
+   *
+   * @param newEmail of type String.
+   */
+  public void setEmail(final String newEmail) {
+<span class="fc" id="L134">    this.email = newEmail;</span>
+<span class="fc" id="L135">  }</span>
+
+  /**
+   * Getter of password.
+   *
+   * @return String type password.
+   */
+  public String getPassword() {
+<span class="fc" id="L143">    return password;</span>
+  }
+
+  /**
+   * Setter for password .
+   *
+   * @param newPassword of type string
+   */
+  public void setPassword(final String newPassword) {
+<span class="fc" id="L152">    this.password = newPassword;</span>
+<span class="fc" id="L153">  }</span>
+
+  /**
+   * Getter for Role.
+   *
+   * @return Role of type Enum.
+   */
+  public Role getRole() {
+<span class="fc" id="L161">    return role;</span>
+  }
+
+  /**
+   * Setter for Role .
+   *
+   * @param newRole of type Role
+   */
+  public void setRole(final Role newRole) {
+<span class="fc" id="L170">    this.role = newRole;</span>
+<span class="fc" id="L171">  }</span>
+
+  /**
+   * Get Department .
+   *
+   * @return Department.
+   */
+  public Department getDepartment() {
+<span class="fc" id="L179">    return department;</span>
+  }
+
+  /**
+   * Setter for Department.
+   *
+   * @param newDepartment of type string
+   */
+  public void setDepartment(final Department newDepartment) {
+<span class="fc" id="L188">    this.department = newDepartment;</span>
+<span class="fc" id="L189">  }</span>
+
+  /**
+   * getter for IsFirstLogin.
+   *
+   * @return the isFirstLogin
+   */
+  public Boolean getIsFirstLogin() {
+<span class="fc" id="L197">    return isFirstLogin;</span>
+  }
+
+  /**
+   *setter for is isFirstLogin.
+   *
+   * @param isFirstLog the isFirstLogin to set
+   */
+  public void setIsFirstLogin(final Boolean isFirstLog) {
+<span class="fc" id="L206">    this.isFirstLogin = isFirstLog;</span>
+<span class="fc" id="L207">  }</span>
+
+  /**
+   * getter for getTicket.
+   *
+   * @return the ticket
+   */
+  public List&lt;Ticket&gt; getTicket() {
+<span class="fc" id="L215">    return ticket;</span>
+  }
+
+  /**
+   * setter for ticket.
+   *
+   * @param tick the ticket to set
+   */
+  public void setTicket(final List&lt;Ticket&gt; tick) {
+<span class="fc" id="L224">    this.ticket = tick;</span>
+<span class="fc" id="L225">  }</span>
+
+
+  /**
+   * Employee Constructor .
+   *
+   * @param newEmpId Integer
+   *
+   * @param newName String
+   *
+   * @param newEmail String
+   *
+   * @param newPassword String
+   *
+   * @param newRole Role
+   *
+   * @param newDepartment Department
+   *
+   */
+  public Employee(
+      final Integer newEmpId,
+      final String newName,
+      final String newEmail,
+      final String newPassword,
+      final Role newRole,
+      final Department newDepartment
+  ) {
+<span class="fc" id="L252">    super();</span>
+<span class="fc" id="L253">    this.empId = newEmpId;</span>
+<span class="fc" id="L254">    this.userName = newName;</span>
+<span class="fc" id="L255">    this.email = newEmail;</span>
+<span class="fc" id="L256">    this.password = newPassword;</span>
+<span class="fc" id="L257">    this.role = newRole;</span>
+<span class="fc" id="L258">    this.department = newDepartment;</span>
+<span class="fc" id="L259">  }</span>
+
+  /**
+   * No argument constructor .
+   */
+  public Employee() {
+<span class="fc" id="L265">    super();</span>
+<span class="fc" id="L266">  }</span>
+
+  /**
+  * to string method.
+  */
+  @Override
+  public String toString() {
+<span class="fc" id="L273">    return &quot;Employee [empId=&quot; + empId + &quot;, userName=&quot;</span>
+<span class="fc" id="L274">      + userName + &quot;, email=&quot; + email + &quot;,&quot;</span>
+<span class="fc" id="L275">      + &quot; password=&quot; + password + &quot;, isFirstLogin=&quot;</span>
+      +
+<span class="fc" id="L277">      isFirstLogin + &quot;, role=&quot; + role + &quot;, department=&quot;</span>
+<span class="fc" id="L278">      + department + &quot;, ticket=&quot; + ticket + &quot;]&quot;;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
