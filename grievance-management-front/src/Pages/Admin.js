@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import React from "react";
+import { Navigate, Outlet} from "react-router-dom";
 import Nav from "./Nav";
 import { isLoggedIn } from "../Authentication/auth";
 
@@ -17,7 +17,7 @@ function AdminDashboard() {
     { name: "Add Employee", to: "/admin/registration" },
   ];
   const profile = [{ name: "Change Password" }, { name: "Logout" }];
-  const navigate = useNavigate();
+  
   const elements = [
     {
       name: "Ticket",
@@ -41,7 +41,7 @@ function AdminDashboard() {
     return (
       <>
         <Nav tag={elements} />
-        <Outlet></Outlet>
+        <div style={{height:'85vh', overflowY:'scroll', marginTop:'10px'}}><Outlet></Outlet></div>
       </>
     );
   } else {

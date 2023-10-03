@@ -10,6 +10,10 @@
 
 }
 
+.modal .overlay:hover{
+    cursor: pointer;
+}
+
 .modal .modal-content .header{
     background-color: #0a0c27;
     display: flex;
@@ -120,5 +124,5 @@
     display:flex;
     justify-content:center;
     padding:10px;
-    color:red;
+    color:#7d2828;
 }

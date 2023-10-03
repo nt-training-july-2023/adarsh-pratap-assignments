@@ -2,9 +2,12 @@ package com.grievance.repo;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
 
@@ -41,7 +44,7 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
    * @param roleAdmin Role
    * @return Boolean
    */
-  boolean existsByEmailAndPasswordAndRole(
+  Boolean existsByEmailAndPasswordAndRole(
       String email, String password, Role roleAdmin);
 
   /**
@@ -53,4 +56,13 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
    */
   boolean existsByEmailAndPassword(
       String email, String password);
+
+  /**
+   * Find By Department.
+   *
+   * @param department Department
+   * @param page Page
+   * @return Page of Employee
+   */
+  Page<Employee> findByDepartment(Department department, Pageable page);
 }

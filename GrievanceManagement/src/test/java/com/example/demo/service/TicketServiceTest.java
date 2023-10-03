@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.mockitoSession;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -30,6 +32,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.grievance.dto.DepartmentOutDto;
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
@@ -42,6 +45,7 @@ import com.grievance.entity.Role;
 import com.grievance.entity.Ticket;
 import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
+import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.EmployeeRepo;
 import com.grievance.repo.TicketRepo;
 import com.grievance.service.EmployeeService;
@@ -119,11 +123,14 @@ public class TicketServiceTest {
   public void updateTickets() {
 	  UpdateTicketInDto updateTicketInDto = new UpdateTicketInDto();
 	  updateTicketInDto.setStatus(TicketStatus.OPEN);
-	  updateTicketInDto.setComment("");
+	  updateTicketInDto.setComment("jdfsfsf");
 	  updateTicketInDto.setEmpName("Adarsh");
+	  ticket.setComments(new ArrayList<>());
 	  Optional<Ticket> t = Optional.ofNullable(ticket);
 	  when(this.ticketRepo.findById(1)).thenReturn(t);
+	  
 	  when(this.ticketRepo.save(ticket)).thenReturn(ticket);
+	  
 	  when(this.modelMapper.map(ticket, TicketOutDtoWithComments.class)).thenReturn(null);
 	  Assertions.assertEquals(this.ticketService.updateTicket(1, updateTicketInDto),null);
   }
@@ -199,5 +206,129 @@ public class TicketServiceTest {
 
       assertEquals(0, result.size());
      
+  }
+  
+  @Test
+  public void testFindAllUserRoleNew() {
+	  Integer id = 2;
+      String type = "my";
+      String filter = "all";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+//      when(this.modelMapper.map(
+//           Mockito.any(DepartmentOutDto.class), Department.class)).thenReturn(null);
+    //  when(this.modelMapper.map(
+      //        Mockito.any(EmployeeOutDto.class), Employee.class)).thenReturn(emp);
+      
+      when(this.ticketRepo.findByEmployee(null, page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForUser(filter, type, empOut, offset);
+     System.out.println("size" +temp.getContent().size());
+     assertEquals(0, temp.getContent().size());
+  }
+  @Test
+  public void testFindAllUserRoleNew2() {
+	  Integer id = 2;
+      String type = "all";
+      String filter = "all";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+//      when(this.modelMapper.map(
+//           Mockito.any(DepartmentOutDto.class), Department.class)).thenReturn(null);
+    //  when(this.modelMapper.map(
+      //        Mockito.any(EmployeeOutDto.class), Employee.class)).thenReturn(emp);
+      
+      when(this.ticketRepo.findByEmployeeOrDepartment(null,null, page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForUser(filter, type, empOut, offset);
+     System.out.println("size" +temp.getContent().size());
+     assertEquals(0, temp.getContent().size());
+  }
+  
+  @Test
+  public void testFindAllUserRoleNew3() {
+	  Integer id = 2;
+      String type = "allll";
+      String filter = "all";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+
+      when(this.ticketRepo.findByDepartment(null, page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForUser(filter, type, empOut, offset);
+     
+     assertEquals(0, temp.getContent().size());
+  }
+  
+  @Test
+  public void testFindAllUserRoleNew4() {
+	  Integer id = 2;
+      String type = "all";
+      String filter = "resolved";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10);
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+
+      when(this.ticketRepo.findByStatusAndDepartmentOrEmployee(null,null,TicketStatus.RESOLVED, page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForUser(filter, type, empOut, offset);
+     
+     assertEquals(0, temp.getContent().size());
+  }
+  
+  @Test
+  public void testFindAllUserRoleNew5() {
+	  Integer id = 2;
+      String type = "alllll";
+      String filter = "";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10);
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+
+      when(this.ticketRepo.findByDepartmentAndStatus(null,TicketStatus.BEING_ADDRESSED, page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForUser(filter, type, empOut, offset);
+    
+     assertEquals(0, temp.getContent().size());
+  }
+  
+  @Test
+  public void updateTicketNotfound() {
+	  when(this.ticketRepo.findById(1)).thenReturn(Optional.empty());
+		
+		try {
+			this.ticketService.updateTicket(1, null);
+		} catch(ResourceNotFound e) {
+			assertEquals("Ticket Not found", e.getMessage());
+		} 
+  }
+  
+  @Test
+  public void findById() {
+	  when(this.ticketRepo.findById(1)).thenReturn(Optional.empty());
+		
+		try {
+			this.ticketService.ticketById(1);
+		} catch(ResourceNotFound e) {
+			assertEquals("Ticket not found", e.getMessage());
+		} 
   }
 }

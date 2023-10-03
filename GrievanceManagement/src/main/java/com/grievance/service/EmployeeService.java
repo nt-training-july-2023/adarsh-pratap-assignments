@@ -1,17 +1,22 @@
 package com.grievance.service;
 
+import com.grievance.controller.EmployeeController;
 import com.grievance.dto.ChangePasswordDto;
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
+import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.exception.ApiResponse;
 import com.grievance.exception.ResourceNotFound;
+import com.grievance.repo.DepartmentRepo;
 import com.grievance.repo.EmployeeRepo;
 import com.grievance.serviceinterface.EmployeeServiceInterface;
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,10 +35,22 @@ public class EmployeeService implements EmployeeServiceInterface {
   private EmployeeRepo employeeRepo;
 
   /**
+   * Department Repository.
+   */
+  @Autowired
+  private DepartmentRepo departmentRepo;
+
+  /**
    * Mapper.
    */
   @Autowired
   private ModelMapper modelMapper;
+
+  /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(
+      EmployeeController.class);
 
   /**
    * Save Employee .
@@ -43,6 +60,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    */
   @Override
   public EmployeeOutDto saveEmployee(final EmployeesInDto empDto) {
+    LOGGER.info("Inside Save Employee {}", empDto.getUserName());
     Employee emp = this.modelMapper.map(empDto, Employee.class);
 
     emp.setIsFirstLogin(true);
@@ -60,6 +78,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    */
   @Override
   public EmployeeOutDto login(final UserLogin login) {
+    LOGGER.info("Inside Login Employee {}", login.getUserName());
     Employee emp = this.employeeRepo.findByEmail(login.getUserName());
 
     if (emp != null && emp.getPassword().equals(login.getPassword())) {
@@ -79,6 +98,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    */
   @Override
   public EmployeeOutDto getById(final Integer id) {
+    LOGGER.info("Inside Get By Id Employee {}", id);
     Employee emp = this.employeeRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFound(
           "Employee", "Employee not Found for this Id"));
@@ -95,6 +115,7 @@ public class EmployeeService implements EmployeeServiceInterface {
   @Override
   public EmployeeOutDto updateEmployee(
       final Integer id, final EmployeesInDto emp) {
+    LOGGER.info("Inside Update Employee {}", emp.getUserName());
     Employee employee = this.employeeRepo.findById(id)
         .orElseThrow(
           () -> new ResourceNotFound("Employee", "Employee Not found"));
@@ -117,6 +138,7 @@ public class EmployeeService implements EmployeeServiceInterface {
   @Override
   public ApiResponse changePassword(
       final Integer id, final ChangePasswordDto changePasswordDto) {
+    LOGGER.info("Inside Change Password ");
     Employee employee  = this.employeeRepo.findById(id)
         .orElseThrow(
           () -> new ResourceNotFound("Employee", "Employee Not found"));
@@ -158,13 +180,22 @@ public class EmployeeService implements EmployeeServiceInterface {
    * Get All Employee.
    *
    * @param offset Integer
+   * @param depName String
+   *
    * @return List of EmployeeOutDto
    */
-  public List<EmployeeOutDto> getAllEmployee(final Integer offset) {
+  public List<EmployeeOutDto> getAllEmployee(final Integer offset,
+      final String depName) {
+    LOGGER.info("Inside Get All Employee {}", depName);
     final Integer pageSize = 10;
     Pageable page = PageRequest.of(offset, pageSize);
-    Page<Employee> employee = this.employeeRepo.findAll(page);
-
+    Page<Employee> employee = null;
+    if (depName.equals("all")) {
+      employee = this.employeeRepo.findAll(page);
+    } else {
+      Department department = this.departmentRepo.findByDepName(depName);
+      employee = this.employeeRepo.findByDepartment(department, page);
+    }
     List<EmployeeOutDto> result = new ArrayList<EmployeeOutDto>();
     for (Employee emp : employee) {
       EmployeeOutDto employeeDto =  this.modelMapper.map(
@@ -182,7 +213,8 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @return String
    */
   public String deleteEmployee(final Integer id) {
-    Employee emp = this.employeeRepo.findById(id).orElseThrow(() ->
+    LOGGER.info("Inside Delete Employee");
+    this.employeeRepo.findById(id).orElseThrow(() ->
           new ResourceNotFound("Employee", "Employee not found"));
     this.employeeRepo.deleteById(id);
     return "Employee deleted Sucessfully!!";

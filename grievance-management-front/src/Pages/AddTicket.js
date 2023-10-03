@@ -3,10 +3,10 @@ import "../css/UserRegistration.css";
 import { getAllDepartment } from "../api/Department_API";
 import { addTicket } from "../api/Ticket_API";
 import { useNavigate } from "react-router-dom";
-import PopUp from "../components/PopUp";
+import PopUp from "../components/PopUp/PopUp";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
 
 function AddTicket() {
-
   const navigate = useNavigate();
 
   const [department, setDepartment] = useState([]);
@@ -50,11 +50,24 @@ function AddTicket() {
       temp.ticketName.errorMessage = "Ticket name can not be Empty";
       setValid(temp);
     }
+    if (ticket.ticketName.length > 100) {
+      const temp = { ...valid };
+      temp.ticketName.isError = true;
+      temp.ticketName.errorMessage = "Ticket Name Lenght Should be less than 100";
+      setValid(temp);
+    }
     if (ticket.description === "") {
       const temp = { ...valid };
       temp.description.isError = true;
       temp.description.errorMessage =
         "Ticket description name can not be Empty";
+      setValid(temp);
+    }
+    if (ticket.description.length > 220) {
+      const temp = { ...valid };
+      temp.description.isError = true;
+      temp.description.errorMessage =
+        "Ticket description Lenght Should be less than 100";
       setValid(temp);
     }
     if (ticket.ticketType === "") {
@@ -120,6 +133,7 @@ function AddTicket() {
     });
   };
 
+  const [popUpData, setPopUpData] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
     isValid();
@@ -131,21 +145,44 @@ function AddTicket() {
     ) {
       addTicket(ticket)
         .then((resp) => {
+          const data = setPopUpDataInPopUp(
+            "Ticket",
+            "Ticket added successfully!!",
+            "success-popup-message"
+          );
+          setPopUpData(data);
           setPopUp(true);
-          setTimeout(()=>{
-            navigate("/admin")
-          }, 1000)
+
+          setTimeout(() => {
+            navigate("/admin");
+          }, 1000);
         })
         .catch((error) => {
-          alert("Not saved");
+          console.log(error)
+          if(error.code === "ERR_NETWORK"){
+            const data = setPopUpDataInPopUp(
+              "Ticket",
+              "Network Error!!",
+              "danger-popup-message"
+            );
+            setPopUpData(data);
+            setPopUp(true);
+            return;
+          }
+          const data = setPopUpDataInPopUp(
+            "Ticket",
+            "Ticket Not Saved!!",
+            "danger-popup-message"
+          );
+          setPopUpData(data);
+          setPopUp(true);
         });
     }
   };
-  const [popUp , setPopUp] = useState(false);
+  const [popUp, setPopUp] = useState(false);
   return (
     <>
-    
-    {popUp && (<PopUp set={setPopUp} header={"Ticket"} message={"Saved Sucessfully!!"} classname="success-popup-message"/>)}
+      {popUp && <PopUp set={setPopUp} data={popUpData} />}
       <div className="registration">
         <div className="content">
           <div className="header">

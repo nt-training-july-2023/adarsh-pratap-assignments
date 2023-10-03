@@ -2,6 +2,8 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    box-shadow: 5px 5px 10px #e9d7d7;
+
   }
   
   td, th {
@@ -29,9 +31,6 @@ table {
 
   .department-table td{
     font-size: 15px;
-    
-    
-    color: #3f5965;
     font-weight: 300;
     letter-spacing: 1px;
   }
@@ -55,8 +54,24 @@ table {
   .header-filter .header{
     width:55%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     
+  }
+
+  .header-filter .header-without-filter{
+    width:100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-filter .header-without-filter span{
+    color: #d43e25;
+    font-weight: 600;
+    font-size: 2rem;
+    text-transform: uppercase;
+    border-bottom: 4px solid #202850;
+    display: inline-block;
+    letter-spacing: 1px;
   }
 
   .header-filter .header span{
@@ -89,6 +104,7 @@ table {
 
   tr:hover{
     background: whitesmoke;
+    cursor: pointer;
   }
 
   .pre-next-button {
@@ -108,15 +124,26 @@ table {
     padding: 5px 30px;
     margin: 5px;
     background: #0a0c27;
-    border-radius: 10px;
+    border-radius: 4px;
     color: white;
     font-size: 0.7rem;
   }
 
  .view-button{
     padding: 5px 10px;
-    background: #0a0c27;
-    border-radius: 10px;
+    background: #7d2828;
+    border-radius: 4px;
     color: white;
     font-size: 0.7rem;
+    border: none;
  } 
+
+  .view-button:hover{
+    cursor: pointer;
+    background: #813232;
+  }
+
+  .pre-next-button button:hover{
+    cursor: pointer;
+    background: #131646;
+  }

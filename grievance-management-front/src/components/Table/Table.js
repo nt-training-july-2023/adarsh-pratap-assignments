@@ -3,8 +3,8 @@ export const Table= ({ data , columns , onRowClick , onDelete})=>{
     return (
         <table>
             <tr>
-                {columns.map((column)=>(
-                    <th key={column.key}>{column.title}</th>
+                {columns.map((column , index)=>(
+                    <th key={index}>{column.title}</th>
                 ))}
             </tr>
             {data.map((row)=> ( 

@@ -4,6 +4,9 @@ import com.grievance.dto.TicketInDto;
 import com.grievance.dto.UpdateTicketInDto;
 import com.grievance.service.TicketService;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,12 @@ public class TicketController {
   private TicketService ticketService;
 
   /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(
+        EmployeeController.class);
+
+  /**
    * Create new ticket.
    *
    * @param ticketInDto TicketDto
@@ -43,6 +52,7 @@ public class TicketController {
   @PostMapping("/add")
   public ResponseEntity<?> createTicket(
       final @Valid @RequestBody TicketInDto ticketInDto) {
+    LOGGER.info("Inside Create Ticket Controller!!!");
     return new ResponseEntity<>(
       this.ticketService.addTicket(ticketInDto),
       HttpStatus.CREATED
@@ -52,7 +62,7 @@ public class TicketController {
   /**
    * Get all tickets.
    *
-   * @param empid EmployeeDto
+   * @param empid Integer
    * @param ticket String
    * @param filter String
    * @param offset Integer
@@ -65,6 +75,7 @@ public class TicketController {
       final @RequestParam String ticket,
       final @RequestParam String filter,
       final @RequestParam Integer offset) {
+    LOGGER.info("Inside Get All Ticket Controller!!!");
     return new ResponseEntity<>(
       this.ticketService.findAll(empid, ticket, filter, offset),
       HttpStatus.OK);
@@ -74,14 +85,15 @@ public class TicketController {
    * Update Ticket.
    *
    * @param id Integer
-   * @param ticket Ticket
+   * @param ticket UpdateTicketInDto
    *
    * @return ResponseEntity
    */
   @PutMapping("/update/{id}")
   public ResponseEntity<?> updateTicket(
       final @PathVariable(name = "id") Integer id,
-      final @RequestBody UpdateTicketInDto ticket) {
+      final @Valid @RequestBody UpdateTicketInDto ticket) {
+    LOGGER.info("Inside Update Ticket Controller!!!");
     return new ResponseEntity<>(
     this.ticketService.updateTicket(id, ticket), HttpStatus.OK);
   }
@@ -95,6 +107,7 @@ public class TicketController {
   @GetMapping("/get/{id}")
   public ResponseEntity<?> getTicketById(
       final @PathVariable(name = "id") Integer id) {
+    LOGGER.info("Inside Get All Employee Controller!!!");
     return new ResponseEntity<>(
         this.ticketService.ticketById(id), HttpStatus.OK);
   }

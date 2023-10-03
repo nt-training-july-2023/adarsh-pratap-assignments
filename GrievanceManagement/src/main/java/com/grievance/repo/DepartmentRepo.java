@@ -8,4 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface DepartmentRepo extends JpaRepository<Department, Integer> {
+
+  /**
+   * Find By Department Name.
+   *
+   * @param depName String
+   * @return Department
+   */
+  Department findByDepName(String depName);
 }

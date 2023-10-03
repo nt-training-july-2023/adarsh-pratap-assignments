@@ -11,6 +11,8 @@ import com.grievance.dto.UserLogin;
 import com.grievance.exception.ApiResponse;
 import com.grievance.service.EmployeeService;
 import javax.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +45,12 @@ public class EmployeeController {
   private EmployeeService employeeService;
 
   /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(
+      EmployeeController.class);
+
+  /**
    * Create Employee .
    *
    * @param empDto .
@@ -52,6 +60,7 @@ public class EmployeeController {
   @PostMapping("/add")
   public ResponseEntity<?> createEmployee(
       @Valid final @RequestBody EmployeesInDto empDto) {
+    LOGGER.info("Inside Create Employee Controller!!!");
     return new ResponseEntity<>(
       this.employeeService.saveEmployee(empDto),
       HttpStatus.CREATED
@@ -68,6 +77,7 @@ public class EmployeeController {
   @PostMapping("/login")
   public ResponseEntity<?> login(
       final @Valid @RequestBody UserLogin userLogin) {
+    LOGGER.info("Inside Login Employee Controller!!!");
     EmployeeOutDto result = this.employeeService.login(userLogin);
     if (result != null) {
       return new ResponseEntity<>(result, HttpStatus.OK);
@@ -87,6 +97,7 @@ public class EmployeeController {
   public ResponseEntity<?> updateEmployee(
       final @PathVariable(name = "id") Integer id,
       final @RequestBody EmployeesInDto employeeDto) {
+    LOGGER.info("Inside Update Employee Controller!!!");
     return new ResponseEntity<>(
         this.employeeService.updateEmployee(id, employeeDto), HttpStatus.OK);
   }
@@ -102,6 +113,7 @@ public class EmployeeController {
   public ResponseEntity<?> changePassword(
       final @PathVariable(name = "id") Integer id,
       final @RequestBody ChangePasswordDto changePasswordDto) {
+    LOGGER.info("Inside Change Password Controller!!!");
     ApiResponse apiResponse =
         this.employeeService.changePassword(id, changePasswordDto);
 
@@ -117,14 +129,16 @@ public class EmployeeController {
    * Get All Employees.
    *
    * @param offset Integer
-   *
+   * @param depName String
    * @return EmployeeOutDto List
    */
   @GetMapping("/getall")
   public ResponseEntity<?> getAllEmployee(
-      final @RequestParam(required = true) Integer offset) {
+      final @RequestParam(required = true) Integer offset,
+      final @RequestParam String depName) {
+    LOGGER.info("Inside Get All Employee Controller!!!");
     return new ResponseEntity<>(
-        this.employeeService.getAllEmployee(offset), HttpStatus.OK);
+        this.employeeService.getAllEmployee(offset, depName), HttpStatus.OK);
   }
 
 
@@ -138,6 +152,7 @@ public class EmployeeController {
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<?> deleteEmployee(
       final @PathVariable(name = "id") Integer id) {
+    LOGGER.info("Inside Delete Employee Controller!!!");
     return new ResponseEntity<>(
           this.employeeService.deleteEmployee(id), HttpStatus.OK);
   }

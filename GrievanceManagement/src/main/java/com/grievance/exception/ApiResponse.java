@@ -46,9 +46,9 @@ public class ApiResponse {
   /**
    * Setter for message.
    *
-   * @param m the message to set
+   * @param newMessage the message to set
    */
-  public void setMessage(final String m) {
-    this.message = m;
+  public void setMessage(final String newMessage) {
+    this.message = newMessage;
   }
 }

@@ -57,7 +57,7 @@ function LoginPage(props) {
         userName : user.userName,
         password : btoa(pass)
       }
-      console.log(value);
+      
       login(value)
         .then((res) => {
           localStorage.setItem("password", value.password);
@@ -105,6 +105,7 @@ function LoginPage(props) {
     <div className="outer-div">
       <div className="image-box">
         <img src="./logo.png" />
+        {/* <img src="./undraw_questions_re_1fy7.svg" /> */}
       </div>
       <div className="content-box">
         <div className="form-box">

@@ -207,10 +207,10 @@ public class Ticket {
   /**
    * set ticketType.
    *
-   * @param ticketT the ticketType to set
+   * @param newTicketType the ticketType to set
    */
-  public void setTicketType(final TicketType ticketT) {
-    this.ticketType = ticketT;
+  public void setTicketType(final TicketType newTicketType) {
+    this.ticketType = newTicketType;
   }
 
   /**
@@ -266,40 +266,6 @@ public class Ticket {
   public void setComments(final List<Comment> newComments) {
     this.comments = newComments;
   }
-
-//  /**
-//   * All args constructor.
-//   *
-//   * @param newTicketId Integer.
-//   * @param newTicketName String.
-//   * @param newDescription String.
-//   * @param newStatus TicketStatus.
-//   * @param newCreationDate Date.
-//   * @param newLastUpdateDate Date.
-//   * @param newTicketType TicketType.
-//   * @param newDepartment Department.
-//   * @param newEmployee Employee.
-//   * @param newComments Comments.
-//   */
-//  public Ticket(final Integer newTicketId, final String newTicketName,
-//      final String newDescription,
-//      final TicketStatus newStatus, final Date newCreationDate,
-//      final Date newLastUpdateDate,
-//      final TicketType newTicketType, final Department newDepartment,
-//      final Employee newEmployee,
-//      final List<Comment> newComments) {
-//    super();
-//    this.ticketId = newTicketId;
-//    this.ticketName = newTicketName;
-//    this.description = newDescription;
-//    this.status = newStatus;
-//    this.creationDate = newCreationDate;
-//    this.lastUpdateDate = newLastUpdateDate;
-//    this.ticketType = newTicketType;
-//    this.department = newDepartment;
-//    this.employee = newEmployee;
-//    this.comments = newComments;
-//  }
 
   /**
    * No args constructor.

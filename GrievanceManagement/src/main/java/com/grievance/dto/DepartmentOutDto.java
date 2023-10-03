@@ -107,8 +107,8 @@ public class DepartmentOutDto {
    *
    * @param newDepId Integer
    * @param newDepName String
-   * @param newEmployee Employee
-   * @param newTicket Ticket
+   * @param newEmployee EmployeeOutDto
+   * @param newTicket TicketOutDto
    */
   public DepartmentOutDto(
       final Integer newDepId,
@@ -137,22 +137,10 @@ public class DepartmentOutDto {
   public String toString() {
     return (
       "DepartmentOutDto [depId="
-      +
-      depId
-      +
-      ", depName="
-      +
-      depName
-      +
-      ", employee="
-      +
-      employee
-      +
-      ", ticket="
-      +
-      ticket
-      +
-      "]"
+      + depId + ", depName="
+      + depName + ", employee="
+      + employee + ", ticket="
+      + ticket + "]"
       );
   }
 }

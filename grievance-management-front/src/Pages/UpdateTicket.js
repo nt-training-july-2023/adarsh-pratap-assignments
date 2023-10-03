@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../css/UpdateTicket.css";
-import { getTicketById, updateTicket } from "../api/Ticket_API";
-import PopUp from "../components/PopUp";
+import { updateTicket } from "../api/Ticket_API";
+import PopUp from "../components/PopUp/PopUp";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
+
 
 
 function UpdateTicket(props) {
@@ -25,19 +27,31 @@ function UpdateTicket(props) {
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    updateTicket(props.singleTicket.ticketId,updatedTicketData).then(resp=>{
+    if(updatedTicketData.status === "" || updatedTicketData.status === null){
+      const data = setPopUpDataInPopUp("Ticket" , "Select Status" , "danger-popup-message");
+      setPopupData(data);
       setPopUp(true);
+      return;
+    }
+    else{
+    updateTicket(props.singleTicket.ticketId,updatedTicketData).then(resp=>{
       props.setSingleTicket(resp.data);
       setUpdatedTicket({...updateTicket , comment : ""});
-      props.setUpdate(false);
-      
+    }).catch(err=>{
+      if(err.response.data.comment){
+        alert(err.response?.data?.comment);
+      }
+      else {
+        alert(err.response?.data?.status)
+      }
     })
   }
-  console.log(props.singleTicket)
+  }
+  const [popUpData , setPopupData] = useState();
   const [popUp , setPopUp] = useState(false);
   return (
     <>
-    {popUp && <PopUp set={setPopUp} header={"Ticket"} message={"Updated Sucessfully!!"}/>}
+    {popUp && <PopUp set={setPopUp} data = {popUpData}/>}
     <div className="modal"> 
       <div
         className="overlay"
@@ -47,14 +61,14 @@ function UpdateTicket(props) {
       ></div>
       <div className="view-detail-modal">
         <div className="header">
-          <span>Update Ticket</span>
+          <span>{props.singleTicket.ticketName}</span>
         </div>
         <div className="parent-div">
           <div className="left">
             <div className="left-parent">
               <div className="ticketdata">
-                <h3>Ticket Name:</h3>
-                <p>{props.singleTicket.ticketName}</p>
+                <h3>Ticket Type:</h3>
+                <p>{props.singleTicket.ticketType}</p>
               </div>
 
               <div className="ticket-des">

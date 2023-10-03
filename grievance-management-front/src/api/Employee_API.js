@@ -1,4 +1,3 @@
-import axios from "axios";
 import { headers } from "./Headers";
 import { deleteMapping, getMapping, postMapping, putMapping } from "./AllUrls";
 

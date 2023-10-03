@@ -5,6 +5,7 @@ import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Ticket out dto with comments.
@@ -297,5 +298,40 @@ public class TicketOutDtoWithComments {
       +
       "]";
   }
+
+  /**
+   * Hash Code For TicketOutDtoWithComments.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(comments, department, description,
+    employee, status, ticketId, ticketName, ticketType);
+  }
+
+  /**
+   * Equals method for TicketOutDtoWithComments.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    TicketOutDtoWithComments other = (TicketOutDtoWithComments) obj;
+    return Objects.equals(comments, other.comments)
+      && Objects.equals(department, other.department)
+      && Objects.equals(description, other.description)
+      && Objects.equals(employee, other.employee)
+      && status == other.status
+      && Objects.equals(ticketId, other.ticketId)
+      && Objects.equals(ticketName, other.ticketName)
+      && ticketType == other.ticketType;
+  }
 }
+
 

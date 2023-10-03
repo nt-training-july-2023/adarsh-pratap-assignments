@@ -75,10 +75,10 @@ public class Department {
   /**
    * setter for depName.
    *
-   * @param newDeapName the depName to set
+   * @param newDepName the depName to set
    */
-  public void setDepName(final String newDeapName) {
-    this.depName = newDeapName;
+  public void setDepName(final String newDepName) {
+    this.depName = newDepName;
   }
 
   /**

@@ -3,6 +3,9 @@ package com.grievance.controller;
 import com.grievance.dto.DepartmentInDto;
 import com.grievance.service.DepartmentService;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,12 @@ public class DepartmentController {
   private DepartmentService departmentService;
 
   /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(
+        EmployeeController.class);
+
+  /**
    * Get all Department.
    *
    * @param offset Integer
@@ -42,6 +51,7 @@ public class DepartmentController {
   @GetMapping("/getall")
   public ResponseEntity<?> getAllDepartment(
       final @RequestParam(required = false) Integer offset) {
+    LOGGER.info("Inside Get All Department Controller!!!");
     if (offset == null) {
       return new ResponseEntity<>(this.departmentService.getAllDepartment(),
           HttpStatus.OK);
@@ -62,6 +72,7 @@ public class DepartmentController {
   @PostMapping("/add")
   public ResponseEntity<?> saveDepartment(
       final @Valid @RequestBody DepartmentInDto departmentDto) {
+    LOGGER.info("Inside Save Department Controller!!!");
     return new ResponseEntity<>(
       this.departmentService.addDepartment(departmentDto),
       HttpStatus.CREATED
@@ -77,6 +88,7 @@ public class DepartmentController {
   @DeleteMapping("/delete/{id}")
   public ResponseEntity<?> deleteDepartment(
       final @PathVariable(name = "id") Integer id) {
+    LOGGER.info("Inside Delete Department Controller!!!");
     return new ResponseEntity<>(this.departmentService.deleteById(id),
         HttpStatus.OK);
   }

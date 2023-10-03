@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { addDepartment } from "../api/Department_API";
-import PopUp from "../components/PopUp";
 import { useNavigate } from "react-router-dom";
 
 function AddDepartment(props) {
@@ -45,6 +44,7 @@ function AddDepartment(props) {
         .then((resp) => {
           alert("Depatment is Added!!");
           props.set(false);
+          
           navigate("/admin/allDepartment");
         })
         .catch((error) => {

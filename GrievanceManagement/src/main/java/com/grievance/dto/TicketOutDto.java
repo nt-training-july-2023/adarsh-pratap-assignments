@@ -7,6 +7,7 @@ import com.grievance.entity.TicketStatus;
 import com.grievance.entity.TicketType;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 
@@ -303,51 +304,55 @@ public class TicketOutDto {
   }
 
   /**
+   * HashCode.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        depName, department, description, empName,
+        status, ticketId, ticketName, ticketType);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    TicketOutDto other = (TicketOutDto) obj;
+    return Objects.equals(depName, other.depName)
+      && Objects.equals(department, other.department)
+      && Objects.equals(description, other.description)
+      && Objects.equals(empName, other.empName) && status == other.status
+      && Objects.equals(ticketId, other.ticketId)
+      && Objects.equals(ticketName, other.ticketName)
+      && ticketType == other.ticketType;
+  }
+
+  /**
    * to String method.
    */
   @Override
   public String toString() {
     return "TicketOutDto [ticketId="
-      +
-      ticketId
-      +
-      ", ticketName="
-      +
-      ticketName
-      +
-      ", description="
-      +
-      description
-      +
-      ", status="
-      +
-      status
-      +
-      ", creationDate="
-      +
-      creationDate
-      +
-      ", lastUpdateDate="
-      +
-      lastUpdateDate
-      +
-      ", ticketType="
-      +
-      ticketType
-      +
-      ", department="
-      +
-      department
-      +
-      ", employee="
-      +
-      employee
-      +
-      ", comments="
-      +
-      comments
-      +
-      "]";
+      + ticketId + ", ticketName="
+      + ticketName + ", description="
+      + description + ", status="
+      + status + ", creationDate="
+      + creationDate + ", lastUpdateDate="
+      + lastUpdateDate + ", ticketType="
+      + ticketType + ", department="
+      + department + ", employee="
+      + employee + ", comments="
+      + comments + "]";
   }
 }
 

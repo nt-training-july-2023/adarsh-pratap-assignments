@@ -179,7 +179,7 @@ public class EmployeeControllerTest {
 	  mockMvc
         .perform(
         MockMvcRequestBuilders
-          .get("/employee/getall?offset=0")
+          .get("/employee/getall?offset=0&depName=Management")
           .contentType(MediaType.APPLICATION_JSON)
           .content(objectMapper.writeValueAsString(employeesInDto))
       )

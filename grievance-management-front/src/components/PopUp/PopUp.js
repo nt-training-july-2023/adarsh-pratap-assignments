@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "../css/Modal.css";
+import React, { useEffect } from "react";
+
 
 
 
@@ -17,10 +17,10 @@ export default function PopUp(props) {
             <div className="overlay" onClick={()=>{props.set(false);}}></div>
           <div className="modal-content" style={{top:"16%"}}>
             <div className="header">
-            <span>{props.header}</span>
+            <span>{props?.data?.header}</span>
             </div>
-                <div className={props.classname}>
-                    <h3>{props.message}</h3>
+                <div className={props?.data?.classname}>
+                    <h3>{props?.data?.message}</h3>
                 </div>
                 
           </div>

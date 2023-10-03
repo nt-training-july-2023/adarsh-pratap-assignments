@@ -1,6 +1,7 @@
 package com.grievance.dto;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.grievance.entity.TicketStatus;
 
@@ -12,11 +13,13 @@ public class UpdateTicketInDto {
   /**
    * Update ticket Status.
    */
+  @NotNull(message = "Status can not be null")
   private TicketStatus status;
 
   /**
    * New Comment.
    */
+  @NotEmpty(message = "Comment field is required")
   private String comment;
 
   /**

@@ -8,6 +8,7 @@ import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
+import com.grievance.dto.UpdateTicketInDto;
 import com.grievance.entity.Department;
 import com.grievance.entity.Employee;
 import com.grievance.entity.Role;
@@ -100,15 +101,17 @@ public class TicketControllerTest {
 
   @Test
   public void givenTicket_whenUpdate_ReturnUpdateTicketOutDto() throws JsonProcessingException, Exception {
-//	  when(ticketService.updateTicket(1 , ticketDto))
-//      .thenReturn(ticketOutDto);
-	  
+
+	  UpdateTicketInDto ut = new UpdateTicketInDto();
+	  ut.setComment("asaad");
+	  ut.setEmpName("adarsh");
+	  ut.setStatus(TicketStatus.BEING_ADDRESSED);
 	  mockMvc
       .perform(
         MockMvcRequestBuilders
           .put("/ticket/update/1")
           .contentType(MediaType.APPLICATION_JSON)
-          .content(objectMapper.writeValueAsString(ticketInDto))
+          .content(objectMapper.writeValueAsString(ut))
       )
       .andExpect(status().isOk())
       .andDo(MockMvcResultHandlers.print());

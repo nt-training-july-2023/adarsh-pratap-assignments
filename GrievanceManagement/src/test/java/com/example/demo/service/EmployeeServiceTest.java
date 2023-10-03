@@ -286,7 +286,7 @@ public class EmployeeServiceTest {
 	  Pageable page = PageRequest.of(1, 10);
 	  Page<Employee> emptyPage = new PageImpl<>(new ArrayList<>());
 	  when(employeeRepo.findAll(page)).thenReturn(emptyPage);
-	  List<EmployeeOutDto> result = employeeService.getAllEmployee(1);
+	  List<EmployeeOutDto> result = employeeService.getAllEmployee(1 , "all");
 
       assertEquals(0, result.size());
   }

@@ -3,6 +3,8 @@ import { allTicket, getTicketById } from "../api/Ticket_API";
 import { Table } from "../components/Table/Table";
 import "../css/Department.css";
 import UpdateTicket from "./UpdateTicket";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
+import PopUp from "../components/PopUp/PopUp";
 
 function AllTickets() {
   const [ticket, setTicket] = useState([]);
@@ -29,11 +31,19 @@ function AllTickets() {
       setUpdate(true);
     });
   };
+  const [popUp , setPopUp] = useState(false);
+  const [popUpData , setPopUpData] = useState();
   useEffect(() => {
     allTicket(params).then((resp) => {
       setTicket(resp.data);
+    }).catch(err=>{
+      if(err.code === "ERR_NETWORK"){
+        const data =  setPopUpDataInPopUp("Ticket" , "Network Error!!" , "danger-popup-message");
+        setPopUpData(data);
+        setPopUp(true);
+      }
     });
-  }, [offset, selectedStatus, filter, isUpdate]);
+  }, [offset, selectedStatus, filter, isUpdate ]);
 
   const handleStatusChange = (e) => {
     setOffset(0);
@@ -55,6 +65,7 @@ function AllTickets() {
 
   return (
     <>
+    {popUp && <PopUp set={setPopUp} data={popUpData}/>}
       {isUpdate && (
         <UpdateTicket
           singleTicket={singleTicket}
@@ -94,8 +105,8 @@ function AllTickets() {
                 onChange={handleFilterChange}
               >
                 <option value="all">ALL TICKETS</option>
-                <option value="department">My Department</option>
-                <option value="my">My Tickets</option>
+                <option value="department">MY DEPARTMENT</option>
+                <option value="my">MY TICKETS</option>
               </select>
             </div>
           </div>
@@ -121,7 +132,7 @@ function AllTickets() {
               previous
             </button>
           )}
-          {ticket.length !== 0 && (
+          {ticket.length === 10 && (
             <button
               disabled={ticket.length === 0}
               onClick={() => {

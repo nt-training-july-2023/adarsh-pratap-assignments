@@ -1,5 +1,6 @@
 package com.grievance.service;
 
+import com.grievance.controller.EmployeeController;
 import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.TicketOutDto;
@@ -14,15 +15,14 @@ import com.grievance.entity.TicketStatus;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.TicketRepo;
 import com.grievance.serviceinterface.TicketServiceInterface;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-
-
 import org.modelmapper.ModelMapper;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +51,12 @@ public class TicketService implements TicketServiceInterface {
   private EmployeeService employeeService;
 
   /**
+   * Logger.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(
+      EmployeeController.class);
+
+  /**
    * Model Mapper .
    */
   @Autowired
@@ -65,6 +71,7 @@ public class TicketService implements TicketServiceInterface {
    */
   @Override
   public TicketOutDto addTicket(final TicketInDto ticketInDto) {
+    LOGGER.info("Inside Add Ticket service {}", ticketInDto.getTicketName());
     Ticket ticket = this.mapper.map(ticketInDto, Ticket.class);
 
     ticket.setCreationDate(getCurrentDateTime());
@@ -85,6 +92,7 @@ public class TicketService implements TicketServiceInterface {
   public List<TicketOutDto> findAll(
       final Integer id, final String type,
       final String filter, final Integer offset) {
+    LOGGER.info("Inside Find all Ticket service");
     Page<Ticket> ticket = null;
     EmployeeOutDto emp = this.employeeService.getById(id);
     if (emp.getRole().equals(Role.ROLE_ADMIN)) {
@@ -114,6 +122,7 @@ public class TicketService implements TicketServiceInterface {
   public Page<Ticket> ticketForUser(
         final String filter, final String type,
         final EmployeeOutDto emp, final Integer offset) {
+    LOGGER.info("Inside Ticket for User service");
     final Integer pageSize = 10;
     Department department = this.mapper.map(
         emp.getDepartment(), Department.class);
@@ -164,6 +173,7 @@ public class TicketService implements TicketServiceInterface {
   public Page<Ticket> ticketForAdmin(
       final String filter, final String type,
       final EmployeeOutDto emp, final Integer offset) {
+    LOGGER.info("Inside Ticket for Admin service");
     final Integer pageSize = 10;
     Department department = this.mapper.map(
         emp.getDepartment(), Department.class);
@@ -212,24 +222,22 @@ public class TicketService implements TicketServiceInterface {
   @Override
   public TicketOutDtoWithComments updateTicket(
       final Integer id, final UpdateTicketInDto ticketDto) {
+    LOGGER.info("Inside Update Ticket service");
     Ticket ticket =
         this.ticketRepo.findById(id)
         .orElseThrow(() -> new ResourceNotFound(
             "Ticket", "Ticket Not found"));
 
-    if (ticketDto.getComment() != null
-         && !ticketDto.getComment().isEmpty()) {
-      Comment comment = new Comment();
-      comment.setContent(ticketDto.getComment());
-      comment.setCreationTime(getCurrentDateTime());
-      comment.setEmpName(ticketDto.getEmpName());
-      comment.setTicket(ticket);
+    Comment comment = new Comment();
+    comment.setContent(ticketDto.getComment());
+    comment.setCreationTime(getCurrentDateTime());
+    comment.setEmpName(ticketDto.getEmpName());
+    comment.setTicket(ticket);
 
-      List<Comment> comments = ticket.getComments();
-      comments.add(comment);
+    List<Comment> comments = ticket.getComments();
+    comments.add(comment);
 
-      ticket.setComments(comments);
-    }
+    ticket.setComments(comments);
     ticket.setStatus(ticketDto.getStatus());
     ticket.setLastUpdateDate(getCurrentDateTime());
     return this.mapper.map(

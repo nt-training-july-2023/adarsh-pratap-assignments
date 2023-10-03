@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { deleteDepartmentById, getAllDepartment } from "../api/Department_API";
 import { Table } from "../components/Table/Table";
-import PopUp from "../components/PopUp";
+import PopUp from "../components/PopUp/PopUp";
+import { getCurrentUserDetails } from "../Authentication/auth";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
 
 function AllDepartment() {
   const [dep, setDep] = useState([]);
@@ -16,12 +18,23 @@ function AllDepartment() {
     });
   };
 
+  const [popUpData,setPopUpData] = useState();
   const handleDelete = (e) => {
+    if(e.depName !== getCurrentUserDetails().depName){
     deleteDepartmentById(e.depId).then((resp) => {
+      const data = setPopUpDataInPopUp("Department" , "Deleted!!" , "success-popup-message");
+      setPopUpData(data);
       setPopUp(true);
       setAllDepartment();
     });
-  };
+  } else{
+      console.log("inside Else condition !!")
+      const data = setPopUpDataInPopUp("Department" , "Can not delete own Department!!" , "danger-popup-message");
+      setPopUpData(data);
+      setPopUp(true);
+  }};
+
+  
 
   useEffect(() => {
     setAllDepartment();
@@ -32,10 +45,10 @@ function AllDepartment() {
   const [popUp , setPopUp] = useState(false);
   return (
     <>
-    {popUp && (<PopUp set={setPopUp} header={"Ticket"} message={"Deleted!!"} classname="danger-popup-message"/>)}
+    {popUp && (<PopUp set={setPopUp} data={popUpData}/>)}
     <div className="department-table">
       <div className="header-filter">
-          <div className="header">
+          <div className="header-without-filter">
             <span>All Department</span>
           </div>
       </div>
@@ -51,7 +64,7 @@ function AllDepartment() {
           >
             previous
           </button>)}
-          {dep.length !== 0 &&(<button
+          {dep.length === 10 &&(<button
             disabled={dep.length === 0}
             onClick={() => {
               setOffset(offset + 1);

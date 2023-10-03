@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserRegistration from "./Pages/UserRegistration";
 import AddTicket from "./Pages/AddTicket";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import ResetPassword from "./Pages/ResetPassword";
 function App() {
   const [user, setUser] = useState();
   const userDetails = getCurrentUserDetails();
-  console.log(userDetails)
+
   
   
   const navigate = useNavigate();
@@ -24,19 +24,19 @@ function App() {
       <Routes>
       <Route path="*" element={<Navigate to={"/"}/>} />
       <Route path="/" element={<LoginPage setUser={setUser} />} />
-      <Route path="/reset" element={<ResetPassword set={()=>{}}/>}/>
+      {userDetails && userDetails.isFirstLogin && <Route path="/reset" element={<ResetPassword set={()=>{}}/>}/>}
       
-        {userDetails && userDetails.role === 'ROLE_ADMIN' && (<Route path="/admin" element={<Admin user={user}/>} >
+        {userDetails && userDetails.role === 'ROLE_ADMIN' && !userDetails.isFirstLogin && (<Route path="/admin" element={<Admin user={user}/>} >
           <Route index element={<AllTickets/>}/>
           <Route path="/admin/addTicket" element={<AddTicket/>}/>
           <Route path="/admin/registration" element={<UserRegistration />} />
           <Route path="/admin/allDepartment" element={<AllDepartment />} />
           <Route path="/admin/allEmployee" element={<AllEmployees />} />
         </Route>)}
-        <Route path="/user" element={<User user={user}/>} >
+        {userDetails && userDetails.role === 'ROLE_USER' && !userDetails.isFirstLogin && (<Route path="/user" element={<User user={user}/>} >
           <Route index element={<AllTickets/>}/>
           <Route path="/user/addTicket" element={<AddTicket/>}/>
-        </Route>
+        </Route>)}
       </Routes>
     </div>
   );

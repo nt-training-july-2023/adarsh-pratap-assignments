@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../css/UserRegistration.css";
 import { getAllDepartment } from "../api/Department_API";
-import PopUp from "../components/PopUp";
+
 import { useNavigate } from "react-router-dom";
 import { addEmployee } from "../api/Employee_API";
+import PopUp from "../components/PopUp/PopUp";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
 
 function UserRegistration() {
   const [department, setDepartment] = useState([]);
@@ -138,6 +140,7 @@ function UserRegistration() {
   };
 
   const navigate = useNavigate();
+  const [popUpData , setPopUpData] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -149,11 +152,13 @@ function UserRegistration() {
       !valid.email.isError &&
       !valid.department.isError
     ) {
-      const pass = employee.password;
       var emp={...employee};
       emp.password=btoa(employee.password);
       
       addEmployee(emp).then((resp) => {
+          
+          const data = setPopUpDataInPopUp("Employee" , "Added Sucessfully!!" , "success-popup-message");
+          setPopUpData(data);
           setpopup(true);
           setTimeout(()=>{
             navigate("/admin/allEmployee")
@@ -167,7 +172,7 @@ function UserRegistration() {
   const [popup , setpopup] = useState(false);
   return (
     <>
-    {popup && <PopUp set={setpopup} header={"Employee"} message={"Registered Sucessfully!!!"} classname="success-popup-message"/>}
+    {popup && <PopUp set={setpopup} data={popUpData}/>}
     <div className="registration">
       <div className="content">
         <div className="header">
