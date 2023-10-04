@@ -104,8 +104,8 @@ function LoginPage(props) {
     <>
     <div className="outer-div">
       <div className="image-box">
-        <img src="./logo.png" />
-        {/* <img src="./undraw_questions_re_1fy7.svg" /> */}
+        {/* <img src="./logo.png" /> */}
+        <img src="./undraw_problem_solving_re_4gq3.svg" />
       </div>
       <div className="content-box">
         <div className="form-box">

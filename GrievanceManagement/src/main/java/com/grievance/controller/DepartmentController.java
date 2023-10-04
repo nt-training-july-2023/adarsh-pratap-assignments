@@ -3,7 +3,6 @@ package com.grievance.controller;
 import com.grievance.dto.DepartmentInDto;
 import com.grievance.service.DepartmentService;
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

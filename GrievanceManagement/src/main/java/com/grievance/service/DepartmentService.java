@@ -7,7 +7,6 @@ import com.grievance.entity.Department;
 import com.grievance.exception.ResourceNotFound;
 import com.grievance.repo.DepartmentRepo;
 import com.grievance.serviceinterface.DepartmentServiceInterface;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.modelmapper.ModelMapper;

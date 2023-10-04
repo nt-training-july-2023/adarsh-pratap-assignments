@@ -8,10 +8,6 @@ function AdminDashboard() {
     { name: "All Tickets", to: "/admin" },
     { name: "Add Ticket", to: "/admin/addTicket" },
   ];
-  const department = [
-    { name: "All Department", to: "/admin/allDepartment" },
-    { name: "Create Department" },
-  ];
   const employee = [
     { name: "All Employee", to: "/admin/allEmployee" },
     { name: "Add Employee", to: "/admin/registration" },
@@ -25,7 +21,7 @@ function AdminDashboard() {
     },
     {
       name: "Department",
-      value: department,
+      value: [],
     },
     {
       name: "Employee",

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "../css/UpdateTicket.css";
 import { updateTicket } from "../api/Ticket_API";
-import PopUp from "../components/PopUp/PopUp";
 import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
+import PopUp from "../components/PopUp/PopUp";
 
 
 
 function UpdateTicket(props) {
 
+  const employeeName = JSON.parse(localStorage.getItem("user")).userName;
   const canUpdate=()=>{
     if(props.singleTicket.department.depName === JSON.parse(localStorage.getItem("user")).depName 
     ||  props.singleTicket.employee.userName === JSON.parse(localStorage.getItem("user")).userName){
@@ -16,7 +17,7 @@ function UpdateTicket(props) {
     return false;
   }
   const [updatedTicketData , setUpdatedTicket] = useState({
-    empName: JSON.parse(localStorage.getItem("user")).userName,
+    empName: employeeName,
     status:props.singleTicket.status,
     comment:""
   });
@@ -33,12 +34,27 @@ function UpdateTicket(props) {
       setPopUp(true);
       return;
     }
+    else if(updatedTicketData.comment.length > 240) {
+      const data = setPopUpDataInPopUp("Ticket" , "Comment size is less than 240 letter" , "danger-popup-message");
+      setPopupData(data);
+      setPopUp(true);
+      return;
+    }
+    else if(props.singleTicket.comments.length === 0 && updatedTicketData.status === 'RESOLVED'){
+      alert("Can not RESOLVE the Status because Comments are not present!!");
+      return;
+    }
     else{
-    updateTicket(props.singleTicket.ticketId,updatedTicketData).then(resp=>{
+      updateTicket(props.singleTicket.ticketId,updatedTicketData).then(resp=>{
       props.setSingleTicket(resp.data);
-      setUpdatedTicket({...updateTicket , comment : ""});
+      const data = setPopUpDataInPopUp("Ticket" , "Updated Sucessfully!!!" , "success-popup-message");
+      setPopupData(data);
+      setPopUp(true);
+      setUpdatedTicket({...updatedTicketData , comment :""});
     }).catch(err=>{
+      console.log(err);
       if(err.response.data.comment){
+        
         alert(err.response?.data?.comment);
       }
       else {
@@ -51,7 +67,6 @@ function UpdateTicket(props) {
   const [popUp , setPopUp] = useState(false);
   return (
     <>
-    {popUp && <PopUp set={setPopUp} data = {popUpData}/>}
     <div className="modal"> 
       <div
         className="overlay"
@@ -134,6 +149,7 @@ function UpdateTicket(props) {
         
       </div>
     </div>
+    {popUp && <PopUp set={setPopUp} data={popUpData}/>}
     </>
   );
 }

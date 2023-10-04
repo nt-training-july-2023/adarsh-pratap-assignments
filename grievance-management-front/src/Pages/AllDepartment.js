@@ -4,6 +4,7 @@ import { Table } from "../components/Table/Table";
 import PopUp from "../components/PopUp/PopUp";
 import { getCurrentUserDetails } from "../Authentication/auth";
 import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
+import AddDepartment from "./AddDepartment";
 
 function AllDepartment() {
   const [dep, setDep] = useState([]);
@@ -41,15 +42,21 @@ function AllDepartment() {
   },[offset]);
 
   const table = [{key:'depId',title:'Department ID'},{key:'depName',title:'Department Name'},{key:'delete',title:'Delete'}]
-
+  const [isModel , setIsModel] = useState(false);
   const [popUp , setPopUp] = useState(false);
   return (
     <>
+    {isModel ? <AddDepartment set={setIsModel} setDep={setAllDepartment}/> : null}
     {popUp && (<PopUp set={setPopUp} data={popUpData}/>)}
     <div className="department-table">
       <div className="header-filter">
-          <div className="header-without-filter">
+          <div className="header">
             <span>All Department</span>
+          </div>
+          <div className="filters">
+            <div>
+              <button onClick={()=>{setIsModel(true)}}>+ Add Department</button>
+            </div>
           </div>
       </div>
       <div className="table-container">

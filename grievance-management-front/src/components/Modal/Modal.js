@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/Modal.css";
 import Input from "./Input";
 import Button from "./Button";
+import PopUp from "../PopUp/PopUp";
 
 
 export default function Modal(props) {
 
     
     return (
-        
+        <>
         <div className="modal" >
             <div className="overlay" onClick={()=>{props.set(false);}}></div>
           <div className="modal-content">
@@ -31,6 +32,8 @@ export default function Modal(props) {
           </div>
           
         </div>
+        
+        </>
       
     
   );

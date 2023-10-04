@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { addDepartment } from "../api/Department_API";
-import { useNavigate } from "react-router-dom";
+import PopUp from "../components/PopUp/PopUp";
+import { setPopUpDataInPopUp } from "../components/PopUp/SetPopUp";
 
 function AddDepartment(props) {
   const [department, setDepartment] = useState({
     depName: "",
   });
+  const [show, setShow] = useState(false);
+  const [popUpData , setPopUpData] = useState();
   const [valid, setValid] = useState({
     isError: false,
     errorMessage: "",
@@ -21,7 +24,7 @@ function AddDepartment(props) {
     setDepartment({ ...department, [e.target.name]: e.target.value });
   };
 
-  const isValid =  () => {
+  const isValid = () => {
     if (department.depName === "") {
       setValid((prevValid) => ({
         ...prevValid,
@@ -29,38 +32,50 @@ function AddDepartment(props) {
         errorMessage: "Department name can not be empty",
       }));
       return true;
-      
     }
   };
 
-  const navigate = useNavigate();
-  const handleSubmit =  (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const flag = isValid();
 
     if (!flag) {
-       addDepartment(department)
+      addDepartment(department)
         .then((resp) => {
-          alert("Depatment is Added!!");
-          props.set(false);
+          const data = setPopUpDataInPopUp(
+            "Department",
+            "Added Sucessfully!!!",
+            "success-popup-message"
+          );
+          setPopUpData(data);
+          setShow(true);
+          setDepartment({...department , depName : ""})
           
-          navigate("/admin/allDepartment");
         })
         .catch((error) => {
-          if(error.code === "ERR_BAD_REQUEST"){
-            alert(error.response.data.depName)
+          if (error.code === "ERR_BAD_REQUEST") {
+            const data = setPopUpDataInPopUp(
+              "Department",
+              error.response.data,
+              "danger-popup-message"
+            );
+            setPopUpData(data);
+            setShow(true);
+          } else {
+            const data = setPopUpDataInPopUp(
+              "Department",
+              "Try Again!!",
+              "danger-popup-message"
+            );
+            setPopUpData(data);
+            setShow(true)
           }
-          else{
-          alert(error);
-    }
-  });
+        });
     }
     return;
   };
 
-
-  
   const fields = [
     {
       field: "Input",
@@ -81,16 +96,16 @@ function AddDepartment(props) {
       value: "Submit",
     },
   ];
-  
+
   return (
     <>
-    
-    <Modal
-      set={props.set}
-      header={"Add Department"}
-      fields={fields}
-      onsubmit={handleSubmit}
-    />
+      <Modal
+        set={props.set}
+        header={"Add Department"}
+        fields={fields}
+        onsubmit={handleSubmit}
+      />
+      {show && <PopUp data={popUpData} set={setShow} />}
     </>
   );
 }
