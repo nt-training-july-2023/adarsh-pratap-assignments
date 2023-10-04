@@ -1,0 +1,71 @@
+nav .logo{
+    color: white;
+    font-size: 33px;
+    font-weight: bold;
+    padding-left: 110px;
+}
+nav{
+  height: 70px;
+  display: flex;
+  background: #116d6e;
+  justify-content: space-between;
+  box-shadow: 0 3px 15px rgba(0,0,0,.4);
+  align-items: center;
+  }
+  nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  nav ul li{
+    display: inline-block;
+  }
+  nav ul li .active{
+    color: white;
+    display: block;
+    padding: 0 15px;
+    
+    font-size: 20px;
+    background: #0a0c27;
+    transition: .5s;
+  }
+
+  nav ul li a:hover{
+    cursor: pointer;
+  }
+
+
+
+
+  .dropbtn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: aliceblue;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    background-color: aliceblue;
+    
+  }
+  .dropdown:hover .dropdown-content{
+    display: block;
+  }
+  .dropdown-content a{
+    display: block;
+    color: black;
+    margin: .7rem;
+  }
+  .dropdown-content a:hover{
+    color: gray;
+  }
+  a{
+    text-decoration: none;
+    color: aliceblue;
+  }
+ 
