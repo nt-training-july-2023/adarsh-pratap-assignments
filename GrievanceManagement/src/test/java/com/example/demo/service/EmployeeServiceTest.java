@@ -38,6 +38,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 /**
  * Employee Service Test.
@@ -283,7 +284,7 @@ public class EmployeeServiceTest {
   
   @Test
   public void getAll() {
-	  Pageable page = PageRequest.of(1, 10);
+	  Pageable page = PageRequest.of(1, 10, Sort.by("userName"));
 	  Page<Employee> emptyPage = new PageImpl<>(new ArrayList<>());
 	  when(employeeRepo.findAll(page)).thenReturn(emptyPage);
 	  List<EmployeeOutDto> result = employeeService.getAllEmployee(1 , "all");

@@ -50,11 +50,20 @@ function Nav(props) {
       {resetPass ? <ResetPassword set={setResetPass} /> : null}
 
       <nav>
-        <span className="logo">Grievance Management</span>
+        <span
+          className="logo"
+          onClick={() => {
+            getCurrentUserDetails().role === "ROLE_ADMIN"
+              ? navigate("/admin")
+              : navigate("/user");
+          }}
+        >
+          Grievance Management
+        </span>
         <ul>
           {props.tag.map((item, index) => {
             return (
-              <li>
+              <li key={index}>
                 <div className="drop-down">
                   {item.name === "Department" ? (
                     <a
@@ -62,7 +71,9 @@ function Nav(props) {
                       className={
                         activeItem === item.name ? "nav-link-active" : "active"
                       }
-                      onClick={() => {navigate("/admin/allDepartment")}}
+                      onClick={() => {
+                        navigate("/admin/allDepartment");
+                      }}
                     >
                       {item.name}
                     </a>
@@ -72,7 +83,9 @@ function Nav(props) {
                       className={
                         activeItem === item.name ? "nav-link-active" : "active"
                       }
-                      onClick={()=>{navigate(item.value[0].to)}}
+                      onClick={() => {
+                        navigate(item.value[0].to);
+                      }}
                     >
                       {item.name}
                     </a>

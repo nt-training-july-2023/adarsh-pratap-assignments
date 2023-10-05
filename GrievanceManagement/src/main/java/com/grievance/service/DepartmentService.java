@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -108,7 +109,7 @@ public class DepartmentService implements DepartmentServiceInterface {
     LOGGER.info(
         "Inside Get all Department By Pagination Method Department Service");
     final Integer pageSize = 10;
-    Pageable page = PageRequest.of(offset, pageSize);
+    Pageable page = PageRequest.of(offset, pageSize, Sort.by("depName"));
     Page<Department> allDepartment = this.departmentRepo.findAll(page);
     List<DepartmentOutDto> departmentOutDtos
         = new ArrayList<DepartmentOutDto>();

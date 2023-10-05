@@ -4,6 +4,10 @@ nav .logo {
   font-weight: bold;
   padding-left: 5rem;
 }
+
+nav .logo:hover{
+  cursor: pointer;
+}
 nav {
   height: 70px;
   display: flex;

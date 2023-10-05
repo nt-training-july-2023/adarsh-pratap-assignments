@@ -109,7 +109,7 @@ function AllEmployees() {
             />
           </div>
         ) : (
-          <div>
+          <div className="table-container">
             <h3>No Employee Found!!</h3>
           </div>
         )}
