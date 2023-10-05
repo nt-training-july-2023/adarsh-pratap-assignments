@@ -53,7 +53,8 @@ function AddTicket() {
     if (ticket.ticketName.length > 100) {
       const temp = { ...valid };
       temp.ticketName.isError = true;
-      temp.ticketName.errorMessage = "Ticket Name Lenght Should be less than 100";
+      temp.ticketName.errorMessage =
+        "Ticket Name Lenght Should be less than 100";
       setValid(temp);
     }
     if (ticket.description === "") {
@@ -88,10 +89,8 @@ function AddTicket() {
     getAllDepartment()
       .then((resp) => {
         setDepartment(resp.data);
-        console.log(resp.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -158,8 +157,7 @@ function AddTicket() {
           }, 1000);
         })
         .catch((error) => {
-          console.log(error)
-          if(error.code === "ERR_NETWORK"){
+          if (error.code === "ERR_NETWORK") {
             const data = setPopUpDataInPopUp(
               "Ticket",
               "Network Error!!",

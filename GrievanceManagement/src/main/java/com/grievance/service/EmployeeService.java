@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -188,7 +189,7 @@ public class EmployeeService implements EmployeeServiceInterface {
       final String depName) {
     LOGGER.info("Inside Get All Employee {}", depName);
     final Integer pageSize = 10;
-    Pageable page = PageRequest.of(offset, pageSize);
+    Pageable page = PageRequest.of(offset, pageSize, Sort.by("userName"));
     Page<Employee> employee = null;
     if (depName.equals("all")) {
       employee = this.employeeRepo.findAll(page);

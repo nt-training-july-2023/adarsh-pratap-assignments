@@ -11,15 +11,14 @@ function LoginPage(props) {
     password: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     const user = getCurrentUserDetails();
-    if(user && !user?.isFirstLogin && user?.role === 'ROLE_ADMIN'){
-      navigate("/admin")
-    }
-    else if(user && !user?.isFirstLogin && user?.role === 'ROLE_USER'){
+    if (user && !user?.isFirstLogin && user?.role === "ROLE_ADMIN") {
+      navigate("/admin");
+    } else if (user && !user?.isFirstLogin && user?.role === "ROLE_USER") {
       navigate("/user");
     }
-  })
+  });
   const [valid, setValid] = useState({
     userName: {
       isError: false,
@@ -51,28 +50,28 @@ function LoginPage(props) {
     validation();
     if (!valid.userName.isError && !valid.password.isError) {
       const pass = user.password;
-      setUser({...user, password:pass})
+      setUser({ ...user, password: pass });
 
       let value = {
-        userName : user.userName,
-        password : btoa(pass)
-      }
-      
+        userName: user.userName,
+        password: btoa(pass),
+      };
+
       login(value)
         .then((res) => {
+          props.setUser(res.data);
           localStorage.setItem("password", value.password);
-          doLogin(res.data,()=>{
-            if(res.data.isFirstLogin){
+          doLogin(res.data, () => {
+            if (res.data.isFirstLogin) {
               navigate("/reset");
               return;
             }
-            if(res.data.role === "ROLE_ADMIN"){
+            if (res.data.role === "ROLE_ADMIN") {
               navigate("/admin");
-            }
-            else{
+            } else {
               navigate("/user");
             }
-          })
+          });
         })
         .catch((error) => {
           alert(error.response.data);
@@ -102,44 +101,43 @@ function LoginPage(props) {
   };
   return (
     <>
-    <div className="outer-div">
-      <div className="image-box">
-        {/* <img src="./logo.png" /> */}
-        <img src="./undraw_problem_solving_re_4gq3.svg" />
-      </div>
-      <div className="content-box">
-        <div className="form-box">
-          <h2>Login!</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="input-box">
-              <span>UserName</span>
-              <input
-                type="email"
-                name="userName"
-                value={user.userName}
-                onChange={handleChange}
-                required
-              />
-              {valid.userName.isError && <p>{valid.userName.errorMessage}</p>}
-            </div>
-            <div className="input-box">
-              <span>Password</span>
-              <input
-                type="password"
-                name="password"
-                value={user.password}
-                onChange={handleChange}
-                required
-              />
-              {valid.password.isError && <p>{valid.password.errorMessage}</p>}
-            </div>
-            <div className="input-box">
-              <input type="submit" value="Sign in" />
-            </div>
-          </form>
+      <div className="outer-div">
+        <div className="image-box">
+          <img src="./undraw_problem_solving_re_4gq3.svg" alt="./logo.png" />
+        </div>
+        <div className="content-box">
+          <div className="form-box">
+            <h2>Login!</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="input-box">
+                <span>UserName</span>
+                <input
+                  type="email"
+                  name="userName"
+                  value={user.userName}
+                  onChange={handleChange}
+                  required
+                />
+                {valid.userName.isError && <p>{valid.userName.errorMessage}</p>}
+              </div>
+              <div className="input-box">
+                <span>Password</span>
+                <input
+                  type="password"
+                  name="password"
+                  value={user.password}
+                  onChange={handleChange}
+                  required
+                />
+                {valid.password.isError && <p>{valid.password.errorMessage}</p>}
+              </div>
+              <div className="input-box">
+                <input type="submit" value="Sign in" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { addDepartment } from "../api/Department_API";
 import PopUp from "../components/PopUp/PopUp";
@@ -9,7 +9,7 @@ function AddDepartment(props) {
     depName: "",
   });
   const [show, setShow] = useState(false);
-  const [popUpData , setPopUpData] = useState();
+  const [popUpData, setPopUpData] = useState();
   const [valid, setValid] = useState({
     isError: false,
     errorMessage: "",
@@ -21,7 +21,7 @@ function AddDepartment(props) {
         isError: false,
       });
     }
-    setDepartment({ ...department, [e.target.name]: e.target.value });
+    setDepartment({ ...department, [e.target.name]: e.target.value.toUpperCase() });
   };
 
   const isValid = () => {
@@ -50,8 +50,7 @@ function AddDepartment(props) {
           );
           setPopUpData(data);
           setShow(true);
-          setDepartment({...department , depName : ""})
-          
+          setDepartment({ ...department, depName: "" });
         })
         .catch((error) => {
           if (error.code === "ERR_BAD_REQUEST") {
@@ -69,7 +68,7 @@ function AddDepartment(props) {
               "danger-popup-message"
             );
             setPopUpData(data);
-            setShow(true)
+            setShow(true);
           }
         });
     }

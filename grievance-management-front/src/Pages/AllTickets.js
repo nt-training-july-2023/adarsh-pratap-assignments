@@ -15,8 +15,6 @@ function AllTickets() {
 
   const [isUpdate, setUpdate] = useState(false);
 
-
-
   const params = {
     empid: Number(JSON.parse(localStorage?.getItem("user")).empId),
     ticket: filter,
@@ -26,24 +24,29 @@ function AllTickets() {
 
   const loadModel = (tick) => {
     getTicketById(tick.ticketId).then((resp) => {
-     
       setSingleTicket(resp.data);
       setUpdate(true);
     });
   };
-  const [popUp , setPopUp] = useState(false);
-  const [popUpData , setPopUpData] = useState();
+  const [popUp, setPopUp] = useState(false);
+  const [popUpData, setPopUpData] = useState();
   useEffect(() => {
-    allTicket(params).then((resp) => {
-      setTicket(resp.data);
-    }).catch(err=>{
-      if(err.code === "ERR_NETWORK"){
-        const data =  setPopUpDataInPopUp("Ticket" , "Network Error!!" , "danger-popup-message");
-        setPopUpData(data);
-        setPopUp(true);
-      }
-    });
-  }, [offset, selectedStatus, filter, isUpdate ]);
+    allTicket(params)
+      .then((resp) => {
+        setTicket(resp.data);
+      })
+      .catch((err) => {
+        if (err.code === "ERR_NETWORK") {
+          const data = setPopUpDataInPopUp(
+            "Ticket",
+            "Network Error!!",
+            "danger-popup-message"
+          );
+          setPopUpData(data);
+          setPopUp(true);
+        }
+      });
+  }, [offset, selectedStatus, filter]);
 
   const handleStatusChange = (e) => {
     setOffset(0);
@@ -65,7 +68,7 @@ function AllTickets() {
 
   return (
     <>
-    {popUp && <PopUp set={setPopUp} data={popUpData}/>}
+      {popUp && <PopUp set={setPopUp} data={popUpData} />}
       {isUpdate && (
         <UpdateTicket
           singleTicket={singleTicket}

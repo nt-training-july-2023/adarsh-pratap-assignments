@@ -38,6 +38,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 
 @ExtendWith(MockitoExtension.class)
@@ -139,7 +140,7 @@ public class DepartmentServiceTest {
   public void testGetAllDepartmentByPagination() {
       
       Integer offset = 0;
-      Pageable page = PageRequest.of(offset, 10);
+      Pageable page = PageRequest.of(offset, 10, Sort.by("depName"));
 
       
       List<Department> departmentList = new ArrayList<>();

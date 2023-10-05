@@ -39,7 +39,7 @@ public class EmployeesInDto {
   /**
    * Password of account .
    */
-  @NotEmpty(message = "Password field is mendatory")
+  @NotEmpty(message = "Password field is mandatory")
   @Size(
       min = minPassword,
       max = maxPassword,

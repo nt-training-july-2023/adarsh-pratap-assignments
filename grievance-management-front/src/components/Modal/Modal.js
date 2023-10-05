@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../css/Modal.css";
 import Input from "./Input";
 import Button from "./Button";
-import PopUp from "../PopUp/PopUp";
+
 
 
 export default function Modal(props) {
