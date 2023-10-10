@@ -2,13 +2,16 @@ export const Table= ({ data , columns , onRowClick , onDelete})=>{
     
     return (
         <table>
+            <thead>
             <tr>
                 {columns.map((column , index)=>(
                     <th key={index}>{column.title}</th>
                 ))}
             </tr>
-            {data.map((row)=> ( 
-                <tr key={row.id} onClick={()=> onRowClick(row)}>
+            </thead>
+            <tbody>
+            {data.map((row, index)=> ( 
+                <tr key={index} onClick={()=> onRowClick(row)}>
                     {columns.map((column)=>(
                         <td key={column.key}>{column.key.includes('.') //check if key include a dot  
                         ? column.key.split('.').reduce((obj, key) => obj[key], row) //if dot present then split it into array
@@ -17,6 +20,7 @@ export const Table= ({ data , columns , onRowClick , onDelete})=>{
                     ))}
                 </tr>
             ))}
+            </tbody>
         </table>
     )
 };

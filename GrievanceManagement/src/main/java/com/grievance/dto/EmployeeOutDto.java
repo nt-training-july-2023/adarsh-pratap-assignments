@@ -3,6 +3,7 @@ package com.grievance.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.grievance.entity.Role;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -226,11 +227,47 @@ public class EmployeeOutDto {
   }
 
   /**
+   * Hash Code.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        depName, department, email, empId,
+        isFirstLogin, role, ticket, userName);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    EmployeeOutDto other = (EmployeeOutDto) obj;
+    return Objects.equals(depName, other.depName)
+        && Objects.equals(department, other.department)
+        && Objects.equals(email, other.email)
+        && Objects.equals(empId, other.empId)
+        && Objects.equals(isFirstLogin, other.isFirstLogin)
+        && role == other.role && Objects.equals(ticket, other.ticket)
+        && Objects.equals(userName, other.userName);
+  }
+
+  /**
    * no args constructor.
    */
   public EmployeeOutDto() {
     super();
   }
+
+
 
   /**
    * to string method.

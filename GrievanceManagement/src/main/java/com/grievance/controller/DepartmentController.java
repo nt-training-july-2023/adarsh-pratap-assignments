@@ -1,7 +1,7 @@
 package com.grievance.controller;
 
 import com.grievance.dto.DepartmentInDto;
-import com.grievance.service.DepartmentService;
+import com.grievance.serviceinterface.DepartmentServiceInterface;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class DepartmentController {
    * DepartmentService Autowired.
    */
   @Autowired
-  private DepartmentService departmentService;
+  private DepartmentServiceInterface departmentService;
 
   /**
    * Logger.

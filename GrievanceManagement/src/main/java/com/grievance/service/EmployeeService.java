@@ -185,6 +185,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    *
    * @return List of EmployeeOutDto
    */
+  @Override
   public List<EmployeeOutDto> getAllEmployee(final Integer offset,
       final String depName) {
     LOGGER.info("Inside Get All Employee {}", depName);
@@ -213,6 +214,7 @@ public class EmployeeService implements EmployeeServiceInterface {
    * @param id Integer
    * @return String
    */
+  @Override
   public String deleteEmployee(final Integer id) {
     LOGGER.info("Inside Delete Employee");
     this.employeeRepo.findById(id).orElseThrow(() ->

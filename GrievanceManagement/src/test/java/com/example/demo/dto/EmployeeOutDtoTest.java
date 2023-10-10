@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,9 +11,9 @@ import com.grievance.dto.EmployeeOutDto;
 import com.grievance.entity.Role;
 
 public class EmployeeOutDtoTest {
-	
+
 	EmployeeOutDto employeeOutDto ;
-	
+
 	@BeforeEach
 	public void setup() {
 		employeeOutDto = new EmployeeOutDto();
@@ -46,5 +48,80 @@ public class EmployeeOutDtoTest {
 		assertEquals(employeeOutDto.toString(), value);
 	}
 	
+	@Test
+	public void hashCodeTest() {
+		EmployeeOutDto emp1 = new EmployeeOutDto();
+		emp1.setDepartment(null);
+		emp1.setDepName("IT");
+		emp1.setEmail("adarsh@gmail.com");
+		emp1.setEmpId(1);
+		emp1.setIsFirstLogin(true);
+		emp1.setRole(Role.ROLE_ADMIN);
+		emp1.setTicket(null);
+		emp1.setUserName("Adarsh");
+		
+		EmployeeOutDto emp2 = new EmployeeOutDto();
+		emp2.setDepartment(null);
+		emp2.setDepName("IT");
+		emp2.setEmail("adarsh@gmail.com");
+		emp2.setEmpId(1);
+		emp2.setIsFirstLogin(true);
+		emp2.setRole(Role.ROLE_ADMIN);
+		emp2.setTicket(null);
+		emp2.setUserName("Adarsh");
+		
+		EmployeeOutDto emp3 = new EmployeeOutDto();
+		emp3.setDepartment(null);
+		emp3.setDepName("Ikajdbfs");
+		emp3.setEmail("adarsh@gmail.com");
+		emp3.setEmpId(1);
+		emp3.setIsFirstLogin(true);
+		emp3.setRole(Role.ROLE_ADMIN);
+		emp3.setTicket(null);
+		emp3.setUserName("Adarsh");
+		
+		
+		assertEquals(emp1.hashCode(), emp2.hashCode());
+		assertNotEquals(emp1.hashCode(), emp3.hashCode());
+  }
+	
+@Test
+public void equalsMethodTesting() {
+	EmployeeOutDto emp1 = new EmployeeOutDto();
+	emp1.setDepartment(null);
+	emp1.setDepName("IT");
+	emp1.setEmail("adarsh@gmail.com");
+	emp1.setEmpId(1);
+	emp1.setIsFirstLogin(true);
+	emp1.setRole(Role.ROLE_ADMIN);
+	emp1.setTicket(null);
+	emp1.setUserName("Adarsh");
+	
+	EmployeeOutDto emp2 = new EmployeeOutDto();
+	emp2.setDepartment(null);
+	emp2.setDepName("IT");
+	emp2.setEmail("adarsh@gmail.com");
+	emp2.setEmpId(1);
+	emp2.setIsFirstLogin(true);
+	emp2.setRole(Role.ROLE_ADMIN);
+	emp2.setTicket(null);
+	emp2.setUserName("Adarsh");
+
+	EmployeeOutDto emp3 = new EmployeeOutDto();
+	emp3.setDepartment(null);
+	emp3.setDepName("Ikajdbfs");
+	emp3.setEmail("adarsh@gmail.com");
+	emp3.setEmpId(1);
+	emp3.setIsFirstLogin(true);
+	emp3.setRole(Role.ROLE_ADMIN);
+	emp3.setTicket(null);
+	emp3.setUserName("Adarsh");
+
+	assertThat(emp1.equals(emp2));
+	assertThat(!emp1.equals(emp3));
+	assertThat(!emp1.equals(null));
+	assertThat(!emp1.equals(new Department()));
+	assertThat(emp1.equals(emp1));
+  }
 }
 

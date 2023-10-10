@@ -230,11 +230,10 @@ function UserRegistration() {
 
                 <select
                   name="role"
-                  defaultValue=""
                   value={employee.role}
                   onChange={handleChange}
                 >
-                  <option value="">--Select--</option>
+                  <option value="" disabled>--Select--</option>
                   <option value="ROLE_ADMIN">ADMIN</option>
                   <option value="ROLE_USER">USER</option>
                 </select>
@@ -246,10 +245,9 @@ function UserRegistration() {
 
                 <select
                   name="depId"
-                  defaultValue=""
                   onChange={handleSelectChange}
                 >
-                  <option value="">--Select--</option>
+                  <option value="" disabled>--Select--</option>
                   {department.map((dep) => {
                     return (
                       <option key={dep.depId} value={dep.depId}>

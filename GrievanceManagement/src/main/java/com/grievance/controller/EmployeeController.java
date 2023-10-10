@@ -9,7 +9,7 @@ import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.exception.ApiResponse;
-import com.grievance.service.EmployeeService;
+import com.grievance.serviceinterface.EmployeeServiceInterface;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +42,7 @@ public class EmployeeController {
    * Employee Service .
    */
   @Autowired
-  private EmployeeService employeeService;
+  private EmployeeServiceInterface employeeService;
 
   /**
    * Logger.

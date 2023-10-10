@@ -5,6 +5,7 @@ import com.grievance.dto.EmployeeOutDto;
 import com.grievance.dto.EmployeesInDto;
 import com.grievance.dto.UserLogin;
 import com.grievance.exception.ApiResponse;
+import java.util.List;
 
 /**
  * Interface for employee service .
@@ -57,4 +58,22 @@ public interface EmployeeServiceInterface {
    */
   ApiResponse changePassword(
          Integer id, ChangePasswordDto changePasswordDto);
+
+  /**
+   * Get All Employee.
+   *
+   * @param offset Integer
+   * @param depName String
+   *
+   * @return List of EmployeeOutDto
+   */
+  List<EmployeeOutDto> getAllEmployee(Integer offset, String depName);
+
+  /**
+   * Delete Employee.
+   *
+   * @param id Integer
+   * @return String
+   */
+  String deleteEmployee(Integer id);
 }

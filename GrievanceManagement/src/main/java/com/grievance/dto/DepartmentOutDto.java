@@ -2,6 +2,8 @@ package com.grievance.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import java.util.Objects;
+
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -142,5 +144,34 @@ public class DepartmentOutDto {
       + employee + ", ticket="
       + ticket + "]"
       );
+  }
+
+  /**
+   * Hash Code Method.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(depId, depName, employee, ticket);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    DepartmentOutDto other = (DepartmentOutDto) obj;
+    return Objects.equals(depId, other.depId)
+        && Objects.equals(depName, other.depName)
+        && Objects.equals(employee, other.employee)
+        && Objects.equals(ticket, other.ticket);
   }
 }

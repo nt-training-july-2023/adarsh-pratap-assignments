@@ -18,12 +18,12 @@ export default function Modal(props) {
             </div>
                 <form onSubmit={props.onsubmit}>
                     {
-                        props.fields.map(tag=>{
+                        props.fields.map((tag, index)=>{
                             if (tag.field === "Input"){
-                                return <Input fields={tag}/>
+                                return <Input key={index} fields={tag}/>
                             }
                             else{
-                                return <Button fields={tag}/>
+                                return <Button key={index} fields={tag}/>
                             }
                         })
                     }

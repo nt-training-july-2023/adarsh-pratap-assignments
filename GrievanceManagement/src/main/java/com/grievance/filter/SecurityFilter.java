@@ -63,7 +63,8 @@ public class SecurityFilter implements Filter {
   }
 
   /**
-   * Filter.
+   * Do Filter method to put filter on the request and response from
+   * the web.
    */
   @Override
   public void doFilter(
