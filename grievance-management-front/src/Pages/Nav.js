@@ -124,8 +124,7 @@ function Nav(props) {
                         <NavLink
                           key={index}
                           to={value.to}
-                          exact
-                          activeClassName="active-link"
+                          className="active-link"
                         >
                           {value.name}
                         </NavLink>

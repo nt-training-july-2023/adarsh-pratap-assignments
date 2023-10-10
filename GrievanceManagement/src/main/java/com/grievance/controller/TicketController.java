@@ -2,7 +2,7 @@ package com.grievance.controller;
 
 import com.grievance.dto.TicketInDto;
 import com.grievance.dto.UpdateTicketInDto;
-import com.grievance.service.TicketService;
+import com.grievance.serviceinterface.TicketServiceInterface;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class TicketController {
    * TicketService Autowired.
    */
   @Autowired
-  private TicketService ticketService;
+  private TicketServiceInterface ticketService;
 
   /**
    * Logger.

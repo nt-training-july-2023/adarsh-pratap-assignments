@@ -290,7 +290,7 @@ public class TicketServiceTest {
      
      assertEquals(0, temp.getContent().size());
   }
-  
+
   @Test
   public void testFindAllUserRoleNew5() {
 	  Integer id = 2;
@@ -309,7 +309,7 @@ public class TicketServiceTest {
     
      assertEquals(0, temp.getContent().size());
   }
-  
+
   @Test
   public void updateTicketNotfound() {
 	  when(this.ticketRepo.findById(1)).thenReturn(Optional.empty());
@@ -320,7 +320,26 @@ public class TicketServiceTest {
 			assertEquals("Ticket Not found", e.getMessage());
 		} 
   }
-  
+
+  @Test
+  public void testFindAllAdminRoleNew3() {
+	  Integer id = 2;
+      String type = "all";
+      String filter = "all";
+      Integer offset = 0;
+      EmployeeOutDto empOut = new   EmployeeOutDto();
+      Employee employee = new Employee(1 , "adarsh" , "adarsh@gmail.com" , "adarsh", Role.ROLE_ADMIN,null);
+      Employee employee2 = new Employee();
+      Pageable page = PageRequest.of(offset, 10, Sort.by("status"));
+      Page<Ticket> ticketPage = new PageImpl<>(new ArrayList<>());
+
+      when(this.ticketRepo.findAll(page)).thenReturn(ticketPage);
+
+      Page<Ticket> temp = ticketService.ticketForAdmin(filter, type, empOut, offset);
+     
+     assertEquals(0, temp.getContent().size());
+  }
+
   @Test
   public void findById() {
 	  when(this.ticketRepo.findById(1)).thenReturn(Optional.empty());

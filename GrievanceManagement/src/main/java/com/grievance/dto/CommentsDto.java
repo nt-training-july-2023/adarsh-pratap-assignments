@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.grievance.entity.Ticket;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Comments In DTO.
@@ -125,4 +126,36 @@ public class CommentsDto {
   public void setTicket(final Ticket newTicket) {
     this.ticket = newTicket;
   }
+
+  /**
+   * Hash Code.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        commentId, content, creationTime, empName, ticket);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    CommentsDto other = (CommentsDto) obj;
+    return Objects.equals(commentId, other.commentId)
+        && Objects.equals(content, other.content)
+        && Objects.equals(creationTime, other.creationTime)
+        && Objects.equals(empName, other.empName)
+        && Objects.equals(ticket, other.ticket);
+  }
 }
+

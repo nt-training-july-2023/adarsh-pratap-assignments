@@ -2,6 +2,9 @@ package com.grievance.dto;
 
 import com.grievance.entity.Department;
 import com.grievance.entity.Role;
+
+import java.util.Objects;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -221,4 +224,38 @@ public class EmployeesInDto {
   public EmployeesInDto() {
     super();
   }
+
+  /**
+   * HashCode Method.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        department, email, maxPassword, minPassword, password, role, userName);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    EmployeesInDto other = (EmployeesInDto) obj;
+    return Objects.equals(department, other.department)
+        && Objects.equals(email, other.email)
+        && maxPassword == other.maxPassword
+        && minPassword == other.minPassword
+        && Objects.equals(password, other.password)
+        && role == other.role
+        && Objects.equals(userName, other.userName);
+  }
 }
+

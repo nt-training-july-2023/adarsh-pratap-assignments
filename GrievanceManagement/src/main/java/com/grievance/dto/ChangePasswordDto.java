@@ -1,5 +1,7 @@
 package com.grievance.dto;
 
+import java.util.Objects;
+
 /**
  * Change Password Dto.
  */
@@ -96,4 +98,34 @@ public class ChangePasswordDto {
    */
   public ChangePasswordDto() {
   }
+
+  /**
+   * Hash Code.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        confirmPassword, newPassword, oldPassword);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    ChangePasswordDto other = (ChangePasswordDto) obj;
+    return Objects.equals(confirmPassword, other.confirmPassword)
+        && Objects.equals(newPassword, other.newPassword)
+        && Objects.equals(oldPassword, other.oldPassword);
+  }
 }
+

@@ -88,7 +88,7 @@ function AllTickets() {
               <select
                 name="status"
                 defaultValue="all"
-                value={selectedStatus}
+                // value={selectedStatus}
                 onChange={handleStatusChange}
               >
                 <option value="all">ALL TICKETS</option>
@@ -103,7 +103,6 @@ function AllTickets() {
 
               <select
                 name="filter"
-                defaultValue="all"
                 value={filter}
                 onChange={handleFilterChange}
               >
@@ -119,7 +118,7 @@ function AllTickets() {
             <Table data={ticket} columns={table} onRowClick={loadModel} />
           </div>
         ) : (
-          <div table-container>
+          <div className='table-container'>
             <img src="nodata.png" alt="BigCo Inc. logo" />
             <h3>No ticket left !! GO BACK TO PREVIOUS PAGE</h3>
           </div>

@@ -1,5 +1,7 @@
 package com.grievance.dto;
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -222,4 +224,35 @@ public class TicketInDto {
       "]"
       );
   }
+
+  /**
+   * Hash Code.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        description, status, ticketName, ticketType);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    TicketInDto other = (TicketInDto) obj;
+    return Objects.equals(description, other.description)
+        && status == other.status
+        && Objects.equals(ticketName, other.ticketName)
+        && ticketType == other.ticketType;
+  }
 }
+

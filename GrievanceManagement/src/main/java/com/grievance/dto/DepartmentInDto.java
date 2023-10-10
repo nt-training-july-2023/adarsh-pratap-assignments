@@ -1,5 +1,7 @@
 package com.grievance.dto;
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -55,4 +57,31 @@ public class DepartmentInDto {
     super();
     this.depName = newDepName;
   }
+
+  /**
+   * Hash Code.
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(depName);
+  }
+
+  /**
+   * Equals Method.
+   */
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    DepartmentInDto other = (DepartmentInDto) obj;
+    return Objects.equals(depName, other.depName);
+  }
+
 }

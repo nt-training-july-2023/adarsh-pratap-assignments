@@ -83,7 +83,6 @@ function AllEmployees() {
 
               <select
                 name="departmentName"
-                defaultValue="all"
                 value={departmentName}
                 onChange={handleDepartmentChange}
               >
